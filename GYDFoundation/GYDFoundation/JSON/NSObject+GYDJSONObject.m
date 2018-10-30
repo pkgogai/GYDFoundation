@@ -9,10 +9,13 @@
 #import "NSObject+GYDJSONObject.h"
 #import "GYDFoundationPrivateHeader.h"
 #import <objc/runtime.h>
-#import <UIKit/UIApplication.h>
 #import "GYDJSONSerialization.h"
 #import "gyd_class_property.h"
 #import "NSDictionary+GYDDictionary.h"
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIApplication.h>
+#endif
 
 @implementation NSObject (GYDJSONObject)
 
@@ -22,7 +25,9 @@ static NSRecursiveLock *_PropertyMapCacheLock = nil;
 + (void)load {
     if (!_PropertyMapCacheLock) {
         _PropertyMapCacheLock = [[NSRecursiveLock alloc] init];
+#if TARGET_OS_IPHONE
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+#endif
     }
 }
 
