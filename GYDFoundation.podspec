@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/pkgogai/GYDFoundation.git', :tag => spec.version.to_s }
 
   spec.ios.deployment_target = '8.0'
-  spec.osx.deployment_target = '10.6'
+  spec.osx.deployment_target = '10.8'
 
   spec.ios.source_files = 'GYDFoundation/**/*'
   spec.osx.source_files = 'GYDFoundation/GYDFoundation/**/*'
