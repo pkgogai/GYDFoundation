@@ -1,0 +1,16 @@
+PODS:
+  - GYDFoundation (0.0.1)
+
+DEPENDENCIES:
+  - GYDFoundation (from `../../`)
+
+EXTERNAL SOURCES:
+  GYDFoundation:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  GYDFoundation: 34cfbfa07d8fed1a58ef4f7e28e0ed9a760863e3
+
+PODFILE CHECKSUM: 2c5974b7c54a33daf06ce8a41451581081a4071b
+
+COCOAPODS: 1.6.0.beta.2

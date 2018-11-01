@@ -1,0 +1,10 @@
+platform :osx, "10.8"
+
+def pods
+  pod "GYDFoundation", :path => "../../"
+end
+
+target "MacExample" do 
+  pods
+end
+

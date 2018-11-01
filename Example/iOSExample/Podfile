@@ -1,0 +1,13 @@
+platform :ios, "8.0"
+
+def pods
+  pod "GYDFoundation", :path => "../../"
+end
+
+target "iOSExample" do 
+  pods
+end
+
+target "iOSExampleTests" do 
+  pods
+end
