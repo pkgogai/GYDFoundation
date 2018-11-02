@@ -27,7 +27,7 @@ static BOOL _CheckLogType = YES;                        //是否按log种类检�
 
 static Class _LogItemModelClass = nil;
 
-id<GYDLogCacheArrayChangedDelegate> _LogCacheArrayChangedDelegate;
+__weak id<GYDLogCacheArrayChangedDelegate> _LogCacheArrayChangedDelegate;
 
 + (void)ready {
     if (!_Queue) {
@@ -143,6 +143,7 @@ id<GYDLogCacheArrayChangedDelegate> _LogCacheArrayChangedDelegate;
     setting.print = 0;
     setting.save = 0;
     setting.cachedUbound = 0;
+    setting.prefix = NULL;
     return setting;
 }
 
@@ -230,11 +231,11 @@ id<GYDLogCacheArrayChangedDelegate> _LogCacheArrayChangedDelegate;
     //打印
     GYDLogSetting setting = _LogSetting[lv];
     if (setting.print) {
-        NSLog(@"%@%s%s%@\n", type ?: @"", setting.prefix, fun, msg);
+        NSLog(@"%@%s%s%@\n", type ?: @"", setting.prefix ?: "", fun, msg);
     }
     //存储
     if (setting.save && _LogFileHandle != nil) {  //
-        const char *prefix = setting.prefix;
+        const char *prefix = setting.prefix ?: "";
         dispatch_async(_Queue, ^{
             NSString *str = [NSString stringWithFormat:@"%@%@%s%s%@\n", [_FileDataFormatter stringFromDate:[NSDate date]], type ?: @"", prefix, fun, msg];
             [_LogFileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];

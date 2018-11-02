@@ -79,7 +79,7 @@
 @property (nonatomic, class, setter=gyd_setKeepSourceJSONObject:) BOOL gyd_keepSourceJSONObject;
 
 /** 如果设置了gyd_keepSourceJSONObject，则反序列化后这里会记录原数据的json结构 */
-@property (nonatomic, readonly) id gyd_sourceJSONObject;
+@property (nonatomic, readonly, nullable) id gyd_sourceJSONObject;
 
 /** 检查错误信息，没发现错误则返回nil，子类调用是校验子类本身，用 NSObject 调用则是校验所有子类 */
 + (nullable NSString *)gyd_checkError;

@@ -21,7 +21,7 @@
 @property (nonatomic)   NSInteger index;
 @property (nonatomic, readonly) NSInteger stringLength;
 
-+ (instancetype)searchWithString:(nonnull NSString *)string;
++ (nonnull instancetype)searchWithString:(nonnull NSString *)string;
 
 - (nonnull instancetype)initWithString:(nonnull NSString *)string;
 

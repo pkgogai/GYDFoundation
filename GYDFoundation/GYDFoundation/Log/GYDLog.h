@@ -17,7 +17,7 @@ typedef struct {
     BOOL save:1;    //saveToFile，是否保存到文件里
     uint32_t cachedUbound:30;    //为每种log设置在缓存中的范围上限。缓存数组中，超过这个数的就删除掉，级别越重要的log，这个设置应该越大。
     //例如有3种log，其中lv1设置100，lv2设置60，lv3设置40，则lv1、lv2、lv3按发生顺序混合在一起后，从第40条开始，之后的lv3都会被删除，剩下的数据里第60条以后的lv2都会被删除，第100条以后的lv1都会被删除，显示的最大数量就是100。
-    const char *prefix; //按等级附加的前缀，存文件或者显示时使用
+    const char * _Nullable prefix; //按等级附加的前缀，存文件或者显示时使用
     
 } GYDLogSetting;
 
@@ -29,15 +29,15 @@ typedef struct {
 @protocol GYDLogItemModelProtocol <NSObject>
 
 /** LOG种类 */
-@property (nonatomic)   NSString *type;
+@property (nonatomic, nullable)   NSString *type;
 /** 级别 */
 @property (nonatomic)   NSInteger lv;
 /** 时间 */
-@property (nonatomic)   NSDate *date;
+@property (nonatomic, nonnull)   NSDate *date;
 /** 来自函数 */
-@property (nonatomic)   const char *fun;
+@property (nonatomic, nonnull)   const char *fun;
 /** log内容 */
-@property (nonatomic)   NSString *msg;
+@property (nonatomic, nullable)   NSString *msg;
 
 @end
 
@@ -97,20 +97,20 @@ typedef struct {
 /** 获取设置过的开关状态 */
 + (BOOL)isLogTypeOn:(nonnull NSString *)type;
 /** 所有设置过或使用过的开关种类都记录在案 */
-+ (NSArray *)allTypesThatHaveBeenUsed;
++ (nonnull NSArray *)allTypesThatHaveBeenUsed;
 
 
 #pragma mark - LOG使用
 /** 设置用于记录log的model类型 */
-@property (nonatomic, class)    Class<GYDLogItemModelProtocol> logItemModelClass;
+@property (nonatomic, class, nullable)    Class<GYDLogItemModelProtocol> logItemModelClass;
 
 /** 获取log数组，新log排在前面，注意，没有copy，没必要的话不要操作，真要操作也要在UI线程进行 */
-@property (nonatomic, class, readonly)  NSMutableArray *logCacheArray;
+@property (nonatomic, class, readonly, nonnull)  NSMutableArray *logCacheArray;
 /** log缓存数组改变时给代理发消息 */
-@property (nonatomic, class)    id<GYDLogCacheArrayChangedDelegate>logCacheArrayChangedDelegate;
+@property (nonatomic, class, nullable, weak)    id<GYDLogCacheArrayChangedDelegate>logCacheArrayChangedDelegate;
 
 /** log语句，可以在不同线程使用，如果不在主线程，内部会async到主线程处理 */
-+ (void)logType:(nullable NSString *)type lv:(NSUInteger)lv fun:(const char *)fun msg:(nonnull NSString *)msg;
++ (void)logType:(nullable NSString *)type lv:(NSUInteger)lv fun:(const char *_Nonnull)fun msg:(nonnull NSString *)msg;
 
 
 @end
