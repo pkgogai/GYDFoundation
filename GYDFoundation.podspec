@@ -1,11 +1,12 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'GYDFoundation'
-  spec.version          = '0.0.1'
+  spec.version          = '0.0.2'
   spec.summary          = 'GYDFoundation'
 
   spec.description      = <<-DESC
-自己积累的一些代码
+平时积累的一些代码，
+也许有用，也许没用。
                        DESC
 
   spec.homepage         = 'https://github.com/pkgogai/GYDFoundation'
