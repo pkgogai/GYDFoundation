@@ -209,6 +209,7 @@ __weak id<GYDLogCacheArrayChangedDelegate> _LogCacheArrayChangedDelegate;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self logType:type lv:lv fun:fun msg:msg];
         });
+        return;
     }
     //-----------
     

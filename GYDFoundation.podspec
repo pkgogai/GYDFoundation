@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'GYDFoundation'
-  spec.version          = '0.0.2'
+  spec.version          = '0.0.3'
   spec.summary          = 'GYDFoundation'
 
   spec.description      = <<-DESC
