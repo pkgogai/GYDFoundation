@@ -1,0 +1,52 @@
+PODS:
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GYDFoundation/Demo (0.0.3):
+    - GYDFoundation/Demo/GYDDatabase (= 0.0.3)
+    - GYDFoundation/Demo/GYDFoundation (= 0.0.3)
+    - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.3)
+    - GYDFoundation/Demo/GYDJSONObject (= 0.0.3)
+  - GYDFoundation/Demo/GYDDatabase (0.0.3):
+    - GYDFoundation/GYDDatabase
+  - GYDFoundation/Demo/GYDFoundation (0.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/Demo/GYDHTTPConnect (0.0.3):
+    - GYDFoundation/GYDHTTPConnect
+  - GYDFoundation/Demo/GYDJSONObject (0.0.3):
+    - GYDFoundation/GYDJSONObject
+  - GYDFoundation/GYDDatabase (0.0.3):
+    - FMDB
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/GYDFoundation (0.0.3)
+  - GYDFoundation/GYDHTTPConnect (0.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/GYDJSONObject (0.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/Tests/GYDDatabase (0.0.3)
+  - GYDFoundation/Tests/GYDFoundation (0.0.3)
+  - GYDFoundation/Tests/GYDHTTPConnect (0.0.3)
+  - GYDFoundation/Tests/GYDJSONObject (0.0.3)
+
+DEPENDENCIES:
+  - GYDFoundation/Demo (from `../`)
+  - GYDFoundation/Tests/GYDDatabase (from `../`)
+  - GYDFoundation/Tests/GYDFoundation (from `../`)
+  - GYDFoundation/Tests/GYDHTTPConnect (from `../`)
+  - GYDFoundation/Tests/GYDJSONObject (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
+
+EXTERNAL SOURCES:
+  GYDFoundation:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GYDFoundation: 2e6f4ce31342b209434fd3ac87a1b48466730290
+
+PODFILE CHECKSUM: e0f82eb8c78edc09074e7543a7cb7dcd65515bb7
+
+COCOAPODS: 1.8.4

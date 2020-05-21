@@ -1,0 +1,12 @@
+platform :ios, "8.0"
+
+def pods
+  pod 'GYDFoundation', 
+    :path => '../', 
+    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject',], 
+    :subspecs => ['Demo']
+end
+
+target 'iOSExample' do 
+  pods
+end
