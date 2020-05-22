@@ -38,4 +38,13 @@ static id<GYDFoundationLogDelegate> _Delegate;
     }
 }
 
+/** 打印信息 */
++ (void)function:(const char *)fun line:(NSInteger)line makeInfo:(NSString *)infoString {
+    if ([_Delegate respondsToSelector:@selector(function:line:makeInfo:)]) {
+        [_Delegate function:fun line:line makeInfo:infoString];
+    } else {
+        NSLog(@"** GYDFoundation Info **\n%s %zd %@", fun, line, infoString);
+    }
+}
+
 @end

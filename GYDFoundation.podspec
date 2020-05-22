@@ -31,20 +31,28 @@ Pod::Spec.new do |s|
     ss.source_files = 'GYDDatabase/Code/**/*'
     ss.dependency "FMDB"
     ss.dependency "GYDFoundation/GYDFoundation"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_DATABASE=1'}
   end
   #http请求
   s.subspec 'GYDHTTPConnect' do |ss|
     ss.source_files = 'GYDHTTPConnect/Code/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_HTTPCONNECT=1'}
   end
   #json-model互转
   s.subspec 'GYDJSONObject' do |ss|
     ss.source_files = 'GYDJSONObject/Code/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
   end
+  #特殊情况
   s.subspec 'GYDJSONObjectNonatomic' do |ss|
     ss.dependency "GYDFoundation/GYDJSONObject"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_JSON_OBJECT_ATOMIC=0'}
+  end
+  s.subspec 'Development' do |ss|
+    ss.dependency "GYDFoundation/GYDFoundation"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_DEVELOPMENT=1'}
   end
   
   #单元测试
