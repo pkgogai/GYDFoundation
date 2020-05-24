@@ -10,7 +10,7 @@
 #import "GYDDatabasePrivateHeader.h"
 
 #import "GYDFoundationPrivateHeader.h"
-#import "FMDB.h"
+#import <fmdb/FMDB.h>
 #import "GYDFile.h"
 
 @implementation GYDDatabase

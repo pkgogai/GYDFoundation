@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FMDatabase.h"
+#import <fmdb/FMDatabase.h>
 
 @interface GYDDatabase : NSObject
 

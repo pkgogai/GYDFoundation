@@ -2,31 +2,31 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GYDFoundation/Demo (0.0.3):
-    - GYDFoundation/Demo/GYDDatabase (= 0.0.3)
-    - GYDFoundation/Demo/GYDFoundation (= 0.0.3)
-    - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.3)
-    - GYDFoundation/Demo/GYDJSONObject (= 0.0.3)
-  - GYDFoundation/Demo/GYDDatabase (0.0.3):
+  - GYDFoundation/Demo (0.0.4.5):
+    - GYDFoundation/Demo/GYDDatabase (= 0.0.4.5)
+    - GYDFoundation/Demo/GYDFoundation (= 0.0.4.5)
+    - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.4.5)
+    - GYDFoundation/Demo/GYDJSONObject (= 0.0.4.5)
+  - GYDFoundation/Demo/GYDDatabase (0.0.4.5):
     - GYDFoundation/GYDDatabase
-  - GYDFoundation/Demo/GYDFoundation (0.0.3):
+  - GYDFoundation/Demo/GYDFoundation (0.0.4.5):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/Demo/GYDHTTPConnect (0.0.3):
+  - GYDFoundation/Demo/GYDHTTPConnect (0.0.4.5):
     - GYDFoundation/GYDHTTPConnect
-  - GYDFoundation/Demo/GYDJSONObject (0.0.3):
+  - GYDFoundation/Demo/GYDJSONObject (0.0.4.5):
     - GYDFoundation/GYDJSONObject
-  - GYDFoundation/GYDDatabase (0.0.3):
+  - GYDFoundation/GYDDatabase (0.0.4.5):
     - FMDB
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/GYDFoundation (0.0.3)
-  - GYDFoundation/GYDHTTPConnect (0.0.3):
+  - GYDFoundation/GYDFoundation (0.0.4.5)
+  - GYDFoundation/GYDHTTPConnect (0.0.4.5):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/GYDJSONObject (0.0.3):
+  - GYDFoundation/GYDJSONObject (0.0.4.5):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/Tests/GYDDatabase (0.0.3)
-  - GYDFoundation/Tests/GYDFoundation (0.0.3)
-  - GYDFoundation/Tests/GYDHTTPConnect (0.0.3)
-  - GYDFoundation/Tests/GYDJSONObject (0.0.3)
+  - GYDFoundation/Tests/GYDDatabase (0.0.4.5)
+  - GYDFoundation/Tests/GYDFoundation (0.0.4.5)
+  - GYDFoundation/Tests/GYDHTTPConnect (0.0.4.5)
+  - GYDFoundation/Tests/GYDJSONObject (0.0.4.5)
 
 DEPENDENCIES:
   - GYDFoundation/Demo (from `../`)
@@ -45,7 +45,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: 4075879ff193deb29ea5ea24d0f1be2c7b441c56
+  GYDFoundation: d7b386ed185ea74b7fd96a6c8e318cbd445bf329
 
 PODFILE CHECKSUM: e0f82eb8c78edc09074e7543a7cb7dcd65515bb7
 

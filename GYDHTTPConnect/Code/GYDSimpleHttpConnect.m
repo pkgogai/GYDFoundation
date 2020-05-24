@@ -22,7 +22,7 @@
     
     
     /** 需要下载的总长度 */
-    long long       _downloadDataLength;
+    NSInteger       _downloadDataLength;
     /** 当前已经下载的长度 */
     NSInteger       _downloadDataDidReceiveLength;
 
@@ -156,7 +156,7 @@
     totalBytesSent:(int64_t)totalBytesSent
 totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend {
     if (_uploadProgressBlock) {
-        _uploadProgressBlock(self, totalBytesSent, totalBytesExpectedToSend);
+        _uploadProgressBlock(self, (NSInteger)totalBytesSent, (NSInteger)totalBytesExpectedToSend);
     }
 }
 
@@ -169,7 +169,7 @@ didReceiveResponse:(NSURLResponse *)response
     }
     if (_httpStatusCode < 400) {
         if ([response respondsToSelector:@selector(expectedContentLength)]) {
-            _downloadDataLength = [response expectedContentLength];
+            _downloadDataLength = (NSInteger)[response expectedContentLength];
         } else {
             _downloadDataLength = -1;
         }
@@ -186,7 +186,7 @@ didReceiveResponse:(NSURLResponse *)response
                     completionHandler(NSURLSessionResponseAllow);
                     break;
                 case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsData:
-                    _downloadData = [[NSMutableData alloc] init];
+                    self->_downloadData = [[NSMutableData alloc] init];
                     completionHandler(NSURLSessionResponseAllow);
                     break;
                 case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsFile:
@@ -194,7 +194,7 @@ didReceiveResponse:(NSURLResponse *)response
                         completionHandler(NSURLSessionResponseAllow);
                     } else {
                         completionHandler(NSURLSessionResponseCancel);
-                        GYDSimpleHttpConnectCompletionBlock completionBlock = _completionBlock;
+                        GYDSimpleHttpConnectCompletionBlock completionBlock = self->_completionBlock;
                         [self clean];
                         if (completionBlock) {
                             completionBlock(self, GYDSimpleHttpConnectResultCodeCreateFileError, nil, nil);

@@ -16,10 +16,10 @@
 @optional
 
 /** 需要 tableview 调用 beginUpdates 和 endUpdates */
-- (void)cellModelNeedUpdateCellHeight:(GYDTableViewCellModel *)model;
+- (void)cellModelNeedUpdateCellHeight:(nonnull GYDTableViewCellModel *)model;
 
 /** 需要 tableview 调用 reloadData */
-- (void)cellModelNeedReloadData:(GYDTableViewCellModel *)model;
+- (void)cellModelNeedReloadData:(nonnull GYDTableViewCellModel *)model;
 
 //下面这种用通知吧，数据还是全局同步的好一点
 ///** 需要插入对象 */

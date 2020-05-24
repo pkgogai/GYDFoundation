@@ -36,9 +36,9 @@ typedef NS_ENUM(NSUInteger, GYDSimpleHttpConnectResultCode) {
 /** 配置请求 */
 typedef void(^GYDSimpleHttpConnectRequestConfigBlock)(GYDSimpleHttpConnect * _Nonnull connect, NSMutableURLRequest * _Nonnull request);
 /** 响应处理 responseHandle 参数 allow表示是否接受响应，NO的话等同于调用cancel，saveData表示是否记录数据，如果NO，则GYDSimpleHttpConnectCompletionBlock中不提供data参数，只在下载进度中每次提供一小段 */
-typedef void(^GYDSimpleHttpConnectResponseHandleBlock)(GYDSimpleHttpConnect * _Nonnull connect, NSURLResponse * _Nonnull response, long long contentLength, void(^ _Nonnull responseHandle)(GYDSimpleHttpConnectResponseHandleType responseType));
+typedef void(^GYDSimpleHttpConnectResponseHandleBlock)(GYDSimpleHttpConnect * _Nonnull connect, NSURLResponse * _Nonnull response, NSInteger contentLength, void(^ _Nonnull responseHandle)(GYDSimpleHttpConnectResponseHandleType responseType));
 /** 上传进度，百分比=didUploadDataLength * 100.0f /allUploadDataLength */
-typedef void(^GYDSimpleHttpConnectUploadProgressBlock)(GYDSimpleHttpConnect * _Nonnull connect, int64_t didUploadDataLength, int64_t allUploadDataLength);
+typedef void(^GYDSimpleHttpConnectUploadProgressBlock)(GYDSimpleHttpConnect * _Nonnull connect, NSInteger didUploadDataLength, NSInteger allUploadDataLength);
 /** 下载进度，appendData是每次下载的那一小段数据。需要注意，有时因为gzip压缩导致传输长度与实际长度不同，allDownloadDataLength会是-1 */
 typedef void(^GYDSimpleHttpConnectDownloadProgressBlock)(GYDSimpleHttpConnect * _Nonnull connect, NSInteger didDownloadDataLength, NSInteger allDownloadDataLength, NSData * _Nullable appendData);
 /** 请求结束，data是响应数据，根据responseHandle的参数决定是否有 data 或者 filePath 参数 */

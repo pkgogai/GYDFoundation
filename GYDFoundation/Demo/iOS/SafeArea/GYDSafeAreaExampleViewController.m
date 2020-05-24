@@ -33,7 +33,7 @@
     
     //这样所有子view布局时都使用gyd_safeAreaInsets获取自己的安全区。
     UIEdgeInsets view1SafeArea = _view1.gyd_safeAreaInsets;
-    
+    NSLog(@"%@", NSStringFromUIEdgeInsets(view1SafeArea));
 }
 
 /*

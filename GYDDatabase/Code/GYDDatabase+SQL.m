@@ -7,7 +7,7 @@
 
 #import "GYDDatabase.h"
 #import "GYDFoundationPrivateHeader.h"
-#import "FMDB.h"
+#import <fmdb/FMDB.h>
 
 @implementation GYDDatabase (SQL)
 

@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GYDFoundation'
-  s.version          = '0.0.3'
+  s.version          = '0.0.5'
   s.summary          = 'GYDFoundation'
 
   s.description      = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/pkgogai/GYDFoundation.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.8'
+  s.osx.deployment_target = '10.10'
   s.ios.requires_arc = true
   s.ios.framework = 'UIKit'
   
@@ -57,6 +57,7 @@ Pod::Spec.new do |s|
   
   #单元测试
   s.test_spec 'Tests' do |ss|
+    ss.source_files = 'GYDFoundation/Tests/Placeholder/**/*'
     ss.test_spec 'GYDFoundation' do |test|
       test.ios.source_files = ['GYDFoundation/Tests/Base/**/*','GYDFoundation/Tests/iOS/**/*']
       test.osx.source_files = ['GYDFoundation/Tests/Base/**/*','GYDFoundation/Tests/MacOS/**/*']
