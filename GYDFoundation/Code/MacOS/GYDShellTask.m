@@ -1,13 +1,13 @@
 //
-//  LGShellTask.m
-//  lib-base
+//  GYDShellTask.m
+//  GYDFoundation
 //
-//  Created by 宫亚东 on 2019/8/21.
+//  Created by 宫亚东 on 2019/8/10.
 //
 
-#import "LGShellTask.h"
+#import "GYDShellTask.h"
 
-@implementation LGShellTask
+@implementation GYDShellTask
 
 + (int)executeShellCommand:(nonnull NSString *)command output:(out NSString * _Nullable * _Nullable)output {
     NSPipe *pipe = [NSPipe pipe];
