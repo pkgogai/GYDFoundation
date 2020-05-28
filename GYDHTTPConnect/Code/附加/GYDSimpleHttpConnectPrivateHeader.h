@@ -63,4 +63,7 @@ NS_ASSUME_NONNULL_END
 - (void)addConnect:(nonnull GYDSimpleHttpConnect *)connect;
 - (void)removeConnect:(nonnull GYDSimpleHttpConnect *)connect;
 
+- (BOOL)containsWaitingConnect:(nonnull GYDSimpleHttpConnect *)connect;
+- (BOOL)containsSendingConnect:(nonnull GYDSimpleHttpConnect *)connect;
+
 @end

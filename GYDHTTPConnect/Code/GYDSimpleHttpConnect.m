@@ -67,12 +67,14 @@
     self.completionBlock = completionBlock;
     
     if (connectQueue) {
-        _isWaitingByQueue = YES;
         [connectQueue addConnect:self];
     } else {
-        _isWaitingByQueue = NO;
         [self start];
     }
+}
+
+- (BOOL)isWaitingByQueue {
+    return [_connectQueue containsWaitingConnect:self];
 }
 
 /** 取消 */
@@ -113,13 +115,11 @@
     if (_connectQueue) {
         [_connectQueue removeConnect:self];
         _connectQueue = nil;
-        _isWaitingByQueue = NO;
     }
     
 }
 
 - (void)start {
-    _isWaitingByQueue = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_timeoutInterval];
     NSString *HTTPMethod = @"GET";
     if (self.postData) {
@@ -167,58 +167,63 @@ didReceiveResponse:(NSURLResponse *)response
     if ([response respondsToSelector:@selector(statusCode)]) {
         _httpStatusCode = [((NSHTTPURLResponse *)response) statusCode];
     }
-    if (_httpStatusCode < 400) {
-        if ([response respondsToSelector:@selector(expectedContentLength)]) {
-            _downloadDataLength = (NSInteger)[response expectedContentLength];
-        } else {
-            _downloadDataLength = -1;
-        }
-        NSLog(@"::::  %ld", (long)_downloadDataLength);
-        void(^responseHandle)(GYDSimpleHttpConnectResponseHandleType responseType) = ^(GYDSimpleHttpConnectResponseHandleType responseType) {
-            switch (responseType) {
-                case GYDSimpleHttpConnectResponseHandleTypeCancel:
-                {
-                    completionHandler(NSURLSessionResponseCancel);
-                    [self clean];
-                }
-                    break;
-                case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsNil:
-                    completionHandler(NSURLSessionResponseAllow);
-                    break;
-                case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsData:
-                    self->_downloadData = [[NSMutableData alloc] init];
-                    completionHandler(NSURLSessionResponseAllow);
-                    break;
-                case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsFile:
-                    if ([self createDownloadFilePathAndHandle]) {
-                        completionHandler(NSURLSessionResponseAllow);
-                    } else {
-                        completionHandler(NSURLSessionResponseCancel);
-                        GYDSimpleHttpConnectCompletionBlock completionBlock = self->_completionBlock;
-                        [self clean];
-                        if (completionBlock) {
-                            completionBlock(self, GYDSimpleHttpConnectResultCodeCreateFileError, nil, nil);
-                        }
-                    }
-                    
-                    break;
-                default:
-                    break;
-            }
-        };
-        
-        if (_responseHandleBlock) {
-            _responseHandleBlock(self, response, _downloadDataLength, responseHandle);
-        } else {
-            responseHandle(GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsData);
-        }
+    //服务器超过400的错误码也会返回有用信息，所以即使知道出错，也要继续接受数据
+//    if (_httpStatusCode >= 400) {
+//        completionHandler(NSURLSessionResponseCancel);
+//        GYDSimpleHttpConnectCompletionBlock completionBlock = _completionBlock;
+//        [self clean];
+//        if (completionBlock) {
+//            completionBlock(self, GYDSimpleHttpConnectResultCodeResponseError, nil, nil);
+//        }
+//        return;
+//    }
+    if ([response respondsToSelector:@selector(expectedContentLength)]) {
+        _downloadDataLength = (NSInteger)[response expectedContentLength];
     } else {
-        completionHandler(NSURLSessionResponseCancel);
-        GYDSimpleHttpConnectCompletionBlock completionBlock = _completionBlock;
-        [self clean];
-        if (completionBlock) {
-            completionBlock(self, GYDSimpleHttpConnectResultCodeResponseError, nil, nil);
+        _downloadDataLength = -1;
+    }
+    __weak typeof(self) weakSelf = self;
+    void(^responseHandle)(GYDSimpleHttpConnectResponseHandleType responseType) = ^(GYDSimpleHttpConnectResponseHandleType responseType) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
         }
+        switch (responseType) {
+            case GYDSimpleHttpConnectResponseHandleTypeCancel:
+            {
+                completionHandler(NSURLSessionResponseCancel);
+                [strongSelf clean];
+            }
+                break;
+            case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsNil:
+                completionHandler(NSURLSessionResponseAllow);
+                break;
+            case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsData:
+                strongSelf->_downloadData = [[NSMutableData alloc] init];
+                completionHandler(NSURLSessionResponseAllow);
+                break;
+            case GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsFile:
+                if ([strongSelf createDownloadFilePathAndHandle]) {
+                    completionHandler(NSURLSessionResponseAllow);
+                } else {
+                    completionHandler(NSURLSessionResponseCancel);
+                    GYDSimpleHttpConnectCompletionBlock completionBlock = strongSelf->_completionBlock;
+                    [strongSelf clean];
+                    if (completionBlock) {
+                        completionBlock(strongSelf, GYDSimpleHttpConnectResultCodeCreateFileError, nil, nil);
+                    }
+                }
+                
+                break;
+            default:
+                break;
+        }
+    };
+    
+    if (_responseHandleBlock) {
+        _responseHandleBlock(self, response, _downloadDataLength, responseHandle);
+    } else {
+        responseHandle(GYDSimpleHttpConnectResponseHandleTypeAllowAndSaveAsData);
     }
 }
 
@@ -245,7 +250,14 @@ didCompleteWithError:(nullable NSError *)error {
     NSString *filePath = _downloadFilePath;
     [self clean];
     if (completionBlock) {
-        NSUInteger resultCode = (error == nil) ? GYDSimpleHttpConnectResultCodeSuccess : GYDSimpleHttpConnectResultCodeCompletedError;
+        NSUInteger resultCode;
+        if (_httpStatusCode >= 400) {
+            resultCode = GYDSimpleHttpConnectResultCodeResponseError;
+        } else if (error) {
+            resultCode = GYDSimpleHttpConnectResultCodeCompletedError;
+        } else {
+            resultCode = GYDSimpleHttpConnectResultCodeSuccess;
+        }
         completionBlock(self, resultCode, data, filePath);
     }
 }
