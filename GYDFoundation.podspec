@@ -50,6 +50,11 @@ Pod::Spec.new do |s|
     ss.dependency "GYDFoundation/GYDJSONObject"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_JSON_OBJECT_ATOMIC=0'}
   end
+  s.subspec 'GYDDatabaseNoEscape' do |ss|
+    ss.dependency "GYDFoundation/GYDDatabase"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_DATABASE_NEED_ESCAPE=0'}
+  end
+  
   s.subspec 'Development' do |ss|
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_DEVELOPMENT=1'}

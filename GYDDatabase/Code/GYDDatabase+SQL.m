@@ -11,11 +11,11 @@
 
 @implementation GYDDatabase (SQL)
 
-#ifndef GYDDatabaseColumnNeedEscape
-#   define GYDDatabaseColumnNeedEscape 0
+#ifndef GYD_DATABASE_NEED_ESCAPE
+#   define GYD_DATABASE_NEED_ESCAPE 1
 #endif
 
-#if GYDDatabaseColumnNeedEscape == 0
+#if GYD_DATABASE_NEED_ESCAPE == 0
 #   define appendEscapeColumn(col) appendString:(col)
 #   define columnEscapeWithQuote(col) (col)
 #else
