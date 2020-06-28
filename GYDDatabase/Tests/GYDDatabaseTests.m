@@ -28,7 +28,7 @@
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     NSLog(@"%@", path);
     _database = [[GYDDatabase alloc] initWithPath:path];
-    BOOL r = [_database createTableIfNotExits:@"t`e\'s\"t_table" columnArray:@[@"c'o\'l\"1", @"col2"]];
+    BOOL r = [_database createTableIfNotExists:@"t`e\'s\"t_table" checkColumns:YES columnArray:@[@"c'o\'l\"1", @"col2"]];
     XCTAssert(r, @"%s", __func__);
 }
 

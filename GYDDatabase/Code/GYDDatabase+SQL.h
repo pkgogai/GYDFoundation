@@ -19,9 +19,9 @@
 
 #pragma mark - 表和索引
 
-/** 表不存在则创建（存在时不检查列是否相同） */
-+ (BOOL)inDatabase:(nonnull FMDatabase *)db createTableIfNotExists:(nonnull NSString *)table columnArray:(nonnull NSArray *)colArray;
-- (BOOL)createTableIfNotExists:(nonnull NSString *)table columnArray:(nonnull NSArray *)colArray;
+/** 表不存在则创建，checkColumns表示当表已经存在时是否检查并补充缺失的列 */
++ (BOOL)inDatabase:(nonnull FMDatabase *)db createTableIfNotExists:(nonnull NSString *)table checkColumns:(BOOL)checkColumns columnArray:(nonnull NSArray *)colArray;
+- (BOOL)createTableIfNotExists:(nonnull NSString *)table checkColumns:(BOOL)checkColumns columnArray:(nonnull NSArray *)colArray;
 
 /** 删除表 */
 + (BOOL)inDatabase:(nonnull FMDatabase *)db deleteTableIfExists:(nonnull NSString *)table;

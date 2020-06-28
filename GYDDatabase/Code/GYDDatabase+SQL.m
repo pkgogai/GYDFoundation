@@ -56,7 +56,7 @@
 
 #pragma mark - 表和索引
 /** 表不存在则创建（存在时不检查列是否相同） */
-+ (BOOL)inDatabase:(nonnull FMDatabase *)db createTableIfNotExists:(nonnull NSString *)table columnArray:(nonnull NSArray *)colArray {
++ (BOOL)inDatabase:(nonnull FMDatabase *)db createTableIfNotExists:(nonnull NSString *)table checkColumns:(BOOL)checkColumns columnArray:(nonnull NSArray *)colArray {
     table = columnEscapeWithQuote(table);
     NSMutableString *columnStr = [NSMutableString string];
     BOOL first = YES;
@@ -74,13 +74,59 @@
     if (!r) {
         GYDFoundationError(@"数据库操作失败:[ErrCode:]%d [Msg:]%@\n[SQL:]%@", [db lastErrorCode], [db lastErrorMessage], sql);
     }
+    if (checkColumns) {
+        NSMutableDictionary *createColumnDic = [NSMutableDictionary dictionary];
+        for (NSString *col in colArray) {
+            createColumnDic[[col lowercaseString]] = col;
+        }
+//        NSMutableArray *deleteColumns = nil;
+        
+        FMResultSet *rs = [db executeQuery:[NSString stringWithFormat: @"pragma table_info(%@)", table]];
+        if (!rs) {
+            GYDFoundationError(@"数据库操作失败:[ErrCode:]%d [Msg:]%@\n[SQL:]%@", [db lastErrorCode], [db lastErrorMessage], sql);
+        }
+        while ([rs next]) {
+            NSString *col = [[rs stringForColumn:@"name"] lowercaseString];
+            if (createColumnDic[col]) {
+                [createColumnDic removeObjectForKey:col];
+//            } else {
+//                if (!deleteColumns) {
+//                    deleteColumns = [NSMutableArray arrayWithCapacity:0];
+//                }
+//                [deleteColumns addObject:col];
+            }
+        }
+        [rs close];
+        
+        for (NSString *key in createColumnDic) {
+            NSString *col = createColumnDic[key];
+            col = columnEscapeWithQuote(col);
+            NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ ADD %@",table, col];
+            GYDDatabaseLogSQL(sql);
+            BOOL r = [db executeUpdate:sql];
+            if (!r) {
+                GYDFoundationError(@"数据库操作失败:[ErrCode:]%d [Msg:]%@\n[SQL:]%@", [db lastErrorCode], [db lastErrorMessage], sql);
+            }
+        }
+        //不支持删除列，为此复制一个新表又不值得。
+//        for (NSString *tmpCol in deleteColumns) {
+//            NSString *col = columnEscapeWithQuote(tmpCol);
+//            NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ DROP COLUMN %@",table, col];
+//            GYDDatabaseLogSQL(sql);
+//            BOOL r = [db executeUpdate:sql];
+//            if (!r) {
+//                GYDFoundationError(@"数据库操作失败:[ErrCode:]%d [Msg:]%@\n[SQL:]%@", [db lastErrorCode], [db lastErrorMessage], sql);
+//            }
+//        }
+        
+    }
     return r;
 }
 
-- (BOOL)createTableIfNotExists:(nonnull NSString *)table columnArray:(nonnull NSArray *)colArray {
+- (BOOL)createTableIfNotExists:(nonnull NSString *)table checkColumns:(BOOL)checkColumns columnArray:(nonnull NSArray *)colArray {
     __block BOOL r = NO;
     [self inDatabase:^(FMDatabase *db) {
-        r = [GYDDatabase inDatabase:db createTableIfNotExists:table columnArray:colArray];
+        r = [GYDDatabase inDatabase:db createTableIfNotExists:table checkColumns:checkColumns columnArray:colArray];
     }];
     return r;
 }

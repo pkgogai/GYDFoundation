@@ -49,11 +49,20 @@ static NSString *const ColumnName2 = @"t`e\'s\"t_column2";
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     NSLog(@"%@", path);
     _database = [[GYDDatabase alloc] initWithPath:path];
-    BOOL r = [_database createTableIfNotExits:TableName columnArray:@[ColumnName]];
+    BOOL r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName, @"Cl_1"]];
     XCTAssert(r, @"%s", __func__);
+    
+    r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName, @"cl_2"]];
+    XCTAssert(r, @"%s", __func__);
+    
+    r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName, @"cl_1"]];
+    XCTAssert(r, @"%s", __func__);
+    
+    
+    
     r = [_database deleteTableIfExists:TableName];
     
-    [_database createTableIfNotExits:TableName columnArray:@[ColumnName, @"col2"]];
+    r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName, @"col2"]];
     [self updateCol2WithValue:@"a`a\'a\"a"];
     [self compareCol2WithValue:@"a`a\'a\"a"];
     
@@ -65,10 +74,10 @@ static NSString *const ColumnName2 = @"t`e\'s\"t_column2";
     NSString *col2Value = [_database selectFirstColumn:ColumnName1 fromTable:TableName whereEqualDic:@{ColumnName:@"key2"}];
     XCTAssert([NSString gyd_isString:ColumnName2 equalToString:col2Value], @"%s", __func__);
     
-    r = [_database createTableIfNotExits:IndexName columnArray:@[ColumnName]];
+    r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName]];
     XCTAssert(r, @"%s", __func__);
     
-    r = [_database createTableIfNotExits:@"other_index" columnArray:@[ColumnName, ColumnName1]];
+    r = [_database createTableIfNotExists:TableName checkColumns:YES columnArray:@[ColumnName, ColumnName1]];
     XCTAssert(r, @"%s", __func__);
     
 }
@@ -105,7 +114,7 @@ static NSString *const ColumnName2 = @"t`e\'s\"t_column2";
     
     //执行SQL创建数据表，既然本业务只有一个表，key就用表名吧
     [database updateVersion:GYDVersion forKey:tableName actionBlock:^BOOL(FMDatabase * _Nonnull db, long long lastVersion) {
-        BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName columnArray:@[columnName1, columnName2]];
+        BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName checkColumns:YES columnArray:@[columnName1, columnName2]];
         if (!r) {
             return NO;
         }
@@ -114,31 +123,31 @@ static NSString *const ColumnName2 = @"t`e\'s\"t_column2";
     
 }
 - (void)testUpdate2 {
-    //假设下一版要对这个表做处理，增加一列col3
+    //假设下一版要对这个表做处理，增加一列col3，并且col1==e的数据有问题，需要删除
     
-    //假设有这么一个数据库，可以是整个app公用的，也可以每个业务创建自己的
+    //还是假设有这么一个数据库，可以是整个app公用的，也可以每个业务创建自己的
     GYDDatabase * database = [[GYDDatabase alloc] initWithPath:@"filepath"];
     
     //如今要对数据库进行升级处理，版本号就加为2吧
     long long GYDVersion = 2;
     
-    //假设当前业务需要创建一个表，有2列
+    //假设现在的表比以前多了一列
     NSString *tableName = @"table1";
     NSString *columnName1 = @"col1";
     NSString *columnName2 = @"col2";
     NSString *columnName3 = @"col3";
     
     //执行SQL创建数据表，既然是第一次处理，版本号就用1吧，本业务只有一个表，key就用表名吧
-    [database updateVersion:1 forKey:tableName actionBlock:^BOOL(FMDatabase * _Nonnull db, long long lastVersion) {
+    [database updateVersion:GYDVersion forKey:tableName actionBlock:^BOOL(FMDatabase * _Nonnull db, long long lastVersion) {
         /*
          当前版本是2，根据之前的版本，升级处理应该是
          0->2：从无到有直接按最终版创建表即可
-         1->2：版本1时已经创建过表了，只需再增加一列即可。
+         1->2：版本1时已经创建过表了，还需要再增加一列，并且删除一个错误的数据。
          2->2：本来就是版本2，无需任何操作。
          所以代码可以是：
         */
         if (lastVersion == 0) {
-            BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName columnArray:@[columnName1, columnName2, columnName3]];
+            BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName checkColumns:YES columnArray:@[columnName1, columnName2, columnName3]];
             if (!r) {
                 return NO;
             }
@@ -147,22 +156,28 @@ static NSString *const ColumnName2 = @"t`e\'s\"t_column2";
             if (!r) {
                 return NO;
             }
+            r = [GYDDatabase inDatabase:db deleteFromTable:tableName whereEqualDic:@{columnName1 : @"e"}];
+            if (!r) {
+                return NO;
+            }
         }
         return YES;
     }];
     //但版本多了看着乱，而过于精细的处理也容易产生错误，例如有人把这个表删了却留下版本号，那就不会再走创建表的语句了。所以我通常只会区分2种情况：需要升级和不需要升级。
-    [database updateVersion:1 forKey:tableName actionBlock:^BOOL(FMDatabase * _Nonnull db, long long lastVersion) {
-        //完整的创建：即使表存在，多调用一次创建表的语句也没关系
-        BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName columnArray:@[columnName1, columnName2, columnName3]];
+    [database updateVersion:GYDVersion forKey:tableName actionBlock:^BOOL(FMDatabase * _Nonnull db, long long lastVersion) {
+        //完整的创建：即使表存在，即使不缺列，多调用一次创建表的语句也没关系
+        BOOL r = [GYDDatabase inDatabase:db createTableIfNotExists:tableName checkColumns:YES columnArray:@[columnName1, columnName2, columnName3]];
         if (!r) {
             return NO;
         }
         //需要升级
         if (lastVersion > 0 && lastVersion < GYDVersion) {
-            //低版本中有缺少col3这列的情况，那不管从哪个版本的数据库升级上来我都尝试创建一下确保这列的存在。
-            r = [GYDDatabase inDatabase:db createColumnIfNotExits:columnName3 forTable:tableName];
-            if (!r) {
-                return NO;
+            //版本号小于2需要删除错误的数据
+            if (lastVersion < 2) {
+                r = [GYDDatabase inDatabase:db deleteFromTable:tableName whereEqualDic:@{columnName1 : @"e"}];
+                if (!r) {
+                    return NO;
+                }
             }
         }
         return YES;

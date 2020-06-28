@@ -19,7 +19,7 @@ static NSString *const IndexNameOfVersion = @"gyd_index_version";
 - (BOOL)updateVersion:(long long)version forKey:(nonnull NSString *)key actionBlock:(BOOL (^ _Nonnull)(FMDatabase * _Nonnull db, long long lastVersion))block {
     if (!_isVersionTableCreate) {
         BOOL r = [self inTransaction:^BOOL(FMDatabase * _Nonnull db) {
-            if (![self createTableIfNotExists:TableNameOfVersion columnArray:@[ColumnNameOfKey, ColumnNameOfVersion]]) {
+            if (![self createTableIfNotExists:TableNameOfVersion checkColumns:NO columnArray:@[ColumnNameOfKey, ColumnNameOfVersion]]) {
                 return NO;
             }
             if (![self createIndexIfNotExists:IndexNameOfVersion unique:YES onTable:TableNameOfVersion columnArray:@[ColumnNameOfKey]]) {
