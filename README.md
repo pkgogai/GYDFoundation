@@ -60,8 +60,15 @@
 	  :tag => '0.0.4',
 	  :subspecs => ['GYDJSONObject']
 	```
-		
-3. 安装单元测试：
+	
+3. 安装特殊处理：
+	特殊处理目前包括：GYDJSONObjectNonatomic，GYDDatabaseNoEscape，Development，安装方式还是subspecs。
+	
+	- GYDJSONObjectNonatomic：json转换默认是可在多个线程使用的，当只在一个线程使用时可以加上这个，去掉线程安全的处理。
+	- GYDDatabaseNoEscape：数据库封装的SQL语句默认将表名、列明等转义，当表名和列明都是普通字符时，可以加上这个去掉转义的处理。
+	- Development：加上这个使用开发模式，会有日志，json转model时保留原json对象等功能。刚加上的定义，其实代码还没开发。
+
+4. 安装单元测试：
 	4个subspecs都有与其对应的单元测试代码，可按需添加对应的testspecs，虽然目前只是随便写写，但下辈子也许会完善的。
 	
 	```
