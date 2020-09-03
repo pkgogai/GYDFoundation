@@ -1,0 +1,5 @@
+#!/bin/bash
+dirPath=$(dirname $0)
+cd $dirPath
+pwd
+pod install

@@ -1,10 +1,17 @@
-platform :osx, "10.8"
+platform :osx, "10.10"
 
 def pods
-  pod "GYDFoundation", :path => "../../"
+  pod "GYDFoundation", 
+    :path => "../",
+    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject',], 
+    :subspecs => ['Demo']
 end
 
 target "MacExample" do 
   pods
 end
 
+post_install do |installer|
+    installer.pods_project.root_object.attributes["CLASSPREFIX"] = "GYD"
+    installer.pods_project.root_object.attributes["ORGANIZATIONNAME"] = "宫亚东"
+end
