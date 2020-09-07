@@ -45,6 +45,12 @@ Pod::Spec.new do |s|
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
   end
+  #Shell工具
+  s.subspec 'GYDShellTools' do |ss|
+    ss.source_files = 'GYDShellTools/Code/**/*'
+    ss.dependency "GYDFoundation/GYDFoundation"
+    ss.dependency "GYDFoundation/GYDHTTPConnect"
+  end
   #特殊情况
   s.subspec 'GYDJSONObjectNonatomic' do |ss|
     ss.dependency "GYDFoundation/GYDJSONObject"
@@ -76,6 +82,9 @@ Pod::Spec.new do |s|
     ss.test_spec 'GYDJSONObject' do |test|
       test.source_files = 'GYDJSONObject/Tests/**/*'
     end
+    ss.test_spec 'GYDShellTools' do |test|
+      test.source_files = 'GYDShellTools/Tests/**/*'
+    end
   end
   
   #示例
@@ -96,6 +105,10 @@ Pod::Spec.new do |s|
     ss.subspec 'GYDJSONObject' do |demo|
       demo.dependency 'GYDFoundation/GYDJSONObject'
       demo.source_files = 'GYDJSONObject/Demo/**/*'
+    end
+    ss.subspec 'GYDShellTools' do |demo|
+      demo.dependency 'GYDFoundation/GYDShellTools'
+      demo.source_files = 'GYDShellTools/Demo/**/*'
     end
   end
 end
