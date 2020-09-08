@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GYDShellFeishuMessageItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,21 +21,18 @@ NS_ASSUME_NONNULL_BEGIN
 //当为nil时，通过appId，appSecret获取，有了值后就直接使用，不考虑有效期了，想要让下次操作重新获取的话就设置为nil，默认nil
 @property (nonatomic)   NSString *token;
 
-/** 获取权限，也就是token就是这样获取的 */
-- (NSString *)updateTokenOutput:(out NSString * _Nullable * _Nullable)output;
+/** 获取权限，也就是更新token */
+- (BOOL)updateTokenOutput:(out NSString * _Nullable * _Nullable)output;
 
-/** 上传图片 */
-- (NSString *)uploadImageData:(NSData *)data type:(NSString *)type output:(out NSString * _Nullable * _Nullable)output;
-
-/** 发送消息 */
-- (BOOL)sendMessage:(NSDictionary *)message output:(out NSString * _Nullable * _Nullable)output;
+/** 上传图片，返回Key，失败为nil。type是飞书的参数，当图片用在消息中时，type是message */
+- (nullable NSString *)imageKeyForUploadImageData:(NSData *)data type:(NSString *)type output:(out NSString * _Nullable * _Nullable)output;
 
 /** 发送消息 */
-- (BOOL)sendMessageToChat:(NSString *)chat withTitle:(nullable NSString *)title message:(nullable NSString *)message link:(nullable NSString *)link imageData:(nullable NSData *)imageData at:(nullable NSString *)at output:(out NSString * _Nullable * _Nullable)output;
+- (BOOL)sendMessageToChat:(NSString *)chat withTitle:(NSString *)title messageItemArray:(NSArray<GYDShellFeishuMessageItem *> *)messageItemArray output:(out NSString * _Nullable * _Nullable)output;
 
 #pragma mark - 最简单的机器人处理
 /** 最简单的发消息，不支持at，不支持富媒体 */
-+ (BOOL)sendTitle:(NSString *)title message:(NSString *)message toRobot:(NSString *)robot output:(out NSString * _Nullable * _Nullable)output;
++ (BOOL)sendSimpleMessageToRobot:(NSString *)robot withTitle:(NSString *)title message:(NSString *)message output:(out NSString * _Nullable * _Nullable)output;
 
 @end
 

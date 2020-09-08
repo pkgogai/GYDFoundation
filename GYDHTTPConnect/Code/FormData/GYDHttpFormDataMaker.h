@@ -7,12 +7,21 @@
 
 #import <Foundation/Foundation.h>
 #import "GYDHttpFormDataItem.h"
+#import "GYDHttpFormDataMaker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GYDHttpFormDataMaker : NSObject
 
-@property (nonatomic)   NSMutableArray<GYDHttpFormDataItem *> *formDataArray;
+#pragma mark - 整体方法
+
+@property (nonatomic, nonnull)   NSMutableArray<GYDHttpFormDataItem *> *formDataArray;
+
+/** 构建所有参数，headerKey:headerValue用于填充HTTPHeaderField，headerKey固定值Content-Type，body是http消息体 */
+- (void)buildFormData:(void(^)(NSString *headerKey, NSString *headerValue, NSData *body))block;
+
+
+#pragma mark - 细节
 
 + (NSString *)markNewBoundary;
 
@@ -22,8 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** body */
 - (NSData *)httpBodyWithBoundary:(NSString *)boundary;
 
-/** 构建所有参数，headerKey:headerValue用于填充HTTPHeaderField，headerKey固定值Content-Type，body是http消息体 */
-- (void)buildFormData:(void(^)(NSString *headerKey, NSString *headerValue, NSData *body))block;
+
 
 @end
 

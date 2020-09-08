@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)   NSString *method;
 @property (nonatomic)   NSData  *bodyData;
 @property (nonatomic)   NSDictionary *headerField;
+@property (nonatomic)   NSTimeInterval timeoutTimeInterval; //默认20s
 
 @property (nonatomic, readonly) GYDSimpleHttpConnectResultCode resultCode;
 @property (nonatomic, readonly) NSInteger resultHttpStatusCode;

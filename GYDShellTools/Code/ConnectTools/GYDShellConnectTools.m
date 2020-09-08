@@ -10,6 +10,15 @@
 
 @implementation GYDShellConnectTools
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.timeoutTimeInterval = 20;
+    }
+    return self;
+}
+
 - (void)syncSend {
     GYDSimpleHttpConnect *connect = [[GYDSimpleHttpConnect alloc] init];
     connect.url = self.url;
@@ -45,7 +54,10 @@
             dispatch_semaphore_signal(lock);
         }];
     });
-    dispatch_semaphore_wait(lock, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)));
+    
+    dispatch_semaphore_wait(lock, (self.timeoutTimeInterval > 0) ? dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.timeoutTimeInterval * NSEC_PER_SEC)) : DISPATCH_TIME_FOREVER);
+    //因请求超时而过来的，取消一下之前的请求。
+    [connect cancel];
     if (timeout) {
         _resultCode = GYDSimpleHttpConnectResultCodeCompletedError;
     }
