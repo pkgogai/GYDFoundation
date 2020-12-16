@@ -7,6 +7,7 @@ PODS:
     - GYDFoundation/Demo/GYDFoundation (= 0.0.5)
     - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.5)
     - GYDFoundation/Demo/GYDJSONObject (= 0.0.5)
+    - GYDFoundation/Demo/GYDShellTools (= 0.0.5)
   - GYDFoundation/Demo/GYDDatabase (0.0.5):
     - GYDFoundation/GYDDatabase
   - GYDFoundation/Demo/GYDFoundation (0.0.5):
@@ -15,6 +16,8 @@ PODS:
     - GYDFoundation/GYDHTTPConnect
   - GYDFoundation/Demo/GYDJSONObject (0.0.5):
     - GYDFoundation/GYDJSONObject
+  - GYDFoundation/Demo/GYDShellTools (0.0.5):
+    - GYDFoundation/GYDShellTools
   - GYDFoundation/GYDDatabase (0.0.5):
     - FMDB
     - GYDFoundation/GYDFoundation
@@ -23,6 +26,9 @@ PODS:
     - GYDFoundation/GYDFoundation
   - GYDFoundation/GYDJSONObject (0.0.5):
     - GYDFoundation/GYDFoundation
+  - GYDFoundation/GYDShellTools (0.0.5):
+    - GYDFoundation/GYDFoundation
+    - GYDFoundation/GYDHTTPConnect
   - GYDFoundation/Tests/GYDDatabase (0.0.5)
   - GYDFoundation/Tests/GYDFoundation (0.0.5)
   - GYDFoundation/Tests/GYDHTTPConnect (0.0.5)
@@ -45,8 +51,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: 1112f7046e6731ec453d554f65121a59b673089c
+  GYDFoundation: 3a4414032c070e69e1ce12cc219821d85af9c8aa
 
 PODFILE CHECKSUM: 8eb05d7562be79a1dae00ab529fd0e55e455e711
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
