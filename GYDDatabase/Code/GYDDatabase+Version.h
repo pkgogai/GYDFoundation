@@ -9,7 +9,7 @@
 
 @interface GYDDatabase (Version)
 
-- (BOOL)updateVersion:(long long)version forKey:(nonnull NSString *)key actionBlock:(BOOL (^ _Nonnull)(FMDatabase * _Nonnull db, long long lastVersion))block;
+- (BOOL)updateVersion:(long long)version forKey:(nonnull NSString *)key actionBlock:(BOOL (NS_NOESCAPE ^ _Nonnull)(FMDatabase * _Nonnull db, long long lastVersion))block;
 
 @end
 

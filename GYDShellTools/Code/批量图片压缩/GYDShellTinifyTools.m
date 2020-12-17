@@ -11,33 +11,7 @@
 #import "GYDFoundationPrivateHeader.h"
 
 #import "GYDShellConnectTools.h"
-
-#pragma mark - 文件数据模型
-@interface GYDShellTinifyFileItem : NSObject
-
-GYDJSONProperty(NSString *, name);
-
-GYDJSONProperty(NSString *, path);
-
-GYDJSONProperty(NSInteger, size);
-
-GYDJSONProperty(NSString *, md5);
-
-GYDJSONProperty(NSInteger, progress);
-
-@end
-
-@implementation GYDShellTinifyFileItem
-
-- (NSString *)description {
-    return [self gyd_JSONString];
-}
-- (NSString *)debugDescription {
-    return [self description];
-}
-
-@end
-
+#import "GYDShellTinifyFileItem.h"
 
 @implementation GYDShellTinifyTools
 {
@@ -227,18 +201,12 @@ GYDJSONProperty(NSInteger, progress);
         return obj2.size - obj1.size;
     }];
     
-    BOOL r = [self compressFileArray:doArray progress:newMd5Progress];
+    BOOL r = [self compressFileArray:doArray progress:newMd5Progress savePath:filePath];
     
-    if (filePath.length) {
-        BOOL r = [newMd5Progress writeToFile:filePath atomically:YES];
-        if (!r) {
-            NSLog(@"记录文件保存失败：%@", filePath);
-        }
-    }
     return r;
 }
 
-- (BOOL)compressFileArray:(NSArray<GYDShellTinifyFileItem *> *)doArray progress:(NSMutableDictionary *)newMd5Progress {
+- (BOOL)compressFileArray:(NSArray<GYDShellTinifyFileItem *> *)doArray progress:(NSMutableDictionary *)newMd5Progress savePath:(NSString *)savePath {
     for (GYDShellTinifyFileItem *item in doArray) {
         
         NSLog(@"处理图片:%@, %zd", item.name, item.size);
@@ -246,6 +214,10 @@ GYDJSONProperty(NSInteger, progress);
         if (!fromData) {
             NSLog(@"读取文件失败：%@", item.path);
             return NO;
+        }
+        if (fromData.length == 0) {
+            NSLog(@"无需处理");
+            continue;
         }
         NSString *msg = nil;
         NSData *toData = [self imageDataForCompressImageData:fromData output:&msg];
@@ -270,7 +242,13 @@ GYDJSONProperty(NSInteger, progress);
                 return NO;
             }
         }
-        NSLog(@"结果：%zd(%zd)", toData.length, toData.length - fromData.length);
+        NSLog(@"结果：%zd(%0.2f%%)", toData.length, toData.length * 100.0 / fromData.length);
+        if (savePath.length) {
+            BOOL r = [newMd5Progress writeToFile:savePath atomically:YES];
+            if (!r) {
+                NSLog(@"记录文件保存失败：%@", savePath);
+            }
+        }
     }
     return YES;
 }
