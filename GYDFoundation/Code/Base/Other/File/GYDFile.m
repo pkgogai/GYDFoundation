@@ -59,4 +59,21 @@
     return YES;
 }
 
+/** 深度遍历文件 */
++ (void)enumPath:(NSString *)path usingBlock:(void (NS_NOESCAPE ^)(NSString * _Nonnull, NSString * _Nonnull, BOOL * _Nonnull))block {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator<NSString *> *en = [manager enumeratorAtPath:path];
+    
+    BOOL stop = NO;
+    for (NSString *filePath in en) {
+        NSString *fileName = [filePath lastPathComponent];
+        NSString *fullPath = [path stringByAppendingPathComponent:filePath];
+        block(fileName, fullPath, &stop);
+        if (stop) {
+            return;
+        }
+    }
+}
+
+
 @end

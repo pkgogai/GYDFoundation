@@ -35,4 +35,7 @@
 /** 确保指定文件存在（不存在就尝试创建，包括路径上的目录），注意：是文件不是目录 */
 + (BOOL)makeSureFileAtPath:(nonnull NSString *)path errorMessage:(NSString * _Nullable * _Nullable)errorMessage;
 
+/** 深度遍历路径，包括文件和目录 */
++ (void)enumPath:(NSString * _Nullable)path usingBlock:(void (NS_NOESCAPE ^_Nonnull)(NSString * _Nonnull fileName, NSString * _Nonnull fullPath, BOOL * _Nonnull stop))block;
+
 @end

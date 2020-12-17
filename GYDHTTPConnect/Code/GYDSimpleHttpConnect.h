@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GYDSimpleHttpConnectQueue.h"
 #import "GYDSimpleHttpConnectSession.h"
+#import "GYDHttpFormDataMaker.h"
 
 /** 处理响应的方式 */
 typedef NS_ENUM(NSUInteger, GYDSimpleHttpConnectResponseHandleType) {

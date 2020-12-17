@@ -16,6 +16,8 @@
 //字符串
 #import "GYDStringSearch.h"
 #import "NSString+GYDString.h"
+#import "NSString+GYDEscape.h"
+#import "GYDMd5.h"
 
 //其它
 #import "NSObject+GYDObject.h"
@@ -24,6 +26,7 @@
 #import "NSObject+GYDCustomFunction.h"
 #import "GYDJSONSerialization.h"
 #import "GYDLog.h"
+
 
 //数据库
 #if GYD_FOUNDATION_USED_DATABASE == 1
