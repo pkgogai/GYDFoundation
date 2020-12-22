@@ -10,6 +10,8 @@
 
 [string](Help/string/string.md)
 
+[图片压缩](Help/tinify/tinify.md)
+
 #### 项目介绍
 个人的iOS私有库
 
@@ -20,6 +22,7 @@
 	- GYDDatabase：数据库，依赖FMDB
 	- GYDHTTPConnect：网络请求，
 	- GYDJSONObject：JSON-Model互转
+	- GYDShellTools：Shell工具
 	- iOSExample：iOS示例工程
 	- MacExample：Mac示例工程
 	- GYDFoundation.podspec：pod配置文件
@@ -45,9 +48,9 @@
 	```
 	pod 'GYDFoundation',
 	  :git => 'https://github.com/pkgogai/GYDFoundation.git',
-	  :tag => '0.0.4'
-	  #tag可以改成分支或节点
-	  #:branch => 'master'
+	  :branch => 'master'
+	  #分支可以改成tag或节点
+	  #:tag => '0.0.4'
 	  #:commit => 'f7cc204e2db82f8488229f09e073977d3db4abbd'
 	```
 
