@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GYDShellTinifyToolsDemo.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSLog(@"Hello, World!");
-        
+        return [GYDShellTinifyToolsDemo exampleMainWithArgc:argc argv:argv];
     }
     return 0;
 }
