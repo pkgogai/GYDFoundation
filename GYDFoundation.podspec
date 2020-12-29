@@ -88,11 +88,28 @@ Pod::Spec.new do |s|
   end
   
   #示例
-  s.subspec 'Demo' do |ss|
+  s.subspec 'iOSDemo' do |ss|
     ss.subspec 'GYDFoundation' do |demo|
       demo.dependency 'GYDFoundation/GYDFoundation'
-      demo.ios.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/iOS/**/*']
-      demo.osx.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/MacOS/**/*']
+      demo.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/iOS/**/*']
+    end
+    ss.subspec 'GYDDatabase' do |demo|
+      demo.dependency 'GYDFoundation/GYDDatabase'
+      demo.source_files = 'GYDDatabase/Demo/**/*'
+    end
+    ss.subspec 'GYDHTTPConnect' do |demo|
+      demo.dependency 'GYDFoundation/GYDHTTPConnect'
+      demo.source_files = 'GYDHTTPConnect/Demo/**/*'
+    end
+    ss.subspec 'GYDJSONObject' do |demo|
+      demo.dependency 'GYDFoundation/GYDJSONObject'
+      demo.source_files = 'GYDJSONObject/Demo/**/*'
+    end
+  end
+  s.subspec 'MacOSDemo' do |ss|
+    ss.subspec 'GYDFoundation' do |demo|
+      demo.dependency 'GYDFoundation/GYDFoundation'
+      demo.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/MacOS/**/*']
     end
     ss.subspec 'GYDDatabase' do |demo|
       demo.dependency 'GYDFoundation/GYDDatabase'

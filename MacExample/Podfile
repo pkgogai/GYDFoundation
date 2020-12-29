@@ -4,7 +4,7 @@ def pods
   pod "GYDFoundation", 
     :path => "../",
     :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject',], 
-    :subspecs => ['Demo']
+    :subspecs => ['MacOSDemo']
 end
 
 target "MacExample" do 

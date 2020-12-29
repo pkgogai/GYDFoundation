@@ -2,19 +2,6 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GYDFoundation/Demo (0.0.5):
-    - GYDFoundation/Demo/GYDDatabase (= 0.0.5)
-    - GYDFoundation/Demo/GYDFoundation (= 0.0.5)
-    - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.5)
-    - GYDFoundation/Demo/GYDJSONObject (= 0.0.5)
-  - GYDFoundation/Demo/GYDDatabase (0.0.5):
-    - GYDFoundation/GYDDatabase
-  - GYDFoundation/Demo/GYDFoundation (0.0.5):
-    - GYDFoundation/GYDFoundation
-  - GYDFoundation/Demo/GYDHTTPConnect (0.0.5):
-    - GYDFoundation/GYDHTTPConnect
-  - GYDFoundation/Demo/GYDJSONObject (0.0.5):
-    - GYDFoundation/GYDJSONObject
   - GYDFoundation/GYDDatabase (0.0.5):
     - FMDB
     - GYDFoundation/GYDFoundation
@@ -23,13 +10,26 @@ PODS:
     - GYDFoundation/GYDFoundation
   - GYDFoundation/GYDJSONObject (0.0.5):
     - GYDFoundation/GYDFoundation
+  - GYDFoundation/iOSDemo (0.0.5):
+    - GYDFoundation/iOSDemo/GYDDatabase (= 0.0.5)
+    - GYDFoundation/iOSDemo/GYDFoundation (= 0.0.5)
+    - GYDFoundation/iOSDemo/GYDHTTPConnect (= 0.0.5)
+    - GYDFoundation/iOSDemo/GYDJSONObject (= 0.0.5)
+  - GYDFoundation/iOSDemo/GYDDatabase (0.0.5):
+    - GYDFoundation/GYDDatabase
+  - GYDFoundation/iOSDemo/GYDFoundation (0.0.5):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/iOSDemo/GYDHTTPConnect (0.0.5):
+    - GYDFoundation/GYDHTTPConnect
+  - GYDFoundation/iOSDemo/GYDJSONObject (0.0.5):
+    - GYDFoundation/GYDJSONObject
   - GYDFoundation/Tests/GYDDatabase (0.0.5)
   - GYDFoundation/Tests/GYDFoundation (0.0.5)
   - GYDFoundation/Tests/GYDHTTPConnect (0.0.5)
   - GYDFoundation/Tests/GYDJSONObject (0.0.5)
 
 DEPENDENCIES:
-  - GYDFoundation/Demo (from `../`)
+  - GYDFoundation/iOSDemo (from `../`)
   - GYDFoundation/Tests/GYDDatabase (from `../`)
   - GYDFoundation/Tests/GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDHTTPConnect (from `../`)
@@ -45,8 +45,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: 1112f7046e6731ec453d554f65121a59b673089c
+  GYDFoundation: 9c5af8b8ac7988d8a2ee80c31a5cfb9588db60ae
 
-PODFILE CHECKSUM: e0f82eb8c78edc09074e7543a7cb7dcd65515bb7
+PODFILE CHECKSUM: d653a027329f4025de0c07c29727eb05739e9d5b
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

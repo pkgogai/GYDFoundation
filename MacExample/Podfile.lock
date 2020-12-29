@@ -2,22 +2,6 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GYDFoundation/Demo (0.0.5):
-    - GYDFoundation/Demo/GYDDatabase (= 0.0.5)
-    - GYDFoundation/Demo/GYDFoundation (= 0.0.5)
-    - GYDFoundation/Demo/GYDHTTPConnect (= 0.0.5)
-    - GYDFoundation/Demo/GYDJSONObject (= 0.0.5)
-    - GYDFoundation/Demo/GYDShellTools (= 0.0.5)
-  - GYDFoundation/Demo/GYDDatabase (0.0.5):
-    - GYDFoundation/GYDDatabase
-  - GYDFoundation/Demo/GYDFoundation (0.0.5):
-    - GYDFoundation/GYDFoundation
-  - GYDFoundation/Demo/GYDHTTPConnect (0.0.5):
-    - GYDFoundation/GYDHTTPConnect
-  - GYDFoundation/Demo/GYDJSONObject (0.0.5):
-    - GYDFoundation/GYDJSONObject
-  - GYDFoundation/Demo/GYDShellTools (0.0.5):
-    - GYDFoundation/GYDShellTools
   - GYDFoundation/GYDDatabase (0.0.5):
     - FMDB
     - GYDFoundation/GYDFoundation
@@ -29,13 +13,29 @@ PODS:
   - GYDFoundation/GYDShellTools (0.0.5):
     - GYDFoundation/GYDFoundation
     - GYDFoundation/GYDHTTPConnect
+  - GYDFoundation/MacOSDemo (0.0.5):
+    - GYDFoundation/MacOSDemo/GYDDatabase (= 0.0.5)
+    - GYDFoundation/MacOSDemo/GYDFoundation (= 0.0.5)
+    - GYDFoundation/MacOSDemo/GYDHTTPConnect (= 0.0.5)
+    - GYDFoundation/MacOSDemo/GYDJSONObject (= 0.0.5)
+    - GYDFoundation/MacOSDemo/GYDShellTools (= 0.0.5)
+  - GYDFoundation/MacOSDemo/GYDDatabase (0.0.5):
+    - GYDFoundation/GYDDatabase
+  - GYDFoundation/MacOSDemo/GYDFoundation (0.0.5):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation/MacOSDemo/GYDHTTPConnect (0.0.5):
+    - GYDFoundation/GYDHTTPConnect
+  - GYDFoundation/MacOSDemo/GYDJSONObject (0.0.5):
+    - GYDFoundation/GYDJSONObject
+  - GYDFoundation/MacOSDemo/GYDShellTools (0.0.5):
+    - GYDFoundation/GYDShellTools
   - GYDFoundation/Tests/GYDDatabase (0.0.5)
   - GYDFoundation/Tests/GYDFoundation (0.0.5)
   - GYDFoundation/Tests/GYDHTTPConnect (0.0.5)
   - GYDFoundation/Tests/GYDJSONObject (0.0.5)
 
 DEPENDENCIES:
-  - GYDFoundation/Demo (from `../`)
+  - GYDFoundation/MacOSDemo (from `../`)
   - GYDFoundation/Tests/GYDDatabase (from `../`)
   - GYDFoundation/Tests/GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDHTTPConnect (from `../`)
@@ -51,8 +51,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: 3a4414032c070e69e1ce12cc219821d85af9c8aa
+  GYDFoundation: 9c5af8b8ac7988d8a2ee80c31a5cfb9588db60ae
 
-PODFILE CHECKSUM: 8eb05d7562be79a1dae00ab529fd0e55e455e711
+PODFILE CHECKSUM: 8cb9f60f33812482f9fc367d14461c8048295eff
 
 COCOAPODS: 1.10.0
