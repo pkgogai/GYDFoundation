@@ -15,7 +15,11 @@
     CADisplayLink *_link;
 }
 
-+ (instancetype)displayLinkWithWeakTarget:(id)target
+- (CADisplayLink *)displayLink {
+    return _link;
+}
+
++ (instancetype)displayLinkStartWithWeakTarget:(id)target
                                  selector:(SEL)aSelector {
     GYDWeakTarget *weakTarget = [[GYDWeakTarget alloc] init];
     [weakTarget setWeakTarget:target selector:aSelector];

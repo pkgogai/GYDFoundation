@@ -53,7 +53,7 @@
 /** 开始计时回调代理，直到超过timeValuePath的stopTime为止，没有timeValuePath则立刻停止，停止后回调timeValuePathTimerDidStop */
 - (void)startCallback {
     if (!_displayTimer) {
-        _displayTimer = [GYDWeakDisplayLink displayLinkWithWeakTarget:self selector:@selector(timeUpOnce)];
+        _displayTimer = [GYDWeakDisplayLink displayLinkStartWithWeakTarget:self selector:@selector(timeUpOnce)];
     }
 }
 
