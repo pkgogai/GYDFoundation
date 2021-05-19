@@ -20,38 +20,6 @@
     long long _savePointIndex;
 }
 
-static NSString *_DefaultDatabasePath = nil;
-
-#pragma mark - 实际上大部分项目只需要一个数据库，所以记录一个默认的数据库，不想用就自己alloc。
-
-/** 设置全局默认数据库的路径，在调用 defaultDatabase 时会根据此路径创建一个数据库 */
-+ (void)setDefaultDatabasePath:(nonnull NSString *)path {
-    if (_DefaultDatabasePath) {
-        if (![_DefaultDatabasePath isEqualToString:path]) {
-            GYDFoundationError(@"已经设置过路径：%@，\n无法修改为：%@", _DefaultDatabasePath, path);
-        }
-    } else {
-        _DefaultDatabasePath = [path copy];
-    }
-}
-
-/** 全局默认的数据库（需要先设置路径）， */
-+ (nullable instancetype)defaultDatabase {
-    static GYDDatabase *defaultDatabase = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        defaultDatabase = [[self alloc] initWithPath:_DefaultDatabasePath];
-        if (!defaultDatabase) {
-            if (_DefaultDatabasePath) {
-                GYDFoundationError(@"数据库路径使用失败：%@", _DefaultDatabasePath);
-            } else {
-                GYDFoundationError(@"没有设置数据库路径");
-            }
-        }
-    });
-    return defaultDatabase;
-}
-
 #pragma mark - 创建。
 
 /** 创建并打开数据库，失败的情况都是path有问题，或文件无法创建，可以忽略 */

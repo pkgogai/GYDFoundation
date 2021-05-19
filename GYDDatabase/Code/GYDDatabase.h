@@ -11,13 +11,8 @@
 
 @interface GYDDatabase : NSObject
 
-#pragma mark - 实际上大部分项目只需要一个数据库，所以记录一个默认的数据库，不想用就自己alloc。
-
-/** 设置全局默认数据库的路径，在调用 defaultDatabase 时会根据此路径创建一个数据库 */
-+ (void)setDefaultDatabasePath:(nonnull NSString *)path;
-
-/** 全局默认的数据库（需要先设置路径）， */
-+ (nullable instancetype)defaultDatabase;
+// 已删除全局默认的数据库，如有需要，可以自己补充类别
+//+ (nullable instancetype)defaultDatabase;
 
 #pragma mark - 创建。
 
