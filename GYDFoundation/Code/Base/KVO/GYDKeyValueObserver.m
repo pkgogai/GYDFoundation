@@ -19,7 +19,7 @@
 
 @implementation GYDKeyValueObserver
 
-+ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
++ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options customContext:(nullable void *)context changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
     if (!obj) {
         return nil;
     }
@@ -29,8 +29,11 @@
     GYDKeyValueObserver *o = [[GYDKeyValueObserver alloc] init];
     o.obj = obj;
     o.keyPath = keyPath;
-    static Byte *c = (Byte *)1;
-    o.context = c++;
+    if (context) {
+        o.context = context;
+    } else {
+        o.context = (__bridge void *)o;
+    }
     o.action = action;
     [obj addObserver:o forKeyPath:keyPath options:options context:o.context];
     return o;
@@ -38,7 +41,6 @@
 
 - (void)dealloc
 {
-    NSLog(@"xxx");
     [_obj removeObserver:self forKeyPath:_keyPath context:_context];
 }
 
@@ -54,7 +56,7 @@
 @implementation NSObject (GYDKeyValueObserver)
 
 - (nonnull GYDKeyValueObserver *)gyd_addObserverForKeyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
-    return [GYDKeyValueObserver observerForObject:self keyPath:keyPath options:options changeAction:action];
+    return [GYDKeyValueObserver observerForObject:self keyPath:keyPath options:options customContext:NULL changeAction:action];
 }
 
 @end

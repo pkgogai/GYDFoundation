@@ -8,18 +8,52 @@
 
 #import <Foundation/Foundation.h>
 
+/*
+ KVO所有回调都在同一个方法里，父类、子类、类别中同一个方法处理起来比较麻烦。
+ 本类只是分离了这个处理，对线程关系没有任何影响，规则都是系统方法原本的。
+ 
+ 用法
+ 
+ //添加监听
+ id obs = [view gyd_addObserverForKeyPath:@"frame" ……{
+    NSLog(@"view的frame发生了变化");
+ }];
+ 
+ //触发监听
+ view.frame = CGRectMake(0, 0, 100, 100);
+ 
+ //移除监听
+ obs = nil;
+ 
+ 注：context=Null时用的是obs的指针，如果需要防止context与别人的kvo规则冲突，可以自己指定context。
+ id obs = [GYDKeyValueObserver observerForObject:view keyPath:@"frame" options:略 customContext:666 changeAction:……{
+    NSLog(@"view的frame发生了变化");
+ }];
+ 
+ */
+
 typedef void(^GYDKeyValueObserverChangeBlock)(NSDictionary<NSKeyValueChangeKey, id> * _Nullable change);
 
 @interface GYDKeyValueObserver : NSObject
 
-/** 监听obj的keyPath对应值的变化，注意不要循环引用，obj和action为nil的话，return nil */
-+ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action;
+/**
+ 监听obj的keyPath对应值的变化。
+ 注意block内不要循环引用。
+ context=Null时用的是返回对象的地址。
+ obj和action为nil的话，return nil。
+ */
++ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options customContext:(nullable void *)context changeAction:(nonnull GYDKeyValueObserverChangeBlock)action;
 
 @end
 
 @interface NSObject (GYDKeyValueObserver)
 
-/** 监听自己keyPath对应值的变化，注意不要循环引用，obj和action为nil的话，return nil */
+/**
+ 监听自己keyPath对应值的变化。
+ 注意block内不要循环引用。
+ context用的是返回对象的地址。
+ obj和action为nil的话，return nil。
+ */
 - (nonnull GYDKeyValueObserver *)gyd_addObserverForKeyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action;
 
 @end
