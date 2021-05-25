@@ -12,14 +12,13 @@
 
 @property (nonatomic, weak) id obj;
 @property (nonatomic, copy) NSString *keyPath;
-@property (nonatomic, assign) void *context;
 @property (nonatomic, copy) GYDKeyValueObserverChangeBlock action;
 
 @end
 
 @implementation GYDKeyValueObserver
 
-+ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options customContext:(nullable void *)context changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
++ (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
     if (!obj) {
         return nil;
     }
@@ -29,19 +28,14 @@
     GYDKeyValueObserver *o = [[GYDKeyValueObserver alloc] init];
     o.obj = obj;
     o.keyPath = keyPath;
-    if (context) {
-        o.context = context;
-    } else {
-        o.context = (__bridge void *)o;
-    }
     o.action = action;
-    [obj addObserver:o forKeyPath:keyPath options:options context:o.context];
+    [obj addObserver:o forKeyPath:keyPath options:options context:NULL];
     return o;
 }
 
 - (void)dealloc
 {
-    [_obj removeObserver:self forKeyPath:_keyPath context:_context];
+    [_obj removeObserver:self forKeyPath:_keyPath context:NULL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -56,7 +50,7 @@
 @implementation NSObject (GYDKeyValueObserver)
 
 - (nonnull GYDKeyValueObserver *)gyd_addObserverForKeyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action {
-    return [GYDKeyValueObserver observerForObject:self keyPath:keyPath options:options customContext:NULL changeAction:action];
+    return [GYDKeyValueObserver observerForObject:self keyPath:keyPath options:options changeAction:action];
 }
 
 @end

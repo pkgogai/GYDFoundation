@@ -41,6 +41,11 @@
 #define GYDLogHttpVerbose(format, ...)  GYDLogVerboseType(@"http", format, ##__VA_ARGS__)
 #define GYDLogHttpDebug(format, ...)    GYDLogDebugType(@"http", format, ##__VA_ARGS__)
 
+#define GYDLogKVOSwitch(isOn)          [GYDLog setLogType:@"KVO" on:isOn];
+#define GYDLogKVOInfo(format, ...)     GYDLogInfoType(@"KVO", format, ##__VA_ARGS__)
+#define GYDLogKVOVerbose(format, ...)  GYDLogVerboseType(@"KVO", format, ##__VA_ARGS__)
+#define GYDLogKVODebug(format, ...)    GYDLogDebugType(@"KVO", format, ##__VA_ARGS__)
+
 @interface GYDLogExample : NSObject
 
 + (void)ready;
