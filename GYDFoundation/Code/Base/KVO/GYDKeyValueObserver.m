@@ -22,6 +22,9 @@
     if (!obj) {
         return nil;
     }
+    if (!keyPath) {
+        return nil;
+    }
     if (!action) {
         return nil;
     }
