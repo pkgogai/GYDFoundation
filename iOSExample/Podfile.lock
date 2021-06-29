@@ -10,11 +10,14 @@ PODS:
     - GYDFoundation/GYDFoundation
   - GYDFoundation/GYDJSONObject (0.0.5):
     - GYDFoundation/GYDFoundation
+  - GYDFoundation/GYDModuleInterface (0.0.5):
+    - GYDFoundation/GYDFoundation
   - GYDFoundation/iOSDemo (0.0.5):
     - GYDFoundation/iOSDemo/GYDDatabase (= 0.0.5)
     - GYDFoundation/iOSDemo/GYDFoundation (= 0.0.5)
     - GYDFoundation/iOSDemo/GYDHTTPConnect (= 0.0.5)
     - GYDFoundation/iOSDemo/GYDJSONObject (= 0.0.5)
+    - GYDFoundation/iOSDemo/GYDModuleInterface (= 0.0.5)
   - GYDFoundation/iOSDemo/GYDDatabase (0.0.5):
     - GYDFoundation/GYDDatabase
   - GYDFoundation/iOSDemo/GYDFoundation (0.0.5):
@@ -23,6 +26,8 @@ PODS:
     - GYDFoundation/GYDHTTPConnect
   - GYDFoundation/iOSDemo/GYDJSONObject (0.0.5):
     - GYDFoundation/GYDJSONObject
+  - GYDFoundation/iOSDemo/GYDModuleInterface (0.0.5):
+    - GYDFoundation/GYDModuleInterface
   - GYDFoundation/Tests/GYDDatabase (0.0.5)
   - GYDFoundation/Tests/GYDFoundation (0.0.5)
   - GYDFoundation/Tests/GYDHTTPConnect (0.0.5)
@@ -45,7 +50,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: 9c5af8b8ac7988d8a2ee80c31a5cfb9588db60ae
+  GYDFoundation: 38e6d01d544b930e36244242943ee03005f8f5c1
 
 PODFILE CHECKSUM: d653a027329f4025de0c07c29727eb05739e9d5b
 

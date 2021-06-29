@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.ios.requires_arc = true
   s.ios.framework = 'UIKit'
   
-  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject']
+  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface']
   
   #基础方法
   s.subspec 'GYDFoundation' do |ss|
@@ -44,6 +44,12 @@ Pod::Spec.new do |s|
     ss.source_files = 'GYDJSONObject/Code/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
+  end
+  #json-model互转
+  s.subspec 'GYDModuleInterface' do |ss|
+    ss.source_files = 'GYDModuleInterface/Code/**/*'
+    ss.dependency "GYDFoundation/GYDFoundation"
+    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_MODULE_INTERFACE=1'}
   end
   #Shell工具
   s.subspec 'GYDShellTools' do |ss|
@@ -82,6 +88,9 @@ Pod::Spec.new do |s|
     ss.test_spec 'GYDJSONObject' do |test|
       test.source_files = 'GYDJSONObject/Tests/**/*'
     end
+    ss.test_spec 'GYDModuleInterface' do |test|
+      test.source_files = 'GYDModuleInterface/Tests/**/*'
+    end
     ss.test_spec 'GYDShellTools' do |test|
       test.source_files = 'GYDShellTools/Tests/**/*'
     end
@@ -104,6 +113,10 @@ Pod::Spec.new do |s|
     ss.subspec 'GYDJSONObject' do |demo|
       demo.dependency 'GYDFoundation/GYDJSONObject'
       demo.source_files = 'GYDJSONObject/Demo/**/*'
+    end
+    ss.subspec 'GYDModuleInterface' do |demo|
+      demo.dependency 'GYDFoundation/GYDModuleInterface'
+      demo.source_files = 'GYDModuleInterface/Demo/**/*'
     end
   end
   s.subspec 'MacOSDemo' do |ss|
