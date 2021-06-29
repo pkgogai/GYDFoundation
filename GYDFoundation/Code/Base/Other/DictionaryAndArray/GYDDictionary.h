@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- 对dic对象类型，以及返回值类型进行了检查，没有对key检查
+ 所有json转换而来，尤其是服务器返回的对象，对其类型都应保持怀疑之心。
  */
 @interface GYDDictionary : NSObject
 
