@@ -109,4 +109,14 @@
     return self.frame.size;
 }
 
+/** bounds.size */
+- (void)setBoundsSize:(CGSize)boundsSize {
+    CGRect bounds = self.bounds;
+    bounds.size = boundsSize;
+    self.bounds = bounds;
+}
+- (CGSize)boundsSize {
+    return self.bounds.size;
+}
+
 @end

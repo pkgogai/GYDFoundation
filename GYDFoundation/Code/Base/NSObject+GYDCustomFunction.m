@@ -52,4 +52,18 @@
     return action(arg);
 }
 
+/** 通过key查找block，如果有就执行 */
+- (nullable id)gyd_callFunctionIfExists:(nonnull NSString *)functionName withArg:(nullable id)arg {
+    if (!functionName) {
+        GYDFoundationError(@"functionName 不能为空");
+        return nil;
+    }
+    
+    GYDCustomFunctionActionBlock action = [self gyd_customFunctionActionBlockDictionary][functionName];
+    if (!action) {
+        return nil;
+    }
+    return action(arg);
+}
+
 @end

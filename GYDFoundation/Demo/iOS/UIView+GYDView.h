@@ -34,9 +34,8 @@
 @property (nonatomic) CGPoint origin;
 /** 大小 */
 @property (nonatomic) CGSize  size;
-
-
-
+/** bounds.size */
+@property (nonatomic) CGSize  boundsSize;
 
 
 

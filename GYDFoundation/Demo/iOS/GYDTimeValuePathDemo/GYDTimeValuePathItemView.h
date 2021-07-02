@@ -10,10 +10,13 @@
 #import "GYDTimeValuePath.h"
 
 /**
- 一个高度20的label显示标题描述，下面是坐标图GYDTimeValuePathDisplayView
+ 描述，
+ 参数，
+ 坐标图GYDTimeValuePathDisplayView
  */
 @interface GYDTimeValuePathItemView : UIView
 
+@property (nonatomic)   NSString *title;
 @property (nonatomic)   GYDTimeValuePath *timeValuePath;
 @property (nonatomic)   CGRect  timeValueFrame;//(startTime,minValue)-(timeLength,valueLength)
 

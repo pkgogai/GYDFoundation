@@ -134,7 +134,7 @@
                 [_pathArray addObject:uPath];
                 
                 step2.startTime = uPath.stopTime;
-                step2.originTime = step1.startTime + t2;
+                step2.originTime = step2.startTime + t2;
                 step2.stopTime = step2.originTime;
                 
                 [_pathArray addObject:step2];

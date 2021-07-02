@@ -8,10 +8,12 @@
 
 #import "GYDTimeValuePathItemView.h"
 #import "GYDTimeValuePathDisplayView.h"
+#import "UIView+GYDView.h"
 
 @implementation GYDTimeValuePathItemView
 {
     UILabel *_titleLabel;
+    UILabel *_descLabel;
     GYDTimeValuePathDisplayView *_displayView;
 }
 - (instancetype)initWithFrame:(CGRect)frame
@@ -23,6 +25,16 @@
             label.backgroundColor = [UIColor clearColor];
             label.font = [UIFont systemFontOfSize:12];
             label.textColor = [UIColor blackColor];
+            label.numberOfLines = 1;
+            [self addSubview:label];
+            label;
+        });
+        _descLabel = ({
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+            label.backgroundColor = [UIColor clearColor];
+            label.font = [UIFont systemFontOfSize:12];
+            label.textColor = [UIColor blackColor];
+            label.numberOfLines = 1;
             [self addSubview:label];
             label;
         });
@@ -38,18 +50,28 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGSize size = self.frame.size;
-    _titleLabel.frame = CGRectMake(0, 0, size.width, 20);
-    if (size.height > 20) {
-        size.height -= 20;
-    } else {
-        size.height = 0;
+    CGFloat layoutY = 0;
+    if (_titleLabel.text.length > 0) {
+        _titleLabel.frame = CGRectMake(0, layoutY, size.width, 16);
+        layoutY = _titleLabel.bottomY;
     }
-    _displayView.frame = CGRectMake(0, 20, size.width, size.height);
+    if (_descLabel.text.length > 0) {
+        _descLabel.frame = CGRectMake(0, layoutY, size.width, 16);
+        layoutY = _descLabel.bottomY;
+    }
+    _displayView.frame = CGRectMake(0, layoutY, size.width, size.height - layoutY);
+}
+
+- (void)setTitle:(NSString *)title {
+    _titleLabel.text = title;
+}
+- (NSString *)title {
+    return _titleLabel.text;
 }
 
 - (void)setTimeValuePath:(GYDTimeValuePath *)timeValuePath {
     _displayView.timeValuePath = timeValuePath;
-    _titleLabel.text = [timeValuePath description];
+    _descLabel.text = [timeValuePath description];
 }
 - (GYDTimeValuePath *)timeValuePath {
     return _displayView.timeValuePath;

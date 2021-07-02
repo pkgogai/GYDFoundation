@@ -24,7 +24,10 @@ typedef id _Nullable (^GYDCustomFunctionActionBlock)(id _Nullable arg);
 /** 通过key-value的方式设置block，别忘了block中要用到对象自身时一定要weak */
 - (void)gyd_setFunction:(nonnull NSString *)functionName withAction:(nonnull GYDCustomFunctionActionBlock)action;
 
-/** 通过key找到block并执行 */
+/** 通过key找到block并执行，找不到会报错，下面的方法找不到会跳过 */
 - (nullable id)gyd_callFunction:(nonnull NSString *)functionName withArg:(nullable id)arg;
+
+/** 通过key查找block，如果有就执行 */
+- (nullable id)gyd_callFunctionIfExists:(nonnull NSString *)functionName withArg:(nullable id)arg;
 
 @end
