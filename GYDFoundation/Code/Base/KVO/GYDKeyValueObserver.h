@@ -31,13 +31,13 @@
  
  */
 
-typedef void(^GYDKeyValueObserverChangeBlock)(NSDictionary<NSKeyValueChangeKey, id> * _Nullable change);
+typedef void(^GYDKeyValueObserverChangeBlock)(id _Nullable object, NSDictionary<NSKeyValueChangeKey, id> * _Nullable change);
 
 @interface GYDKeyValueObserver : NSObject
 
 /**
  监听obj的keyPath对应值的变化。
- 注意block内不要循环引用。
+ 注意block对外面对象的引用。
  obj和action为nil的话，return nil。
  */
 + (nonnull instancetype)observerForObject:(nonnull id)obj keyPath:(nonnull NSString *)keyPath options:(NSKeyValueObservingOptions)options changeAction:(nonnull GYDKeyValueObserverChangeBlock)action;

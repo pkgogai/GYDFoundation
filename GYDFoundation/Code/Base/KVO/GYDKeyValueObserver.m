@@ -43,7 +43,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (self.action) {
-        self.action(change);
+        self.action(object, change);
     }
 }
 
