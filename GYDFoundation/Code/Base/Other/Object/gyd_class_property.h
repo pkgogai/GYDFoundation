@@ -9,7 +9,14 @@
 #ifndef gyd_class_property_h
 #define gyd_class_property_h
 
+#include <objc/runtime.h>
 #include <objc/objc.h>
+
+/** 方法交换 */
+bool gyd_exchangeSelector(Class oClass, SEL oSelector, Class sClass, SEL sSelector);
+
+/** 类方法交换 */
+bool gyd_exchangeClassSelector(Class oClass, SEL oClassSelector, Class sClass, SEL sClassSelector);
 
 /** 遍历所有的子类（不包括本类）。没缓存，一次性的，效率低，应只在开发时使用。 */
 void gyd_class_enumerateSubClass(Class _Nonnull superClass, void (^ _Nonnull block)(Class _Nonnull subClass, BOOL * _Nonnull stop));
