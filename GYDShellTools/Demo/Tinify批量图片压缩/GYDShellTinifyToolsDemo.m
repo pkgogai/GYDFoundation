@@ -12,7 +12,7 @@
 
 @implementation GYDShellTinifyToolsDemo
 
-+ (int)exampleMainWithArgc:(int)argc argv:(const char * _Nonnull * _Nonnull)argv; {
++ (int)exampleMainArgc:(int)argc argv:(const char * _Nonnull * _Nonnull)argv {
     GYDShellArgKeyValueHandler *argHanlder = [[GYDShellArgKeyValueHandler alloc] initWithArgc:argc argv:argv];
     if ([argHanlder argCount] == 1) {
         printf("\n------- 压缩图片 --------\n");

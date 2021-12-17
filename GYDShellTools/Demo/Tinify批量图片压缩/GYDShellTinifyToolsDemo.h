@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GYDShellTinifyToolsDemo : NSObject
 
-+ (int)exampleMainWithArgc:(int)argc argv:(const char * _Nonnull * _Nonnull)argv;
++ (int)exampleMainArgc:(int)argc argv:(const char * _Nonnull * _Nonnull)argv;
 
 @end
 
