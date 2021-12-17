@@ -13,6 +13,48 @@
 #include <objc/NSObject.h>  //NSObject
 //#import <Foundation/Foundation.h> //这个包含了stdlib.h，string.h，NSObject.h
 
+/** 方法交换 */
+bool gyd_exchangeSelector(Class oClass, SEL oSelector, Class sClass, SEL sSelector) {
+    if (!oClass) {
+        return false;
+    }
+    if (!sClass) {
+        return false;
+    }
+    
+    Method originalMethod = class_getInstanceMethod(oClass, oSelector);
+    Method swizzledMethod = class_getInstanceMethod(sClass, sSelector);
+
+    IMP oIMP = method_getImplementation(originalMethod);
+    IMP sIMP = method_getImplementation(swizzledMethod);
+    
+    const char *oType = method_getTypeEncoding(originalMethod);
+    const char *sType = method_getTypeEncoding(swizzledMethod);
+    
+    class_replaceMethod(oClass, oSelector, sIMP, sType);
+    class_replaceMethod(oClass, sSelector, oIMP, oType);
+    return true;
+}
+
+/** 类方法交换 */
+bool gyd_exchangeClassSelector(Class oClass, SEL oClassSelector, Class sClass, SEL sClassSelector) {
+    Class oMetacls = objc_getMetaClass(NSStringFromClass(oClass).UTF8String);
+    Class sMetacls = objc_getMetaClass(NSStringFromClass(sClass).UTF8String);
+    
+    Method originalMethod = class_getInstanceMethod(oMetacls, oClassSelector);
+    Method swizzledMethod = class_getInstanceMethod(sMetacls, sClassSelector);
+
+    IMP oIMP = method_getImplementation(originalMethod);
+    IMP sIMP = method_getImplementation(swizzledMethod);
+    
+    const char *oType = method_getTypeEncoding(originalMethod);
+    const char *sType = method_getTypeEncoding(swizzledMethod);
+        
+    class_replaceMethod(oMetacls, oClassSelector, sIMP, sType);
+    class_replaceMethod(oMetacls, sClassSelector, oIMP, oType);
+    return true;
+}
+
 /** 遍历所有的子类（不包括本类）。没缓存，一次性的，效率低，应只在开发时使用。 */
 void gyd_class_enumerateSubClass(Class _Nonnull superClass, void (^ _Nonnull block)(Class _Nonnull subClass, BOOL * _Nonnull stop)) {
     if (!block) {
