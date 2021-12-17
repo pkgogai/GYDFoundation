@@ -150,38 +150,15 @@
 
 
 + (int)executeShellPath:(nullable NSString *)shellPath command:(nonnull NSString *)command standardOutput:(out NSString * _Nullable * _Nullable)output standardError:(out NSString * _Nullable * _Nullable)error {
-    if (shellPath.length < 1) {
-        shellPath = @"/bin/zsh";
-    }
-    NSTask *task = [[NSTask alloc] init];
-    task.launchPath = shellPath;
-    task.arguments = @[@"-c", command];
-    
-    NSFileHandle *outputFileHandle = nil;
-    NSFileHandle *errorFileHandle = nil;
+    GYDShellTask *task = [[self alloc] init];
+    int r = [task executeShellPath:shellPath command:command progress:nil];
     if (output) {
-        NSPipe *pipe = [NSPipe pipe];
-        outputFileHandle = [pipe fileHandleForReading];
-        task.standardOutput = pipe;
+        *output = task.standardOutput;
     }
     if (error) {
-        NSPipe *pipe = [NSPipe pipe];
-        errorFileHandle = [pipe fileHandleForReading];
-        task.standardError = pipe;
+        *error = task.standardError;
     }
-    
-    [task launch];
-    
-    if (output) {
-        NSData *data = [outputFileHandle readDataToEndOfFile];
-        *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    if (error) {
-        NSData *data = [errorFileHandle readDataToEndOfFile];
-        *error = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    
-    return task.terminationStatus;
+    return r;
 }
 
 @end
