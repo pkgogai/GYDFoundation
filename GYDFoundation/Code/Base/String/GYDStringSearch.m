@@ -72,6 +72,11 @@
 
 #pragma mark - 针对当前位置的判断，不会修改位置
 
+/** 是否有内容 */
+- (BOOL)hasCurrentCharacter {
+    return _index < _stringLength;
+}
+
 /** 获取当前下标的字符，不移动下标。越界则返回0（\0） */
 - (unichar)currentCharacter {
     return _stringBuffer[_index];   //初始化的时候已经确保\0，并且修改_index时也确保范围了，所以不判断也没关系
@@ -256,6 +261,21 @@
     return NO;
 }
 
+/** 截取一行 */
+- (nullable NSString *)subLine {
+    if (_index >= _stringLength) {
+        return nil;
+    }
+    NSCharacterSet *charset = [NSCharacterSet newlineCharacterSet];
+    NSString *str = [self subStringToCharacterSet:charset indexMoveToRight:YES];
+    if (str) {
+//        [self skipCharacterInCharacterSet:charset ignoreWhitespaceCharacters:NO];
+        return str;
+    } else {
+        return [self subStringWithLength:0];
+    }
+}
+
 /** 截取接下来符合characterSet的字符串 */
 - (nullable NSString *)subStringInCharacterSet:(nonnull NSCharacterSet *)characterSet {
     NSInteger i = _index;
@@ -427,6 +447,9 @@
     if ([self hasCurrentString:@"/*"]) {
         _index += 2;
         desc = [self subStringToString:@"*/"];
+        if ([desc hasPrefix:@"*"]) {
+            desc = [desc substringFromIndex:1];
+        }
     } else if ([self hasCurrentString:@"//"]) {
         _index += 2;
         desc = [self subStringToString:@"\n"];

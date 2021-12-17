@@ -32,6 +32,9 @@
 
 #pragma mark - 针对当前位置的判断，不会修改位置
 
+/** 是否有内容，效果等同于 currentCharacter != 0 */
+- (BOOL)hasCurrentCharacter;
+
 /** 获取当前下标的字符，不移动下标。修改index时做了判断，所以不会越界。末尾返回0（\0） */
 - (unichar)currentCharacter;
 
@@ -73,6 +76,10 @@
 - (nonnull NSString *)subStringWithLength:(NSInteger)length;
 //一定是YES
 - (BOOL)getSubString:(NSString *_Nullable *_Nonnull)subString withLength:(NSInteger)length;
+
+/** 截取一行 */
+- (nullable NSString *)subLine;
+
 
 /** 截取接下来符合characterSet的字符串 */
 - (nullable NSString *)subStringInCharacterSet:(nonnull NSCharacterSet *)characterSet;

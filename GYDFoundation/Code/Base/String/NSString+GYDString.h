@@ -29,6 +29,9 @@
 /** 两个字符串是否相同,nil == @"" */
 + (BOOL)gyd_isStringValue:(nullable NSString *)str1 equalToStringValue:(nullable NSString *)str2;
 
+/** 判断字符串是否符合条件，可使用通配符“?”和“*” */
+- (BOOL)gyd_matchingWildcardString:(nonnull NSString *)wildcard;
+
 #pragma mark - 补充容易被误用的缺失方法
 - (long)longValue;
 

@@ -25,7 +25,7 @@ static id<GYDFoundationLogDelegate> _Delegate;
     if ([_Delegate respondsToSelector:@selector(function:line:makeError:)]) {
         [_Delegate function:fun line:line makeError:errorString];
     } else {
-        NSAssert(0, @"** GYDFoundation Error **\n%s %zd %@", fun, line, errorString);
+        NSAssert(0, @"** GYDFoundation Error ** %s %zd %@", fun, line, errorString);
     }
 }
 
@@ -34,7 +34,7 @@ static id<GYDFoundationLogDelegate> _Delegate;
     if ([_Delegate respondsToSelector:@selector(function:line:makeWarning:)]) {
         [_Delegate function:fun line:line makeWarning:warningString];
     } else {
-        NSLog(@"** GYDFoundation Warning **\n%s %zd %@", fun, line, warningString);
+        NSLog(@"** GYDFoundation Warning ** %s %zd %@", fun, line, warningString);
     }
 }
 
@@ -43,7 +43,7 @@ static id<GYDFoundationLogDelegate> _Delegate;
     if ([_Delegate respondsToSelector:@selector(function:line:makeInfo:)]) {
         [_Delegate function:fun line:line makeInfo:infoString];
     } else {
-        NSLog(@"** GYDFoundation Info **\n%s %zd %@", fun, line, infoString);
+        NSLog(@"** GYDFoundation Info ** %s %zd %@", fun, line, infoString);
     }
 }
 

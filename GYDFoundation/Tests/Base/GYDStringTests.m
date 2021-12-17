@@ -48,9 +48,43 @@
     
     tmp = [str gyd_substringWithIndex:-100 length:2];
     XCTAssert([tmp isEqualToString:@""]);
-    
-    
 }
+
+- (void)testMatch {
+    NSString *str = @"12345";
+    NSArray *matchingArray = @[
+        //符合条件
+        @"12345", @"*", @"*5", @"1*5", @"1*", @"*12345", @"12*345", @"12345*", @"1*3*", @"1**5", @"*12*5", @"?2345", @"1??45", @"123??", @"1*4?", @"1?*345", @"1?*5", @"?2345",
+        //不符合条件
+        @"1234", @"2345", @"1245", @"1*4", @"1?2345", @"1?45", @""
+    ];
+    for (NSString *s in matchingArray) {
+        BOOL r = [str gyd_matchingWildcardString:s];
+        BOOL realR = [[NSPredicate predicateWithFormat:@"SELF LIKE %@", s] evaluateWithObject:str];
+        if (r != realR) {
+            NSLog(@"");
+        }
+        XCTAssert(r == realR);
+    }
+    
+    NSString *oStr = @"12345123451234512345123451234512345123451234512345123451234512345123451234512345123451234512345123645123451234512345123451278345123451234512345123451234512345123451234512345123451234512345123451234512345";
+    NSString *matchStr = @"1*6*7*8*5";
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF LIKE %@", matchStr];
+    NSTimeInterval t1 = [NSDate timeIntervalSinceReferenceDate];
+    for (NSInteger i = 0; i < 100000; i++) {
+        [oStr gyd_matchingWildcardString:matchStr];
+    }
+    NSTimeInterval t2 = [NSDate timeIntervalSinceReferenceDate];
+    for (NSInteger i = 0; i < 100000; i++) {
+        [pre evaluateWithObject:oStr];
+    }
+    NSTimeInterval t3 = [NSDate timeIntervalSinceReferenceDate];
+    NSLog(@"%lf, %lf", t2 - t1, t3 - t2);
+    //iMac (Retina 5K, 27-inch, 2020)3.8 GHz 八核Intel Core i7
+    //0.093964, 0.473417
+}
+
+
 
 - (void)testEqual {
     XCTAssert([NSString gyd_isString:@"" equalToString:@""]);

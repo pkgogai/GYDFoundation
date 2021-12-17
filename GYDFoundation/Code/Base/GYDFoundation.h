@@ -50,19 +50,19 @@
 @optional
 /**
  函数发生了错误，应该立刻解决。
- 如果不实现则是：NSAssert(0, @"** GYDFoundation Error **\n%s %zd %@", fun, line, errorString);
+ 如果不实现则是：NSAssert(0, @"** GYDFoundation Error ** %s %zd %@", fun, line, errorString);
  */
 - (void)function:(nonnull const char *)fun line:(NSInteger)line makeError:(nonnull NSString *)errorString;
 
 /**
  函数发出了警告，需要注意
- 如果不实现则是：NSLog(@"** GYDFoundation Warning **\n%s %zd %@", fun, line, warningString);
+ 如果不实现则是：NSLog(@"** GYDFoundation Warning ** %s %zd %@", fun, line, warningString);
  */
 - (void)function:(nonnull const char *)fun line:(NSInteger)line makeWarning:(nonnull NSString *)warningString;
 
 /**
  打印信息，默认关闭，如需开启，subspec 加上 Development
- 如果不实现则是：NSLog(@"** GYDFoundation Info **\n%s %zd %@", fun, line, infoString);
+ 如果不实现则是：NSLog(@"** GYDFoundation Info ** %s %zd %@", fun, line, infoString);
  */
 - (void)function:(nonnull const char *)fun line:(NSInteger)line makeInfo:(nonnull NSString *)infoString;
 
