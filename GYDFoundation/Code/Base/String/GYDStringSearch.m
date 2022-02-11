@@ -335,12 +335,22 @@
     if (!_tmpBuffer) {
         _tmpBuffer = malloc((_stringLength + 1) * sizeof(unichar));
     }
+    char *tmpCBuffer = NULL;
+    int tmpCBufferLength = 0;
+    int tmpCBufferIndex = 0;
+    
     NSInteger resultLength = 0;
     NSInteger searchIndex = _index;
-    
+    NSInteger lastHalfChatIndex = -10;
     while (searchIndex < _stringLength) {
         if (_stringBuffer[searchIndex] == character) {
             _index = searchIndex + 1;
+            if (tmpCBuffer) {
+                tmpCBuffer[tmpCBufferIndex] = '\0';
+                moveCharsToUnichars(tmpCBuffer, _tmpBuffer, &resultLength);
+                free(tmpCBuffer);
+            }
+            _tmpBuffer[resultLength] = '\0';
             return [NSString stringWithCharacters:_tmpBuffer length:resultLength];
         } else if (_stringBuffer[searchIndex] == '\\') {
             //跳过转义
@@ -359,26 +369,52 @@
                 }
                 tmpChar = _stringBuffer[searchIndex];
                 if (is16HexCharacter(tmpChar)) {
-                    _tmpBuffer[resultLength] = valueOfHexCharacter(tmpChar);
+                    if (!tmpCBuffer) {
+                        tmpCBuffer = malloc(sizeof(char) * 255);
+                        tmpCBufferLength = 255;
+                        tmpCBufferIndex = 0;
+                    } else if (tmpCBufferIndex + 1 > tmpCBufferLength) {
+                        tmpCBufferLength += 255;
+                        tmpCBuffer = realloc(tmpCBuffer, sizeof(char) * tmpCBufferLength);
+                    }
+                    char *c = tmpCBuffer + tmpCBufferIndex;
+                    tmpCBufferIndex ++;
+                    c[0] = valueOfHexCharacter(tmpChar);
                     searchIndex ++;
                     if (searchIndex >= _stringLength) {
                         break;
                     }
                     tmpChar = _stringBuffer[searchIndex];
                     if (is16HexCharacter(tmpChar)) {
-                        _tmpBuffer[resultLength] = _tmpBuffer[resultLength] * 16 + valueOfHexCharacter(tmpChar);
+                        c[0] = c[0] * 16 + valueOfHexCharacter(tmpChar);
                         searchIndex ++;
                     }
-                    resultLength ++;
                 } else {
+                    if (tmpCBuffer) {
+                        tmpCBuffer[tmpCBufferIndex] = '\0';
+                        moveCharsToUnichars(tmpCBuffer, _tmpBuffer, &resultLength);
+                        free(tmpCBuffer);
+                        tmpCBuffer = NULL;
+                        tmpCBufferIndex = 0;
+                        tmpCBufferLength = 0;
+                    }
                     //\x后面却没有接16进制的内容，当成\0处理？
                     _tmpBuffer[resultLength ++] = 0;
                 }
                 
             } else if (tmpChar >= '0' && tmpChar <= '7') {  //\0只是\???中的一个特例而已\077等同于\77
                 //1~3位8进制
-                
-                _tmpBuffer[resultLength] = valueOfHexCharacter(tmpChar);
+                if (!tmpCBuffer) {
+                    tmpCBuffer = malloc(sizeof(char) * 255);
+                    tmpCBufferLength = 255;
+                    tmpCBufferIndex = 0;
+                } else if (tmpCBufferIndex + 1 > tmpCBufferLength) {
+                    tmpCBufferLength += 255;
+                    tmpCBuffer = realloc(tmpCBuffer, sizeof(char) * tmpCBufferLength);
+                }
+                char *c = tmpCBuffer + tmpCBufferIndex;
+                tmpCBufferIndex ++;
+                c[0] = valueOfHexCharacter(tmpChar);
                 
                 searchIndex ++;
                 if (searchIndex >= _stringLength) {
@@ -387,7 +423,7 @@
                 tmpChar = _stringBuffer[searchIndex];
                 
                 if (is8HexCharacter(tmpChar)) {
-                    _tmpBuffer[resultLength] = _tmpBuffer[resultLength] * 8 + valueOfHexCharacter(tmpChar);
+                    c[0] = c[0] * 8 + valueOfHexCharacter(tmpChar);
                     
                     searchIndex ++;
                     if (searchIndex >= _stringLength) {
@@ -396,12 +432,19 @@
                     tmpChar = _stringBuffer[searchIndex];
                     
                     if (is8HexCharacter(tmpChar)) {
-                        _tmpBuffer[resultLength] = _tmpBuffer[resultLength] * 8 + valueOfHexCharacter(tmpChar);
+                        c[0] = c[0] * 8 + valueOfHexCharacter(tmpChar);
+                        searchIndex ++;
                     }
                 }
-                
-                resultLength ++;
             } else {
+                if (tmpCBuffer) {
+                    tmpCBuffer[tmpCBufferIndex] = '\0';
+                    moveCharsToUnichars(tmpCBuffer, _tmpBuffer, &resultLength);
+                    free(tmpCBuffer);
+                    tmpCBuffer = NULL;
+                    tmpCBufferIndex = 0;
+                    tmpCBufferLength = 0;
+                }
                 if (tmpChar == 'a') {
                     _tmpBuffer[resultLength ++] = '\a';
                 } else if (tmpChar == 'b') {
@@ -422,12 +465,29 @@
                 searchIndex ++;
             }
         } else {
+            if (tmpCBuffer) {
+                tmpCBuffer[tmpCBufferIndex] = '\0';
+                moveCharsToUnichars(tmpCBuffer, _tmpBuffer, &resultLength);
+                free(tmpCBuffer);
+                tmpCBuffer = NULL;
+                tmpCBufferIndex = 0;
+                tmpCBufferLength = 0;
+            }
             _tmpBuffer[resultLength ++] = _stringBuffer[searchIndex];
             searchIndex ++;
         }
     }
+    if (tmpCBuffer) {
+        tmpCBuffer[tmpCBufferIndex] = '\0';
+        moveCharsToUnichars(tmpCBuffer, _tmpBuffer, &resultLength);
+        free(tmpCBuffer);
+        tmpCBuffer = NULL;
+        tmpCBufferIndex = 0;
+        tmpCBufferLength = 0;
+    }
     if (character == 0) {
         _index = searchIndex;
+        _tmpBuffer[resultLength] = '\0';
         return [NSString stringWithCharacters:_tmpBuffer length:resultLength];
     }
     return nil;
@@ -502,5 +562,10 @@ static unichar valueOfHexCharacter (unichar c) {
     return 0;
 }
 
+static void moveCharsToUnichars(char *fromChars, unichar *toUnichars, NSInteger * atIndex) {
+    NSString *str = [NSString stringWithUTF8String:fromChars];
+    [str getCharacters:toUnichars + (*atIndex)];
+    *atIndex = (*atIndex) + str.length;
+}
 
 @end
