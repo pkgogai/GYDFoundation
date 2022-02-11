@@ -19,6 +19,8 @@ typedef void(^GYDShellTaskProgressBlock)(NSString * _Nullable outputItem, NSStri
  */
 @interface GYDShellTask : NSObject
 
+@property (nonatomic, copy, nullable) NSURL *currentDirectoryURL API_AVAILABLE(macos(10.13)) API_UNAVAILABLE(ios, watchos, tvos);
+
 /** 每次执行command时创建，之后输出都积累到这里 */
 @property (nonatomic, readonly, strong, nullable) NSMutableString * standardOutput;
 @property (nonatomic, readonly, strong, nullable) NSMutableString * standardError;

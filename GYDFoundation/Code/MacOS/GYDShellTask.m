@@ -46,6 +46,13 @@
     
     _task = [[NSTask alloc] init];
     _task.launchPath = shellPath;
+    
+    if (@available(macOS 10.13, *)) {
+        if (self.currentDirectoryURL) {
+            _task.currentDirectoryURL = self.currentDirectoryURL;
+        }
+    }
+    
     _task.arguments = @[@"-c", command];
     
     NSPipe *pipe = [NSPipe pipe];
