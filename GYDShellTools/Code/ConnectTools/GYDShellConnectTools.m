@@ -36,7 +36,10 @@
     dispatch_semaphore_t lock = dispatch_semaphore_create(0);
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [connect startInConnectQueue:nil withSession:nil requestConfig:^(GYDSimpleHttpConnect * _Nonnull connect, NSMutableURLRequest * _Nonnull request) {
+        
+        GYDSimpleHttpConnectSession * connectSession = [[GYDSimpleHttpConnectSession alloc] initWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration] delegateQueue:[NSOperationQueue currentQueue]];
+        
+        [connect startInConnectQueue:nil withSession:connectSession requestConfig:^(GYDSimpleHttpConnect * _Nonnull connect, NSMutableURLRequest * _Nonnull request) {
             if (self.headerField) {
                 for (NSString *headerKey in self.headerField) {
                     [request setValue:self.headerField[headerKey] forHTTPHeaderField:headerKey];
