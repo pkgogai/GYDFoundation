@@ -373,7 +373,7 @@
                         tmpCBuffer = malloc(sizeof(char) * 255);
                         tmpCBufferLength = 255;
                         tmpCBufferIndex = 0;
-                    } else if (tmpCBufferIndex + 1 > tmpCBufferLength) {
+                    } else if (tmpCBufferIndex + 2 > tmpCBufferLength) {    //最后要留个\0的位置
                         tmpCBufferLength += 255;
                         tmpCBuffer = realloc(tmpCBuffer, sizeof(char) * tmpCBufferLength);
                     }
@@ -408,7 +408,7 @@
                     tmpCBuffer = malloc(sizeof(char) * 255);
                     tmpCBufferLength = 255;
                     tmpCBufferIndex = 0;
-                } else if (tmpCBufferIndex + 1 > tmpCBufferLength) {
+                } else if (tmpCBufferIndex + 2 > tmpCBufferLength) {    //最后要留个\0的位置
                     tmpCBufferLength += 255;
                     tmpCBuffer = realloc(tmpCBuffer, sizeof(char) * tmpCBufferLength);
                 }
