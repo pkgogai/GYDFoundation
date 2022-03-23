@@ -72,7 +72,7 @@
     }
     
     //左
-    if (arrowForword == 1) {
+    if (arrowForword == 3) {
         CGContextAddLineToPoint(context, left, arrowLocation.y + fx[arrowForword]);
         CGContextAddLineToPoint(context, left - fx[arrowForword], arrowLocation.y);
         CGContextAddLineToPoint(context, left, arrowLocation.y - fx[arrowForword]);

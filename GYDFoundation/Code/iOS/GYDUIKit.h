@@ -9,7 +9,6 @@
 #import "UIColor+GYDColor.h"
 #import "UIImage+GYDImage.h"
 #import "UIView+GYDSafeArea.h"
-#import "UIView+GYDView.h"
 #import "GYDShapeView.h"
 #import "GYDTableViewCellModel.h"
 #import "GYDTableViewCellView.h"

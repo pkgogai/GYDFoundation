@@ -49,7 +49,7 @@
         GYDFoundationError(@"必须先设置，后调用");
         return nil;
     }
-    return action(arg);
+    return action(self, arg);
 }
 
 /** 通过key查找block，如果有就执行 */
@@ -63,7 +63,7 @@
     if (!action) {
         return nil;
     }
-    return action(arg);
+    return action(self, arg);
 }
 
 @end

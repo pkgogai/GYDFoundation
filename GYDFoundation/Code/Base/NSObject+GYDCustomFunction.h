@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef id _Nullable (^GYDCustomFunctionActionBlock)(id _Nullable arg);
+typedef id _Nullable (^GYDCustomFunctionActionBlock)(id _Nonnull obj, id _Nullable arg);
 
 /**
  为NSObject对象扩展自定义的方法
