@@ -41,9 +41,9 @@
 
 #pragma mark - 增
 
-/** 插入数据{@"列1":@"值1", @"列2":@"值2", ……} */
-+ (BOOL)inDatabase:(nonnull FMDatabase *)db insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic;
-- (BOOL)insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic;
+/** 插入数据{@"列1":@"值1", @"列2":@"值2", ……}，返回行号，0失败，>0成功 */
++ (int64_t)inDatabase:(nonnull FMDatabase *)db insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic;
+- (int64_t)insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic;
 
 
 #pragma mark - 删

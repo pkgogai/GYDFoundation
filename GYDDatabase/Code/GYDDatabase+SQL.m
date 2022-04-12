@@ -5,7 +5,7 @@
 //  Created by 宫亚东 on 2018/11/1.
 //
 
-#import "GYDDatabase.h"
+#import "GYDDatabase+SQL.h"
 #import "GYDFoundationPrivateHeader.h"
 #import <fmdb/FMDB.h>
 
@@ -235,7 +235,7 @@
 
 #pragma mark - 增
 /** 插入数据{@"列1":@"值1", @"列2":@"值2", ……} */
-+ (BOOL)inDatabase:(nonnull FMDatabase *)db insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic {
++ (int64_t)inDatabase:(nonnull FMDatabase *)db insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic {
     table = columnEscapeWithQuote(table);
     NSMutableString *keyStr = [NSMutableString string];
     NSMutableString *valueStr = [NSMutableString string];
@@ -258,11 +258,12 @@
     BOOL r = [db executeUpdate:sql withArgumentsInArray:argumentArray];
     if (!r) {
         GYDFoundationError(@"数据库操作失败:[ErrCode:]%d [Msg:]%@\n[SQL:]%@", [db lastErrorCode], [db lastErrorMessage], sql);
+        return 0;
     }
-    return r;
+    return [db lastInsertRowId];
 }
-- (BOOL)insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic {
-    __block BOOL r = NO;
+- (int64_t)insertIntoTable:(nonnull NSString *)table setDic:(nonnull NSDictionary *)dic {
+    __block int64_t r = 0;
     [self inDatabase:^(FMDatabase *db) {
         r = [GYDDatabase inDatabase:db insertIntoTable:table setDic:dic];
     }];
@@ -537,7 +538,7 @@
     } else {
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:whereDic];
         [dic addEntriesFromDictionary:dataDic];
-        r = [GYDDatabase inDatabase:db insertIntoTable:table setDic:dic];
+        r = [GYDDatabase inDatabase:db insertIntoTable:table setDic:dic] > 0;
     }
     return r;
 }
