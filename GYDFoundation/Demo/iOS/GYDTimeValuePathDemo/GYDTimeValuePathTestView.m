@@ -118,7 +118,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = 0;
                            path.velocity = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：标准";
                            }];
                            path;
@@ -127,7 +127,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = 0;
                            path.velocity = 0;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：不动";
                            }];
                            path;
@@ -136,7 +136,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = -0.5;
                            path.velocity = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：原点偏下";
                            }];
                            path;
@@ -145,7 +145,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = 0.5;
                            path.velocity = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：原点偏上";
                            }];
                            path;
@@ -154,7 +154,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = -0.5;
                            path.velocity = -0.5;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：原点偏下，反向，慢速";
                            }];
                            path;
@@ -163,7 +163,7 @@
                            GYDUniformVelocityTimeValuePath *path = [[GYDUniformVelocityTimeValuePath alloc] init];
                            path.originValue = 0.5;
                            path.velocity = 0.5;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀速移动：原点偏上，慢速";
                            }];
                            path;
@@ -206,7 +206,7 @@
                            path.originValue = 0;
                            path.originTime = 0;
                            path.acceleration = 0;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀加速移动：平";
                            }];
                            path;
@@ -216,7 +216,7 @@
                            path.originValue = 0.5;
                            path.originTime = -0.5;
                            path.acceleration = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀加速移动：原点偏左上";
                            }];
                            path;
@@ -226,7 +226,7 @@
                            path.originValue = 0.5;
                            path.originTime = -0.5;
                            path.acceleration = -1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀加速移动：原点偏左上，反向加速";
                            }];
                            path;
@@ -236,7 +236,7 @@
                            path.originValue = -0.5;
                            path.originTime = 0.5;
                            path.acceleration = -0.5;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"匀加速移动：原点偏右下，反向加速慢";
                            }];
                            path;
@@ -253,7 +253,7 @@
                            path.originValue = 0;
                            path.radius = 1;
                            path.rotationRate = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"正弦移动：标准";
                            }];
                            path;
@@ -264,7 +264,7 @@
                            path.originValue = -0.5;
                            path.radius = 0.5;
                            path.rotationRate = 1;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"正弦移动：原点偏左下，偏移低";
                            }];
                            path;
@@ -275,7 +275,7 @@
                            path.originValue = 0.5;
                            path.radius = 1;
                            path.rotationRate = 2;
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"正弦移动：原点偏右上，频率加倍";
                            }];
                            path;
@@ -292,10 +292,10 @@
                            path.backAcceleratedVelocity = 20;
                            path.minUniformVelocity = 1;
                            [path startDecelerateWithVelocity:2 value:0 targetTimeValue:nil];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：标准";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;
@@ -309,10 +309,10 @@
                            [path startDecelerateWithVelocity:2 value:0 targetTimeValue:^(NSTimeInterval offsetTime, CGFloat * _Nonnull value) {
                                *value = *value / 2;
                            }];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：停到更近";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;
@@ -326,10 +326,10 @@
                            [path startDecelerateWithVelocity:2 value:0 targetTimeValue:^(NSTimeInterval offsetTime, CGFloat * _Nonnull value) {
                                *value = *value * 4;
                            }];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：移动到更远再停";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;
@@ -343,10 +343,10 @@
                            [path startDecelerateWithVelocity:2 value:0 targetTimeValue:^(NSTimeInterval offsetTime, CGFloat * _Nonnull value) {
                                *value = *value / 5;
                            }];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：停到太近，回弹效果";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;
@@ -360,10 +360,10 @@
                            [path startDecelerateWithVelocity:1 value:0 targetTimeValue:^(NSTimeInterval offsetTime, CGFloat * _Nonnull value) {
                                *value = *value * 8;
                            }];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：停到太远，先加速移动再减速停止";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;
@@ -377,10 +377,10 @@
                            [path startDecelerateWithVelocity:1 value:0 targetTimeValue:^(NSTimeInterval offsetTime, CGFloat * _Nonnull value) {
                                *value = -*value * 8;
                            }];
-                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"title" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return @"减速停止移动：停到反向";
                            }];
-                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nullable arg) {
+                           [path gyd_setFunction:@"rect" withAction:^id _Nullable(id  _Nonnull obj, id  _Nullable arg) {
                                return NSStringFromCGRect(CGRectMake(0, -1, 2, 2));
                            }];
                            path;

@@ -10,6 +10,7 @@
 #import "GYDUIKit.h"
 #import "GYDDecelerateTimeValuePath.h"
 #import "GYDTimeValuePathTimer.h"
+#import "UIView+GYDView.h"
 
 @interface GYDDecelerateTimeValuePathDemoViewController ()<UIScrollViewDelegate, GYDTimeValuePathTimerDelegate>
 
