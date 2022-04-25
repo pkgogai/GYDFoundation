@@ -28,22 +28,23 @@
 #import "GYDLog.h"
 
 
-//数据库
-#if GYD_FOUNDATION_USED_DATABASE == 1
-#import "GYDDatabase.h"
-#import "GYDDatabase+SQL.h"
-#import "GYDDatabase+Version.h"
-#endif
-
-//http链接
-#if GYD_FOUNDATION_USED_HTTPCONNECT == 1
-#import "GYDSimpleHttpConnect.h"
-#endif
-
-//json-model互转
-#if GYD_FOUNDATION_USED_JSON_OBJECT == 1
-#import "NSObject+GYDJSONObject.h"
-#endif
+// GYD_FOUNDATION_USED_DATABASE 只在POD项目里有效，所以这里引了也没用
+////数据库
+//#if GYD_FOUNDATION_USED_DATABASE == 1
+//#import "GYDDatabase.h"
+//#import "GYDDatabase+SQL.h"
+//#import "GYDDatabase+Version.h"
+//#endif
+//
+////http链接
+//#if GYD_FOUNDATION_USED_HTTPCONNECT == 1
+//#import "GYDSimpleHttpConnect.h"
+//#endif
+//
+////json-model互转
+//#if GYD_FOUNDATION_USED_JSON_OBJECT == 1
+//#import "NSObject+GYDJSONObject.h"
+//#endif
 
 @protocol GYDFoundationLogDelegate <NSObject>
 

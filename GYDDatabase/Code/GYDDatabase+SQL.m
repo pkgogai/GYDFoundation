@@ -31,7 +31,7 @@
 //}
 #endif
 
-#define GYDDatabaseLogSQL(sql) NSLog(@"%@", sql)
+#define GYDDatabaseLogSQL(sql) GYDFoundationInfo(@"%@", sql)
 
 
 
