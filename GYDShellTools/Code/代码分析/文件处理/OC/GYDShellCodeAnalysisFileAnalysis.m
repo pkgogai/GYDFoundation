@@ -50,6 +50,7 @@
         item.createTime = fileItem.creatTime;
         item.author = fileItem.author;
         item.fileName = fileItem.fileName;
+        item.lineNumber = c.lineNumber;
         
         item.includeTypes = [NSMutableSet set];
         if (c.superClassName.length > 0) {
@@ -79,6 +80,7 @@
         NSInteger backupIndex = i;
         if ([word.word isEqualToString:@"@interface"]) {
             _currentClass = [[GYDShellCodeAnalysisClassItem alloc] init];
+            _currentClass.lineNumber = word.lineNumber;
             _currentClass.classDesc = [self descBeforeIndex:word.lineNumber breakIndex:(backupIndex > 0) ? wordArray[backupIndex - 1].lineNumber : 0];
             _currentClass.includeTypes = [NSMutableSet set];
             [_currentFile.classArray addObject:_currentClass];
@@ -94,6 +96,7 @@
             } else if ([@"(" isEqualToString:wordArray[i + 1].word]) {
                 if ([@")" isEqualToString:wordArray[i + 2].word]) {
                     i += 2;
+                    _currentClass.categoryName = @"";
                 } else if ([@")" isEqualToString:wordArray[i + 3].word]) {
                     _currentClass.categoryName = wordArray[i + 2].word;
                     i += 3;

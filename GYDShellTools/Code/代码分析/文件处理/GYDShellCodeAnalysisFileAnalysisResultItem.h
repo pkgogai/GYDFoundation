@@ -27,6 +27,8 @@ GYDJSONProperty(NSString *, author);
 
 GYDJSONProperty(NSString *, fileName);
 
+GYDJSONProperty(NSInteger, lineNumber);
+
 GYDJSONProperty(BOOL, hasLoadFun);
 
 @property (nonatomic, strong) NSMutableSet<NSString *> *includeTypes;

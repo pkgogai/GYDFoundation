@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSMutableSet<NSString *> *includeTypes;
 
-//@property (nonatomic) NSInteger lineNumber;
+@property (nonatomic) NSInteger lineNumber;
 
 @end
 

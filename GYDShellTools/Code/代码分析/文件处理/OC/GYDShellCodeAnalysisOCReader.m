@@ -68,6 +68,9 @@
             GYDStringSearch *fileSearch = [[GYDStringSearch alloc] initWithString:str];
             fileSearch.index++;
             if ([fileSearch hasCurrentString:@"pragma"]) {
+                if (inFile) {
+                    line++;
+                }
                 continue;
             }
             [fileSearch skipWhitespaceCharacters];
