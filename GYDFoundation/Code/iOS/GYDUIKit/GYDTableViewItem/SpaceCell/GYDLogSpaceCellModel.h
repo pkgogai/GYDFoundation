@@ -6,9 +6,9 @@
 //  Copyright © 2018年 宫亚东. All rights reserved.
 //
 
-#import "GYDLogTableViewCellModel.h"
+#import "GYDTableViewCellModel.h"
 
-@interface GYDLogSpaceCellModel : GYDLogTableViewCellModel
+@interface GYDLogSpaceCellModel : GYDTableViewCellModel
 
 @property (nonatomic) UIColor *color;
 @property (nonatomic) CGFloat height;
