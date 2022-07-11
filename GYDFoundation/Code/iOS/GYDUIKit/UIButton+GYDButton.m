@@ -13,8 +13,8 @@
 
 static char UIButtonGYDButtonActionBlockKey;
 - (void)gyd_setClickActionBlock:(nonnull UIButtonGYDButtonActionBlock)block {
-    [self removeTarget:self action:@selector(gyd_doTouchUpInsideAction) forControlEvents:UIControlEventTouchUpInside];
-    [self addTarget:self action:@selector(gyd_doTouchUpInsideAction) forControlEvents:UIControlEventTouchUpInside];
+    [self removeTarget:self action:@selector(gyd_doClickAction) forControlEvents:UIControlEventTouchUpInside];
+    [self addTarget:self action:@selector(gyd_doClickAction) forControlEvents:UIControlEventTouchUpInside];
     
     objc_setAssociatedObject(self, &UIButtonGYDButtonActionBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
