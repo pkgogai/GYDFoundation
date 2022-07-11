@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
   end
-  #json-model互转
+  #组件化接口
   s.subspec 'GYDModuleInterface' do |ss|
     ss.source_files = 'GYDModuleInterface/Code/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
@@ -67,11 +67,12 @@ Pod::Spec.new do |s|
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_DATABASE_NEED_ESCAPE=0'}
   end
   
+  #开发模式，如打印多余日志等
   s.subspec 'Development' do |ss|
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_DEVELOPMENT=1'}
   end
-  
+
   #单元测试
   s.test_spec 'Tests' do |ss|
     ss.source_files = 'GYDFoundation/Tests/Placeholder/**/*'
@@ -139,6 +140,10 @@ Pod::Spec.new do |s|
     ss.subspec 'GYDShellTools' do |demo|
       demo.dependency 'GYDFoundation/GYDShellTools'
       demo.source_files = 'GYDShellTools/Demo/**/*'
+    end
+    ss.subspec 'GYDModuleInterface' do |demo|
+      demo.dependency 'GYDFoundation/GYDModuleInterface'
+      demo.source_files = 'GYDModuleInterface/Demo/**/*'
     end
   end
 end

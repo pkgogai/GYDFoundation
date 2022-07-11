@@ -3,10 +3,15 @@ platform :ios, "8.0"
 def pods
   pod 'GYDFoundation', 
     :path => '../', 
-    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject',], 
+    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject'], 
     :subspecs => ['iOSDemo']
 end
 
 target 'iOSExample' do 
   pods
+end
+
+post_install do |installer|
+    installer.pods_project.root_object.attributes["CLASSPREFIX"] = "GYD"
+    installer.pods_project.root_object.attributes["ORGANIZATIONNAME"] = "宫亚东"
 end

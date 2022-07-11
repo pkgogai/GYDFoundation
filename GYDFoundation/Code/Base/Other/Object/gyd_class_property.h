@@ -27,6 +27,9 @@ void gyd_class_enumerateMethod(Class _Nonnull c, BOOL containsSuperClass, void (
 /** 遍历本类的所有属性名 */
 void gyd_class_enumeratePropery(Class _Nonnull c, BOOL containsSuperClass, void (^ _Nonnull block)(const char * _Nonnull properyName, const char * _Nonnull attributes, BOOL * _Nonnull stop));
 
+/** 遍历本类的所有成员变量名 */
+void gyd_class_enumerateIvar(Class _Nonnull c, BOOL containsSuperClass, void (^ _Nonnull block)(const char * _Nonnull name, ptrdiff_t offset, const char * _Nonnull type, BOOL * _Nonnull stop));
+
 //如果不想在外面用free()，那就用block形式的吧
 void gyd_class_getPropertyType_block(const char * _Nonnull attributes, void (^ _Nonnull block)(char * _Nullable className, char * _Nullable type));
 

@@ -34,7 +34,7 @@ protocol className##protocolSuffix; \
         } \
     }); \
     if (!Delegate) { \
-        GYDFoundationWarning(@"[缺少接口]%@", NSStringFromClass([self class])); \
+        GYDFoundationWarning(@"[缺少接口]%@", @#delegateName); \
     } \
     return Delegate; \
 } \

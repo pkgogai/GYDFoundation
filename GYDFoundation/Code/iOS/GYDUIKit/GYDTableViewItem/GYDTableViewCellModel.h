@@ -11,7 +11,7 @@
 
 @class GYDTableViewCellModel;
 
-@protocol GYDTableViewCellModelDelegate
+@protocol GYDTableViewCellModelDelegate<NSObject>
 
 @optional
 
@@ -37,7 +37,7 @@
  */
 @interface GYDTableViewCellModel : NSObject
 
-@property (nonatomic, weak, nullable)   id<NSObject> delegate;
+@property (nonatomic, weak, nullable)   id<GYDTableViewCellModelDelegate> delegate;
 
 //高度缓存，与宽度相对应
 @property (nonatomic) CGFloat cachedHeight;

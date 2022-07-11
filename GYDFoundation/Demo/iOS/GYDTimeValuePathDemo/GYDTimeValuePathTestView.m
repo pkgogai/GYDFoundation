@@ -63,8 +63,8 @@
         view.backgroundColor = [UIColor whiteColor];
         view.timeValuePath = path;
         view.timeValueFrame = CGRectMake(-1, -1, 2, 2);
-        view.title = [path gyd_callFunctionIfExists:@"title" withArg:nil];
-        NSString *rectString = [path gyd_callFunctionIfExists:@"rect" withArg:nil];
+        view.title = [path gyd_callFunctionIfExists:@"title" withArg:nil exist:NULL];
+        NSString *rectString = [path gyd_callFunctionIfExists:@"rect" withArg:nil exist:NULL];
         if (rectString) {
             view.timeValueFrame = CGRectFromString(rectString);
         }

@@ -37,6 +37,14 @@
     [self gyd_customFunctionActionBlockDictionary][functionName] = action;
 }
 
+- (GYDCustomFunctionActionBlock)gyd_ActionForFunction:(nonnull NSString *)functionName {
+    if (!functionName) {
+        GYDFoundationError(@"functionName 不能为空");
+        return nil;
+    }
+    return [self gyd_customFunctionActionBlockDictionary][functionName];
+}
+
 /** 通过key找到block并执行 */
 - (id)gyd_callFunction:(nonnull NSString *)functionName withArg:(nullable id)arg {
     if (!functionName) {
@@ -53,13 +61,16 @@
 }
 
 /** 通过key查找block，如果有就执行 */
-- (nullable id)gyd_callFunctionIfExists:(nonnull NSString *)functionName withArg:(nullable id)arg {
+- (nullable id)gyd_callFunctionIfExists:(nonnull NSString *)functionName withArg:(nullable id)arg exist:(BOOL *)exist {
     if (!functionName) {
         GYDFoundationError(@"functionName 不能为空");
         return nil;
     }
     
     GYDCustomFunctionActionBlock action = [self gyd_customFunctionActionBlockDictionary][functionName];
+    if (exist) {
+        *exist = action ? YES : NO;
+    }
     if (!action) {
         return nil;
     }

@@ -46,11 +46,11 @@ typedef struct {
 
 @end
 
-typedef NS_ENUM(NSUInteger, GYDLogMainLogTypeState) {
-    GYDLogMainLogTypeStateOn,       //全局启用
-    GYDLogMainLogTypeStateOff,      //全局停用
-    GYDLogMainLogTypeStateCustom,   //使用每个type自定义的类型
-};
+//typedef NS_ENUM(NSUInteger, GYDLogMainLogTypeState) {
+//    GYDLogMainLogTypeStateOn,       //全局启用
+//    GYDLogMainLogTypeStateOff,      //全局停用
+//    GYDLogMainLogTypeStateCustom,   //使用每个type自定义的类型
+//};
 
 
 #pragma mark -
@@ -119,13 +119,15 @@ typedef NS_ENUM(NSUInteger, GYDLogMainLogTypeState) {
 /** 设置用于记录log的model类型 */
 @property (nonatomic, class, nullable)    Class<GYDLogItemModelProtocol> logItemModelClass;
 
-/** 获取log数组，新log排在前面，注意，没有copy，没必要的话不要操作，真要操作也要在UI线程进行 */
-@property (nonatomic, class, readonly, nonnull)  NSMutableArray *logCacheArray;
+/** 获取log数组，新log排在前面 */
+@property (nonatomic, class, readonly, nonnull)  NSArray *logCacheArray;
 /** log缓存数组改变时给代理发消息 */
 @property (nonatomic, class, nullable, weak)    id<GYDLogCacheArrayChangedDelegate>logCacheArrayChangedDelegate;
 
 /** log语句，可以在不同线程使用，如果不在主线程，内部会async到主线程处理 */
 + (void)logType:(nullable NSString *)type lv:(NSUInteger)lv fun:(const char *_Nonnull)fun msg:(nonnull NSString *)msg;
 
+/** 缓存的日志内容 */
++ (nonnull NSString *)cachedLogs;
 
 @end

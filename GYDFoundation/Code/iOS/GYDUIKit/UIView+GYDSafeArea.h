@@ -31,6 +31,9 @@
  */
 - (void)gyd_setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
 
+/** 通过gyd_setSafeAreaInsets计算出来的safeArea，可以有负值 */
+- (UIEdgeInsets)gyd_safeAreaInsetsAllowNegative API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
+
 /** 11系统一下，清除设置过的safeArea */
 - (void)gyd_resetSafeAreaInsets API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
 

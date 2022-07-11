@@ -31,6 +31,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 static NSMutableDictionary *ViewControllerDictionary;
 + (void)addViewController:(UIViewController *)viewController{
     if (!ViewControllerDictionary) {

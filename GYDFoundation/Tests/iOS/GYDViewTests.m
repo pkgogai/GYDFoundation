@@ -47,7 +47,7 @@
     
     //父视图设置了，要根据父视图计算
     [view gyd_setSafeAreaInsets:UIEdgeInsetsMake(100, 100, 100, 100)];
-    safeArea = view2.gyd_safeAreaInsets;
+    safeArea = view2.gyd_safeAreaInsetsAllowNegative;
     XCTAssert(safeArea.top == 60, @"top2 错误");
     XCTAssert(safeArea.left == 70, @"left2 错误");
     XCTAssert(safeArea.bottom == 85, @"bottom2 错误");
@@ -59,7 +59,7 @@
     
     UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(3, 4, 221, 221)];
     [view2 addSubview:view3];
-    safeArea = view3.gyd_safeAreaInsets;
+    safeArea = view3.gyd_safeAreaInsetsAllowNegative;
     XCTAssert(safeArea.top == 46, @"top3 错误");
     XCTAssert(safeArea.left == 47, @"left3 错误");
     XCTAssert(safeArea.bottom == 90, @"bottom3 错误");
@@ -67,7 +67,7 @@
     
     
     view2.contentSize = CGSizeMake(80, 80);
-    safeArea = view3.gyd_safeAreaInsets;
+    safeArea = view3.gyd_safeAreaInsetsAllowNegative;
     XCTAssert(safeArea.top == 46, @"top4 错误");
     XCTAssert(safeArea.left == 47, @"left4 错误");
     XCTAssert(safeArea.bottom == 10 + 4 + 221 - 145 + 85, @"bottom4 错误");

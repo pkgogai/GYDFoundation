@@ -55,7 +55,7 @@
  
  停的比max更近：减速max > 终点 > 回弹减速到反向 > [大于匀速则匀速] > 减速 > 停止  去掉匀速阶段，回弹时间长速度慢会难看
  
- 去掉 代理 - (void)decelerateTimeValuePathChanged:(LGDecelerateTimeValuePath *)path; 有需要的话用子类去做
+ 去掉 代理 - (void)decelerateTimeValuePathChanged:(GYDDecelerateTimeValuePath *)path; 有需要的话用子类去做
  */
 
 

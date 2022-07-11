@@ -95,23 +95,27 @@ void gyd_class_enumerateMethod(Class _Nonnull c, BOOL containsSuperClass, void (
     if (!block) {
         return;
     }
-    unsigned int count = 0;
-    Method *methods = class_copyMethodList(c, &count);
     BOOL stop = NO;
-    for (int i =0; i < count; i++) {
-        block(sel_getName(method_getName(methods[i])), &stop);
+    while (c) {
+        unsigned int count = 0;
+        Method *methods = class_copyMethodList(c, &count);
+        
+        for (int i =0; i < count; i++) {
+            block(sel_getName(method_getName(methods[i])), &stop);
+            if (stop) {
+                break;
+            }
+        }
+        if (methods) {
+            free(methods);
+        }
         if (stop) {
-            break;
+            return;
         }
-    }
-    if (methods) {
-        free(methods);
-    }
-    if (containsSuperClass) {
-        Class superClass = class_getSuperclass(c);
-        if (superClass) {
-            gyd_class_enumerateMethod(superClass, YES, block);
+        if (!containsSuperClass) {
+            return;
         }
+        c = class_getSuperclass(c);
     }
 }
 
@@ -120,23 +124,56 @@ void gyd_class_enumeratePropery(Class _Nonnull c, BOOL containsSuperClass, void 
     if (!block) {
         return;
     }
-    unsigned int count = 0;
-    objc_property_t *properties = class_copyPropertyList(c, &count);
     BOOL stop = NO;
-    for (int i = 0; i < count; i++) {
-        block(property_getName(properties[i]), property_getAttributes(properties[i]), &stop);
+    while (c) {
+        unsigned int count = 0;
+        objc_property_t *properties = class_copyPropertyList(c, &count);
+        
+        for (int i = 0; i < count; i++) {
+            block(property_getName(properties[i]), property_getAttributes(properties[i]), &stop);
+            if (stop) {
+                break;
+            }
+        }
+        if (properties) {
+            free(properties);
+        }
         if (stop) {
-            break;
+            return;
         }
-    }
-    if (properties) {
-        free(properties);
-    }
-    if (containsSuperClass) {
-        Class superClass = class_getSuperclass(c);
-        if (superClass) {
-            gyd_class_enumeratePropery(superClass, YES, block);
+        if (!containsSuperClass) {
+            return;
         }
+        c = class_getSuperclass(c);
+    }
+}
+
+/** 遍历本类的所有成员变量名 */
+void gyd_class_enumerateIvar(Class _Nonnull c, BOOL containsSuperClass, void (^ _Nonnull block)(const char * _Nonnull name, ptrdiff_t offset, const char * _Nonnull type, BOOL * _Nonnull stop)) {
+    if (!block) {
+        return;
+    }
+    BOOL stop = NO;
+    while (c) {
+        unsigned int count = 0;
+        Ivar *list = class_copyIvarList(c, &count);
+        
+        for (int i = 0; i < count; i++) {
+            block(ivar_getName(list[i]), ivar_getOffset(list[i]), ivar_getTypeEncoding(list[i]), &stop);
+            if (stop) {
+                break;
+            }
+        }
+        if (list) {
+            free(list);
+        }
+        if (stop) {
+            return;
+        }
+        if (!containsSuperClass) {
+            return;
+        }
+        c = class_getSuperclass(c);
     }
 }
 

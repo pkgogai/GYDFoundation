@@ -11,17 +11,44 @@
 
 @implementation UIView (GYDSafeArea)
 
-static char *GYDSafeAreaInsetsPrivateKey = "GYDSafeAreaInsetsPrivateKey";
+static char GYDSafeAreaInsetsPrivateKey;
 
 - (UIEdgeInsets)gyd_safeAreaInsets {
     if (@available(iOS 11.0, *)) {
         return self.safeAreaInsets;
     }
-    
+    UIEdgeInsets safeArea = [self gyd_safeAreaInsetsAllowNegative];
+    if (safeArea.top < 0) {
+        safeArea.top = 0;
+    }
+    if (safeArea.right < 0) {
+        safeArea.right = 0;
+    }
+    if (safeArea.bottom < 0) {
+        safeArea.bottom = 0;
+    }
+    if (safeArea.left < 0) {
+        safeArea.left = 0;
+    }
+    return safeArea;
+}
+
+- (void)gyd_setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets {
+    NSDictionary *safeArea = @{
+                               @"t" : @(safeAreaInsets.top),
+                               @"l" : @(safeAreaInsets.left),
+                               @"r" : @(safeAreaInsets.right),
+                               @"b" : @(safeAreaInsets.bottom)
+                               };
+    objc_setAssociatedObject(self, &GYDSafeAreaInsetsPrivateKey, safeArea, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+/** 通过gyd_setSafeAreaInsets计算出来的safeArea，可以有负值 */
+- (UIEdgeInsets)gyd_safeAreaInsetsAllowNegative {
     UIView *view = self;
     UIEdgeInsets safeAreaOffset = UIEdgeInsetsZero;
     while (view) {
-        NSDictionary *dic = objc_getAssociatedObject(view, GYDSafeAreaInsetsPrivateKey);
+        NSDictionary *dic = objc_getAssociatedObject(view, &GYDSafeAreaInsetsPrivateKey);
         if (dic) {
             UIEdgeInsets safeArea = UIEdgeInsetsMake(
                                                      [dic[@"t"] floatValue] + safeAreaOffset.top,
@@ -29,18 +56,6 @@ static char *GYDSafeAreaInsetsPrivateKey = "GYDSafeAreaInsetsPrivateKey";
                                                      [dic[@"b"] floatValue] + safeAreaOffset.bottom,
                                                      [dic[@"r"] floatValue] + safeAreaOffset.right
                                                      );
-            if (safeArea.top < 0) {
-                safeArea.top = 0;
-            }
-            if (safeArea.right < 0) {
-                safeArea.right = 0;
-            }
-            if (safeArea.bottom < 0) {
-                safeArea.bottom = 0;
-            }
-            if (safeArea.left < 0) {
-                safeArea.left = 0;
-            }
             return safeArea;
         }
         
@@ -80,18 +95,8 @@ static char *GYDSafeAreaInsetsPrivateKey = "GYDSafeAreaInsetsPrivateKey";
     return UIEdgeInsetsZero;
 }
 
-- (void)gyd_setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets {
-    NSDictionary *safeArea = @{
-                               @"t" : @(safeAreaInsets.top),
-                               @"l" : @(safeAreaInsets.left),
-                               @"r" : @(safeAreaInsets.right),
-                               @"b" : @(safeAreaInsets.bottom)
-                               };
-    objc_setAssociatedObject(self, GYDSafeAreaInsetsPrivateKey, safeArea, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
 - (void)gyd_resetSafeAreaInsets {
-    objc_setAssociatedObject(self, GYDSafeAreaInsetsPrivateKey, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &GYDSafeAreaInsetsPrivateKey, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
