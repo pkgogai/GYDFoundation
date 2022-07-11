@@ -10,6 +10,11 @@
 
 @interface NSString (GYDString)
 
+#pragma mark - 字符串创建
+
+//非常好用的一个方法被弃用，好可惜，自己补回来
++ (nullable instancetype)gyd_stringWithCString:(nonnull const char *)bytes length:(NSUInteger)length;
+
 #pragma mark - 字符串处理
 
 /**

@@ -10,6 +10,18 @@
 
 @implementation NSString (GYDString)
 
+#pragma mark - 字符串创建
+
+//非常好用的一个方法被弃用，好可惜，自己补回来
++ (nullable instancetype)gyd_stringWithCString:(nonnull const char *)bytes length:(NSUInteger)length {
+    char *cString = malloc(length + 1);
+    memcpy(cString, bytes, length);
+    cString[length] = '\0';
+    NSString *str = [NSString stringWithCString:cString encoding:NSUTF8StringEncoding];
+    free(cString);
+    return str;
+}
+
 #pragma mark - 字符串处理
 
 - (nonnull NSString *)gyd_substringWithIndex:(NSInteger)index length:(NSInteger)length {
