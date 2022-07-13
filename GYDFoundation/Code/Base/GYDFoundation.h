@@ -8,27 +8,66 @@
 
 #import <Foundation/Foundation.h>
 
-//数组字典
+#pragma mark - array,dictionary
+
 #import "GYDDictionary.h"
 #import "NSDictionary+GYDDictionary.h"
 #import "NSArray+GYDArray.h"
 
-//字符串
+#pragma mark - string,data,number
+
 #import "GYDStringSearch.h"
 #import "NSString+GYDString.h"
 #import "NSString+GYDEscape.h"
 #import "GYDMd5.h"
-
-//其它
-#import "NSObject+GYDObject.h"
-#import "GYDFile.h"
-#import "GYDMultiObstacleActionQueueManager.h"
-#import "NSObject+GYDCustomFunction.h"
+//base64，md5
+#import "NSData+GYDEscape.h"
+//json
 #import "GYDJSONSerialization.h"
+
+#pragma mark - 其它
+//创建文件等
+#import "GYDFile.h"
+//阻塞，设置block内代码延后执行
+#import "GYDMultiObstacleActionQueueManager.h"
+//扩展block作为属性，方便调用，但是名字可能要改一下，不要叫function，避免被人误以为是修改方法
+#import "NSObject+GYDCustomFunction.h"
+//KVO 改成block形式，避免多次KVO混到一起处理麻烦
+#import "GYDKeyValueObserver.h"
+//日志
 #import "GYDLog.h"
+//url的简单处理
+#import "GYDUrl.h"
+//objc
+#import "NSObject+GYDObject.h"
+#include "gyd_class_property.h"
+//计时
+#include "gyd_timekeeper.h"
 
+//计时器避免互相引用
+#import "GYDWeakTimer.h"
+#import "GYDWeakTarget.h"
 
-// GYD_FOUNDATION_USED_DATABASE 只在POD项目里有效，所以这里引了也没用
+#pragma mark - 其它模块
+
+/*
+//iOS相关
+#import "GYDUIKit.h"
+
+//数据库
+#import "GYDDatabase.h"
+#import "GYDDatabase+SQL.h"
+#import "GYDDatabase+Version.h"
+
+//简单的网络请求
+#import "GYDSimpleHttpConnect.h"
+
+//json-model互转
+#import "NSObject+GYDJSONObject.h"
+
+ */
+
+// GYD_FOUNDATION_USED_DATABASE 只在POD项目里有效，所以这里引的对外无效
 ////数据库
 //#if GYD_FOUNDATION_USED_DATABASE == 1
 //#import "GYDDatabase.h"
