@@ -41,8 +41,6 @@
 //objc
 #import "NSObject+GYDObject.h"
 #include "gyd_class_property.h"
-//计时
-#include "gyd_timekeeper.h"
 
 //计时器避免互相引用
 #import "GYDWeakTimer.h"
