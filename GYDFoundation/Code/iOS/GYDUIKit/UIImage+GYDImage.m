@@ -163,9 +163,11 @@
 - (nonnull UIImage *)gyd_blurImageWithRadius:(int)radius useOriginal:(BOOL)useOriginal {
     //缩小----------
     CGImageRef img;
+    BOOL imgIsCreate = NO;
     CGSize size = self.size;
     if (useOriginal || radius < 4 || size.width < 2 || size.height < 2) {
         img = self.CGImage;
+        imgIsCreate = NO;
     } else {
         //设置图片压缩比例
         CGFloat scale = radius / 4;
@@ -183,6 +185,7 @@
         [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
         img = CGBitmapContextCreateImage(cf);
         UIGraphicsEndImageContext();
+        imgIsCreate = YES;
     }
     
     int boxSize = radius*2 +1;
@@ -198,8 +201,9 @@
     outBuffer.rowBytes = inBuffer.rowBytes = CGImageGetBytesPerRow(img);
     
     CGBitmapInfo bitmapInfo =  CGImageGetBitmapInfo(img);
-    
-    CGImageRelease(img);
+    if (imgIsCreate) {
+        CGImageRelease(img);
+    }
     
     inBuffer.data = (void *)CFDataGetBytePtr(inBitmapData);
     
