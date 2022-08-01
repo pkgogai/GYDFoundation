@@ -8,24 +8,6 @@
 #import "GYDWeakTarget.h"
 
 @implementation GYDWeakTarget
-{
-    __weak id _target;
-    SEL _selector;
-}
-
-- (void)setTarget:(id)target {
-    _target = target;
-}
-- (id)target {
-    return _target;
-}
-
-- (void)setSelector:(SEL)selector {
-    _selector = selector;
-}
-- (SEL)selector {
-    return _selector;
-}
 
 - (void)setWeakTarget:(id)target selector:(SEL)selector {
     _target = target;
@@ -33,6 +15,12 @@
 }
 
 - (void)callOnceWithSelectorObject:(id)obj {
+    //block方式
+    if (self.action) {
+        self.action(obj);
+        return;
+    }
+    //selector方式
     if (!_selector) {
         return;
     }

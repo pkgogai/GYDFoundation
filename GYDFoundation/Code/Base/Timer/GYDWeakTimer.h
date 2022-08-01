@@ -19,6 +19,8 @@
 //注意：2019年12月26日这里已经将aSelector的参数改为GYDWeakTimer。还是尽量使用无参数的aSelector。
 + (nonnull instancetype)timerStartWithTimeInterval:(NSTimeInterval)ti target:(nonnull id)aTarget selector:(nonnull SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo;
 
++ (nonnull instancetype)timerStartWithTimeInterval:(NSTimeInterval)ti userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo action:(void (^ _Nonnull)(GYDWeakTimer * _Nonnull timer))action;
+
 - (void)invalidate; //若不手动调用，会随timer被释放而停止。
 
 @property (nullable, readonly) id userInfo;

@@ -9,9 +9,10 @@
 
 @interface GYDWeakTarget : NSObject
 
-@property (nonatomic, readwrite) id target;
-@property (nonatomic, readwrite) SEL selector;
+@property (nonatomic, weak) id target;
+@property (nonatomic)       SEL selector;
 
+@property (nonatomic, copy) void(^action)(id obj);
 @property (nonatomic, assign)   id selectorObject;
 
 - (void)setWeakTarget:(id)target selector:(SEL)selector;

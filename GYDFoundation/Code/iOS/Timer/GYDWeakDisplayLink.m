@@ -21,15 +21,30 @@
 
 + (instancetype)displayLinkStartWithWeakTarget:(id)target
                                  selector:(SEL)aSelector {
+    GYDWeakDisplayLink *weakDisplayLink = [[self alloc] init];
+    
     GYDWeakTarget *weakTarget = [[GYDWeakTarget alloc] init];
     [weakTarget setWeakTarget:target selector:aSelector];
+    weakTarget.selectorObject = weakDisplayLink;
     
     CADisplayLink *link = [CADisplayLink displayLinkWithTarget:weakTarget selector:@selector(callOnce)];
     [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-    
-    GYDWeakDisplayLink *weakDisplayLink = [[self alloc] init];
     weakDisplayLink->_link = link;
+    
+    return weakDisplayLink;
+}
+
++ (instancetype)displayLinkStartWithAction:(void (^)(GYDWeakDisplayLink * _Nonnull))action {
+    GYDWeakDisplayLink *weakDisplayLink = [[self alloc] init];
+    
+    GYDWeakTarget *weakTarget = [[GYDWeakTarget alloc] init];
+    weakTarget.action = action;
     weakTarget.selectorObject = weakDisplayLink;
+    
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:weakTarget selector:@selector(callOnce)];
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    weakDisplayLink->_link = link;
+    
     return weakDisplayLink;
 }
 

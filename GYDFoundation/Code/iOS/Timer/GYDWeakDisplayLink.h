@@ -17,10 +17,12 @@
 @interface GYDWeakDisplayLink : NSObject
 
 //只用来获取信息，不要做任何修改
-@property (nonatomic, readonly) CADisplayLink *displayLink;
+@property (nonatomic, readonly, nonnull) CADisplayLink *displayLink;
 
-+ (instancetype)displayLinkStartWithWeakTarget:(id)target
-                                 selector:(SEL)aSelector;
++ (nonnull instancetype)displayLinkStartWithWeakTarget:(nonnull id)target
+                                 selector:(nonnull SEL)aSelector;
+
++ (nonnull instancetype)displayLinkStartWithAction:(void (^ _Nonnull)(GYDWeakDisplayLink * _Nonnull displayLink))action;
 
 - (void)invalidate; //若不手动调用，会随本对象被释放而停止。
 

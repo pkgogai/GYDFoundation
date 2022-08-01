@@ -14,18 +14,34 @@
     NSTimer *_timer;
 }
 + (instancetype)timerStartWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo {
+    GYDWeakTimer *weakTimer = [[self alloc] init];
+    
     GYDWeakTarget *weakTarget = [[GYDWeakTarget alloc] init];
     [weakTarget setWeakTarget:aTarget selector:aSelector];
+    weakTarget.selectorObject = weakTimer;
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:ti target:weakTarget selector:@selector(callOnce) userInfo:nil repeats:yesOrNo];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
-    GYDWeakTimer *weakTimer = [[self alloc] init];
     weakTimer->_timer = timer;
-    weakTarget.selectorObject = weakTimer;
     
     return weakTimer;
 }
+
++ (instancetype)timerStartWithTimeInterval:(NSTimeInterval)ti userInfo:(id)userInfo repeats:(BOOL)yesOrNo action:(void (^)(GYDWeakTimer * _Nonnull timer))action {
+    GYDWeakTimer *weakTimer = [[self alloc] init];
+    
+    GYDWeakTarget *weakTarget = [[GYDWeakTarget alloc] init];
+    weakTarget.action = action;
+    weakTarget.selectorObject = weakTimer;
+    
+    NSTimer *timer = [NSTimer timerWithTimeInterval:ti target:weakTarget selector:@selector(callOnce) userInfo:nil repeats:yesOrNo];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    weakTimer->_timer = timer;
+    
+    return weakTimer;
+}
+
+
 - (void)dealloc {
     [_timer invalidate];
     _timer = nil;
