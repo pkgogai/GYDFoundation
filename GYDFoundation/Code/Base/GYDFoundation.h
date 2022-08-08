@@ -34,6 +34,8 @@
 #import "NSObject+GYDCustomFunction.h"
 //KVO 改成block形式，避免多次KVO混到一起处理麻烦
 #import "GYDKeyValueObserver.h"
+//通知 block形式，随self而释放
+#import "NSObject+GYDNotificationAutoRemove.h"
 //日志
 #import "GYDLog.h"
 //url的简单处理

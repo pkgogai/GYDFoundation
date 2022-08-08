@@ -10,6 +10,8 @@
 #import "UIImage+GYDImage.h"
 #import "UIView+GYDSafeArea.h"
 #import "UIView+GYDCustomFunction.h"
+#import "UIView+GYDFrame.h"
+#import "UIView+GYDLayout.h"
 #import "UIButton+GYDButton.h"
 #import "UIGestureRecognizer+GYDBlock.h"
 #import "GYDShapeView.h"
