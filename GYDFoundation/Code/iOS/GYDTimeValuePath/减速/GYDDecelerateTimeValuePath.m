@@ -218,6 +218,7 @@
         for (GYDTimeValuePath *path in _pathArray) {
             if (time >= path.startTime && time <= path.stopTime) {
                 value = [path valueAtTime:time];
+                break;
             }
         }
     }
@@ -225,6 +226,21 @@
         value = -value;
     }
     return value;
+}
+
+- (CGFloat)velocityAtTime:(NSTimeInterval)time {
+    CGFloat velocity = 0;
+    if (time >= _startTime && time <= _stopTime) {
+        for (GYDTimeValuePath *path in _pathArray) {
+            if (time >= path.startTime && time <= path.stopTime) {
+                velocity = [path velocityAtTime:time];
+            }
+        }
+    }
+    if (_backward) {
+        velocity = - velocity;
+    }
+    return velocity;
 }
 
 #pragma mark - 描述

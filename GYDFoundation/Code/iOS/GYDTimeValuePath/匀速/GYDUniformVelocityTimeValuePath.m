@@ -38,6 +38,10 @@
     return self.originValue + self.velocity * time;
 }
 
+- (CGFloat)velocityAtTime:(NSTimeInterval)time {
+    return self.velocity;
+}
+
 #pragma mark - 描述
 
 - (NSString *)description {

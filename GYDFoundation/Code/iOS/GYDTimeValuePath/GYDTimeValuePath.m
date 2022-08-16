@@ -16,6 +16,12 @@
     return 0;
 }
 
+/** 获取指定时间点对应的速度，由子类实现 */
+- (CGFloat)velocityAtTime:(NSTimeInterval)time {
+    NSAssert(0, @"%s:子类必须实现", __func__);
+    return 0;
+}
+
 #pragma mark - 工具方法
 /** 对数字的描述，整数或.2f？ */
 + (NSString *)descriptionValue:(CGFloat)value {

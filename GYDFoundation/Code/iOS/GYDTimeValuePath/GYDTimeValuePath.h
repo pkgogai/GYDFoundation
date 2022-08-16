@@ -27,6 +27,9 @@
 /** 获取指定时间点对应的数值，由子类实现 */
 - (CGFloat)valueAtTime:(NSTimeInterval)time;
 
+/** 获取指定时间点对应的速度，由子类实现 */
+- (CGFloat)velocityAtTime:(NSTimeInterval)time;
+
 #pragma mark - 工具方法
 /** 对数字的描述，整数或.2f？ */
 + (NSString *)descriptionValue:(CGFloat)value;

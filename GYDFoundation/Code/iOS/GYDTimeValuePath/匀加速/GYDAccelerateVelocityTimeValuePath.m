@@ -76,6 +76,10 @@
     return _originValue + [self offsetValueAtOffsetTime:time - _originTime];
 }
 
+- (CGFloat)velocityAtTime:(NSTimeInterval)time {
+    return (time - _originTime) * _acceleration;
+}
+
 /** 通过距离顶点的时间计算距离顶点的距离，其它的距离计算都是在此基础上进行 */
 - (CGFloat)offsetValueAtOffsetTime:(NSTimeInterval)offsetTime {
     return 0.5 * _acceleration * offsetTime * offsetTime;

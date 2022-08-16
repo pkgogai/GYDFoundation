@@ -14,6 +14,10 @@
     return _originValue + _radius * sin((time - _originTime) * _rotationRate * 2 * M_PI);
 }
 
+- (CGFloat)velocityAtTime:(NSTimeInterval)time {
+    return _radius * sin((time - _originTime) * _rotationRate * 2 * M_PI + M_PI_2);
+}
+
 #pragma mark - 描述
 
 - (NSString *)description {
