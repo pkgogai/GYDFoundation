@@ -124,12 +124,13 @@
                 step1.stopTime = step1.originTime + t1;
                 [_pathArray addObject:step1];
                 
-                GYDUniformVelocityTimeValuePath *uPath = [GYDUniformVelocityTimeValuePath timeValuePathWithTime:step1.stopTime value:s1+ step1.originValue velocity:_minUniformVelocity];
+                s1 = 0.5 * _minUniformVelocity * t1;
+                GYDUniformVelocityTimeValuePath *uPath = [GYDUniformVelocityTimeValuePath timeValuePathWithTime:step1.stopTime value:s1 + step1.originValue velocity:_minUniformVelocity];
                 uPath.startTime = step1.stopTime;
                 
                 NSTimeInterval t2 = _minUniformVelocity / _normalAcceleratedVelocity;
                 CGFloat s2 = 0.5 * _minUniformVelocity * t2;
-                uPath.stopTime = (_stopValue - step1.originValue - s2) / _minUniformVelocity + uPath.startTime;
+                uPath.stopTime = (_stopValue - step1.originValue - s1 - s2) / _minUniformVelocity + uPath.startTime;
                 
                 [_pathArray addObject:uPath];
                 
@@ -247,6 +248,9 @@
 
 - (NSString *)description {
     NSString *string = [NSString stringWithFormat:@"dece:o=%@,s=%@,min_v=%@,a=%@,max_a=%@,back_a=%@", [GYDTimeValuePath descriptionValue:_backward?-_startValue:_startValue], [GYDTimeValuePath descriptionValue:_backward?-_stopValue:_stopValue], [GYDTimeValuePath descriptionValue:_minUniformVelocity], [GYDTimeValuePath descriptionValue:_normalAcceleratedVelocity], [GYDTimeValuePath descriptionValue:_maxAcceleratedVelocity], [GYDTimeValuePath descriptionValue:_backAcceleratedVelocity]];
+//    for (GYDTimeValuePath *path in _pathArray) {
+//        string = [string stringByAppendingFormat:@"\n%@, %f,%f", path, path.startTime, path.stopTime];
+//    }
     return string;
 }
 
