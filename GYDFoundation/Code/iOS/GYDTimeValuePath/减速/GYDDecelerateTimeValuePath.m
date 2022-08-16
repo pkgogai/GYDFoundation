@@ -94,7 +94,6 @@
         step1.stopTime = step1.originTime;
         _stopTime = step1.stopTime;
         [_pathArray addObject:step1];
-        
     } else if (_stopValue > step1.originValue) {
         //停到更远，[先加速到最低速度]，再匀速，最后减速
         if (velocity < _minUniformVelocity || _minUniformVelocity <= 0) {
@@ -106,7 +105,10 @@
             CGFloat maxV = t1 * _backAcceleratedVelocity;
             
             GYDAccelerateVelocityTimeValuePath *step2 = [GYDAccelerateVelocityTimeValuePath timeValuePathWithTime:step1.originTime + t1 value:step1.originValue + s1 velocity:maxV originValue:_stopValue];
-            if (maxV <= _minUniformVelocity || _minUniformVelocity <= 0) {
+            if (!step2) {
+                //数值太过接近，精度不够时，可能导致step2无值
+                _stopTime = _startTime;
+            } else if (maxV <= _minUniformVelocity || _minUniformVelocity <= 0) {
                 //没有匀速阶段
                 step1.startTime = _startTime;
                 step1.stopTime = step1.originTime + t1;
@@ -116,7 +118,7 @@
                 
                 step2.stopTime = step2.originTime;
                 [_pathArray addObject:step2];
-                
+                _stopTime = step2.stopTime;
             } else {
                 //可以加速到匀速阶段
                 t1 = _minUniformVelocity / _backAcceleratedVelocity;
@@ -139,9 +141,8 @@
                 step2.stopTime = step2.originTime;
                 
                 [_pathArray addObject:step2];
-                
+                _stopTime = step2.stopTime;
             }
-            _stopTime = step2.stopTime;
         } else {
             //初始速度高，不用加速
             GYDUniformVelocityTimeValuePath *uPath = [GYDUniformVelocityTimeValuePath timeValuePathWithTime:_startTime value:value velocity:velocity];
@@ -211,9 +212,9 @@
 
 - (CGFloat)valueAtTime:(NSTimeInterval)time {
     CGFloat value = 0;
-    if (time < _startTime) {
+    if (time <= _startTime) {
         value = _startValue;
-    } else if (time > _stopTime) {
+    } else if (time >= _stopTime) {
         value = _stopValue;
     } else {
         for (GYDTimeValuePath *path in _pathArray) {
@@ -231,7 +232,7 @@
 
 - (CGFloat)velocityAtTime:(NSTimeInterval)time {
     CGFloat velocity = 0;
-    if (time >= _startTime && time <= _stopTime) {
+    if (time >= _startTime && time < _stopTime) {
         for (GYDTimeValuePath *path in _pathArray) {
             if (time >= path.startTime && time <= path.stopTime) {
                 velocity = [path velocityAtTime:time];
