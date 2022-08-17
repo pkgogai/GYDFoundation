@@ -2,56 +2,112 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GYDFoundation/GYDDatabase (0.0.5):
+  - GYDDebugFoundation (1.0.3):
+    - GYDDebugFoundation/GYDDebugInfo (= 1.0.3)
+    - GYDDebugFoundation/GYDDebugView (= 1.0.3)
+    - GYDDebugFoundation/GYDLogUI (= 1.0.3)
+    - GYDDebugFoundation/GYDTimeKeeper (= 1.0.3)
+    - GYDDebugFoundation/GYDTreeView (= 1.0.3)
+    - GYDDebugFoundation/GYDUnreadCount (= 1.0.3)
+    - GYDDebugFoundation/GYDViewHierarchy (= 1.0.3)
+    - GYDDebugFoundation/GYDViewTips (= 1.0.3)
+    - GYDDebugFoundation/Interface (= 1.0.3)
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDDebugInfo (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDDebugView (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDLogUI (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDTimeKeeper (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDTreeView (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDUnreadCount (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDViewHierarchy (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/GYDViewTips (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDDebugFoundation/Interface (1.0.3):
+    - GYDFoundation/GYDFoundation
+  - GYDFoundation (1.0.4):
+    - GYDFoundation/GYDDatabase (= 1.0.4)
+    - GYDFoundation/GYDFoundation (= 1.0.4)
+    - GYDFoundation/GYDHTTPConnect (= 1.0.4)
+    - GYDFoundation/GYDJSONObject (= 1.0.4)
+    - GYDFoundation/GYDModuleInterface (= 1.0.4)
+  - GYDFoundation/GYDDatabase (1.0.4):
     - FMDB
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/GYDFoundation (0.0.5)
-  - GYDFoundation/GYDHTTPConnect (0.0.5):
+  - GYDFoundation/GYDFoundation (1.0.4)
+  - GYDFoundation/GYDHTTPConnect (1.0.4):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/GYDJSONObject (0.0.5):
+  - GYDFoundation/GYDJSONObject (1.0.4):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/GYDModuleInterface (0.0.5):
+  - GYDFoundation/GYDModuleInterface (1.0.4):
     - GYDFoundation/GYDFoundation
-  - GYDFoundation/iOSDemo (0.0.5):
-    - GYDFoundation/iOSDemo/GYDDatabase (= 0.0.5)
-    - GYDFoundation/iOSDemo/GYDFoundation (= 0.0.5)
-    - GYDFoundation/iOSDemo/GYDHTTPConnect (= 0.0.5)
-    - GYDFoundation/iOSDemo/GYDJSONObject (= 0.0.5)
-    - GYDFoundation/iOSDemo/GYDModuleInterface (= 0.0.5)
-  - GYDFoundation/iOSDemo/GYDDatabase (0.0.5):
-    - GYDFoundation/GYDDatabase
-  - GYDFoundation/iOSDemo/GYDFoundation (0.0.5):
-    - GYDFoundation/GYDFoundation
-  - GYDFoundation/iOSDemo/GYDHTTPConnect (0.0.5):
-    - GYDFoundation/GYDHTTPConnect
-  - GYDFoundation/iOSDemo/GYDJSONObject (0.0.5):
-    - GYDFoundation/GYDJSONObject
-  - GYDFoundation/iOSDemo/GYDModuleInterface (0.0.5):
-    - GYDFoundation/GYDModuleInterface
-  - GYDFoundation/Tests/GYDDatabase (0.0.5)
-  - GYDFoundation/Tests/GYDFoundation (0.0.5)
-  - GYDFoundation/Tests/GYDHTTPConnect (0.0.5)
-  - GYDFoundation/Tests/GYDJSONObject (0.0.5)
+  - GYDFoundation/Tests/GYDDatabase (1.0.4)
+  - GYDFoundation/Tests/GYDFoundation (1.0.4)
+  - GYDFoundation/Tests/GYDHTTPConnect (1.0.4)
+  - GYDFoundation/Tests/GYDJSONObject (1.0.4)
+  - GYDFoundationDemo (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+    - GYDFoundationDemo/GYDDatabase (= 1.0.4)
+    - GYDFoundationDemo/GYDFoundation (= 1.0.4)
+    - GYDFoundationDemo/GYDHTTPConnect (= 1.0.4)
+    - GYDFoundationDemo/GYDJSONObject (= 1.0.4)
+    - GYDFoundationDemo/GYDModuleInterface (= 1.0.4)
+  - GYDFoundationDemo/GYDDatabase (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDFoundation (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDHTTPConnect (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDJSONObject (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDModuleInterface (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
 
 DEPENDENCIES:
-  - GYDFoundation/iOSDemo (from `../`)
+  - GYDDebugFoundation (from `https://gitee.com/pkgogai/gyddebug-foundation_public.git`, tag `1.0.3`)
+  - GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDDatabase (from `../`)
   - GYDFoundation/Tests/GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDHTTPConnect (from `../`)
   - GYDFoundation/Tests/GYDJSONObject (from `../`)
+  - GYDFoundationDemo (from `../`)
 
 SPEC REPOS:
   trunk:
     - FMDB
 
 EXTERNAL SOURCES:
+  GYDDebugFoundation:
+    :git: https://gitee.com/pkgogai/gyddebug-foundation_public.git
+    :tag: 1.0.3
   GYDFoundation:
     :path: "../"
+  GYDFoundationDemo:
+    :path: "../"
+
+CHECKOUT OPTIONS:
+  GYDDebugFoundation:
+    :git: https://gitee.com/pkgogai/gyddebug-foundation_public.git
+    :tag: 1.0.3
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDFoundation: a27bd2e7eb43eaa9790707cc2511b61a32c52230
+  GYDDebugFoundation: 85e32d7dfbefa8a7637bfc69cee3e813f2834292
+  GYDFoundation: c7e0275121ec95b561515beb4404b98c08843119
+  GYDFoundationDemo: 60fee798a857fdf86f0bc0f22d92232501f2048a
 
-PODFILE CHECKSUM: b8e2fcac65c3d4be376eb7944d91c3fd5f025d59
+PODFILE CHECKSUM: 45a8a3107234274800462b08959d4cf4153467c4
 
 COCOAPODS: 1.11.2

@@ -3,8 +3,14 @@ platform :ios, "8.0"
 def pods
   pod 'GYDFoundation', 
     :path => '../', 
-    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject'], 
-    :subspecs => ['iOSDemo']
+    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject']
+
+  pod 'GYDFoundationDemo',
+    :path => '../'
+
+  pod 'GYDDebugFoundation', 
+    :git => 'https://gitee.com/pkgogai/gyddebug-foundation_public.git', :tag => '1.0.3'
+
 end
 
 target 'iOSExample' do 

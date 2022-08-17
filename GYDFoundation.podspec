@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GYDFoundation'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'GYDFoundation'
 
   s.description      = <<-DESC
@@ -20,40 +20,39 @@ Pod::Spec.new do |s|
   s.ios.framework = 'UIKit'
   
   s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface']
-  
   #基础方法
   s.subspec 'GYDFoundation' do |ss|
-    ss.ios.source_files = ['GYDFoundation/Code/Base/**/*','GYDFoundation/Code/iOS/**/*']
-    ss.osx.source_files = ['GYDFoundation/Code/Base/**/*','GYDFoundation/Code/MacOS/**/*']
+    ss.ios.source_files = ['Code/GYDFoundation/Base/**/*','Code/GYDFoundation/iOS/**/*']
+    ss.osx.source_files = ['Code/GYDFoundation/Base/**/*','Code/GYDFoundation/MacOS/**/*']
   end
   #数据库
   s.subspec 'GYDDatabase' do |ss|
-    ss.source_files = 'GYDDatabase/Code/**/*'
+    ss.source_files = 'Code/GYDDatabase/**/*'
     ss.dependency "FMDB"
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_DATABASE=1'}
   end
   #http请求
   s.subspec 'GYDHTTPConnect' do |ss|
-    ss.source_files = 'GYDHTTPConnect/Code/**/*'
+    ss.source_files = 'Code/GYDHTTPConnect/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_HTTPCONNECT=1'}
   end
   #json-model互转
   s.subspec 'GYDJSONObject' do |ss|
-    ss.source_files = 'GYDJSONObject/Code/**/*'
+    ss.source_files = 'Code/GYDJSONObject/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
   end
   #组件化接口
   s.subspec 'GYDModuleInterface' do |ss|
-    ss.source_files = 'GYDModuleInterface/Code/**/*'
+    ss.source_files = 'Code/GYDModuleInterface/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_MODULE_INTERFACE=1'}
   end
   #Shell工具
   s.subspec 'GYDShellTools' do |ss|
-    ss.source_files = 'GYDShellTools/Code/**/*'
+    ss.source_files = 'Code/GYDShellTools/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.dependency "GYDFoundation/GYDHTTPConnect"
   end
@@ -75,75 +74,25 @@ Pod::Spec.new do |s|
 
   #单元测试
   s.test_spec 'Tests' do |ss|
-    ss.source_files = 'GYDFoundation/Tests/Placeholder/**/*'
+    ss.source_files = 'Tests/Placeholder/**/*'
     ss.test_spec 'GYDFoundation' do |test|
-      test.ios.source_files = ['GYDFoundation/Tests/Base/**/*','GYDFoundation/Tests/iOS/**/*']
-      test.osx.source_files = ['GYDFoundation/Tests/Base/**/*','GYDFoundation/Tests/MacOS/**/*']
+      test.ios.source_files = ['Tests/GYDFoundation/Base/**/*','Tests/GYDFoundation/iOS/**/*']
+      test.osx.source_files = ['Tests/GYDFoundation/Base/**/*','Tests/GYDFoundation/MacOS/**/*']
     end
     ss.test_spec 'GYDDatabase' do |test|
-      test.source_files = 'GYDDatabase/Tests/**/*'
+      test.source_files = 'Tests/GYDDatabase/**/*'
     end
     ss.test_spec 'GYDHTTPConnect' do |test|
-      test.source_files = 'GYDHTTPConnect/Tests/**/*'
+      test.source_files = 'Tests/GYDHTTPConnect/**/*'
     end
     ss.test_spec 'GYDJSONObject' do |test|
-      test.source_files = 'GYDJSONObject/Tests/**/*'
+      test.source_files = 'Tests/GYDJSONObject/**/*'
     end
-    ss.test_spec 'GYDModuleInterface' do |test|
-      test.source_files = 'GYDModuleInterface/Tests/**/*'
-    end
-    ss.test_spec 'GYDShellTools' do |test|
-      test.source_files = 'GYDShellTools/Tests/**/*'
-    end
-  end
-  
-  #示例
-  s.subspec 'iOSDemo' do |ss|
-    ss.subspec 'GYDFoundation' do |demo|
-      demo.dependency 'GYDFoundation/GYDFoundation'
-      demo.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/iOS/**/*']
-    end
-    ss.subspec 'GYDDatabase' do |demo|
-      demo.dependency 'GYDFoundation/GYDDatabase'
-      demo.source_files = 'GYDDatabase/Demo/**/*'
-    end
-    ss.subspec 'GYDHTTPConnect' do |demo|
-      demo.dependency 'GYDFoundation/GYDHTTPConnect'
-      demo.source_files = 'GYDHTTPConnect/Demo/**/*'
-    end
-    ss.subspec 'GYDJSONObject' do |demo|
-      demo.dependency 'GYDFoundation/GYDJSONObject'
-      demo.source_files = 'GYDJSONObject/Demo/**/*'
-    end
-    ss.subspec 'GYDModuleInterface' do |demo|
-      demo.dependency 'GYDFoundation/GYDModuleInterface'
-      demo.source_files = 'GYDModuleInterface/Demo/**/*'
-    end
-  end
-  s.subspec 'MacOSDemo' do |ss|
-    ss.subspec 'GYDFoundation' do |demo|
-      demo.dependency 'GYDFoundation/GYDFoundation'
-      demo.source_files = ['GYDFoundation/Demo/Base/**/*','GYDFoundation/Demo/MacOS/**/*']
-    end
-    ss.subspec 'GYDDatabase' do |demo|
-      demo.dependency 'GYDFoundation/GYDDatabase'
-      demo.source_files = 'GYDDatabase/Demo/**/*'
-    end
-    ss.subspec 'GYDHTTPConnect' do |demo|
-      demo.dependency 'GYDFoundation/GYDHTTPConnect'
-      demo.source_files = 'GYDHTTPConnect/Demo/**/*'
-    end
-    ss.subspec 'GYDJSONObject' do |demo|
-      demo.dependency 'GYDFoundation/GYDJSONObject'
-      demo.source_files = 'GYDJSONObject/Demo/**/*'
-    end
-    ss.subspec 'GYDShellTools' do |demo|
-      demo.dependency 'GYDFoundation/GYDShellTools'
-      demo.source_files = 'GYDShellTools/Demo/**/*'
-    end
-    ss.subspec 'GYDModuleInterface' do |demo|
-      demo.dependency 'GYDFoundation/GYDModuleInterface'
-      demo.source_files = 'GYDModuleInterface/Demo/**/*'
-    end
+#    ss.test_spec 'GYDModuleInterface' do |test|
+#      test.source_files = 'Tests/GYDModuleInterface/**/*'
+#    end
+#    ss.test_spec 'GYDShellTools' do |test|
+#      test.source_files = 'Tests/GYDShellTools/**/*'
+#    end
   end
 end
