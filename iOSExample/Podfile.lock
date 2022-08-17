@@ -12,25 +12,25 @@ PODS:
     - GYDDebugFoundation/GYDViewHierarchy (= 1.0.3)
     - GYDDebugFoundation/GYDViewTips (= 1.0.3)
     - GYDDebugFoundation/Interface (= 1.0.3)
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDDebugInfo (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDDebugView (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDLogUI (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDTimeKeeper (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDTreeView (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDUnreadCount (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDViewHierarchy (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/GYDViewTips (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDDebugFoundation/Interface (1.0.3):
-    - GYDFoundation/GYDFoundation
+    - GYDFoundation
   - GYDFoundation (1.0.4):
     - GYDFoundation/GYDDatabase (= 1.0.4)
     - GYDFoundation/GYDFoundation (= 1.0.4)
@@ -55,14 +55,27 @@ PODS:
     - GYDDebugFoundation
     - GYDFoundation
     - GYDFoundationDemo/GYDDatabase (= 1.0.4)
+    - GYDFoundationDemo/GYDDebugViewHierarchyDemo (= 1.0.4)
+    - GYDFoundationDemo/GYDDebugViewTipsDemo (= 1.0.4)
     - GYDFoundationDemo/GYDFoundation (= 1.0.4)
+    - GYDFoundationDemo/GYDHorizontalTreeViewDemo (= 1.0.4)
     - GYDFoundationDemo/GYDHTTPConnect (= 1.0.4)
     - GYDFoundationDemo/GYDJSONObject (= 1.0.4)
     - GYDFoundationDemo/GYDModuleInterface (= 1.0.4)
+    - GYDFoundationDemo/GYDTimeKeeperDemo (= 1.0.4)
   - GYDFoundationDemo/GYDDatabase (1.0.4):
     - GYDDebugFoundation
     - GYDFoundation
+  - GYDFoundationDemo/GYDDebugViewHierarchyDemo (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDDebugViewTipsDemo (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
   - GYDFoundationDemo/GYDFoundation (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
+  - GYDFoundationDemo/GYDHorizontalTreeViewDemo (1.0.4):
     - GYDDebugFoundation
     - GYDFoundation
   - GYDFoundationDemo/GYDHTTPConnect (1.0.4):
@@ -74,9 +87,12 @@ PODS:
   - GYDFoundationDemo/GYDModuleInterface (1.0.4):
     - GYDDebugFoundation
     - GYDFoundation
+  - GYDFoundationDemo/GYDTimeKeeperDemo (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
 
 DEPENDENCIES:
-  - GYDDebugFoundation (from `https://gitee.com/pkgogai/gyddebug-foundation_public.git`, tag `1.0.3`)
+  - GYDDebugFoundation (from `../`)
   - GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDDatabase (from `../`)
   - GYDFoundation/Tests/GYDFoundation (from `../`)
@@ -90,24 +106,18 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   GYDDebugFoundation:
-    :git: https://gitee.com/pkgogai/gyddebug-foundation_public.git
-    :tag: 1.0.3
+    :path: "../"
   GYDFoundation:
     :path: "../"
   GYDFoundationDemo:
     :path: "../"
 
-CHECKOUT OPTIONS:
-  GYDDebugFoundation:
-    :git: https://gitee.com/pkgogai/gyddebug-foundation_public.git
-    :tag: 1.0.3
-
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDDebugFoundation: 85e32d7dfbefa8a7637bfc69cee3e813f2834292
+  GYDDebugFoundation: 4c9918e8ed8a631eba376dbe7aa93a5f9f487a07
   GYDFoundation: c7e0275121ec95b561515beb4404b98c08843119
-  GYDFoundationDemo: 60fee798a857fdf86f0bc0f22d92232501f2048a
+  GYDFoundationDemo: f989aacf0b472877ae547a253acb590b62d20729
 
-PODFILE CHECKSUM: 45a8a3107234274800462b08959d4cf4153467c4
+PODFILE CHECKSUM: cff9e5286cd2fe17a004e473804cae38ec67b4b3
 
 COCOAPODS: 1.11.2

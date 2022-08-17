@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.dependency 'GYDFoundation'
   s.dependency 'GYDDebugFoundation' #菜单用了里面的画图
   
-  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface']
+  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface', 'GYDDebugViewHierarchyDemo', 'GYDDebugViewTipsDemo', 'GYDHorizontalTreeViewDemo', 'GYDTimeKeeperDemo']
   s.ios.source_files = 'Demo/*'
   #示例
   s.subspec 'GYDFoundation' do |demo|
@@ -40,6 +40,18 @@ Pod::Spec.new do |s|
   end
   s.subspec 'GYDModuleInterface' do |demo|
     demo.source_files = 'Demo/GYDModuleInterface/**/*'
+  end
+  s.subspec 'GYDDebugViewHierarchyDemo' do |demo|
+    demo.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewHierarchyDemo/**/*'
+  end
+  s.subspec 'GYDDebugViewTipsDemo' do |demo|
+    demo.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewTipsDemo/**/*'
+  end
+  s.subspec 'GYDHorizontalTreeViewDemo' do |demo|
+    demo.source_files = 'GYDDebugFoundation/Demo/GYDHorizontalTreeViewDemo/**/*'
+  end
+  s.subspec 'GYDTimeKeeperDemo' do |demo|
+    demo.source_files = 'GYDDebugFoundation/Demo/GYDTimeKeeperDemo/**/*'
   end
   s.subspec 'GYDShellTools' do |demo|
     demo.source_files = 'Demo/GYDShellTools/**/*'
