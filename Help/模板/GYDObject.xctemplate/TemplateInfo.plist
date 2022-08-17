@@ -48,6 +48,8 @@
 			<key>Values</key>
 			<array>
 				<string>GYDModuleInterface</string>
+				<string>GYDTableViewCell</string>
+				<string>NSObject</string>
 			</array>
 		</dict>
 		<dict>
