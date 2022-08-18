@@ -12,7 +12,7 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        return [GYDShellTinifyToolsDemo exampleMainWithArgc:argc argv:argv];
+        return [GYDShellTinifyToolsDemo exampleMainArgc:argc argv:argv];
     }
     return 0;
 }

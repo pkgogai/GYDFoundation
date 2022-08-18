@@ -10,7 +10,6 @@
 #import "GYDUIKit.h"
 #import "GYDDecelerateTimeValuePath.h"
 #import "GYDTimeValuePathTimer.h"
-#import "UIView+GYDView.h"
 #import "GYDDemoMenu.h"
 
 @interface GYDDecelerateTimeValuePathDemoViewController ()<UIScrollViewDelegate, GYDTimeValuePathTimerDelegate>
@@ -29,8 +28,8 @@
 }
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"减速动画" desc:@"单独测试减速动画效果" order:119 vcClass:self];
-    [menu addToMenu:GYDDemoMenuRootName];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"DecelerateTimeValuePath" desc:@"单独体验减速动画效果" order:119 vcClass:self];
+    [menu addToMenu:@"TimeValuePath"];
 }
 
 - (void)viewDidLoad {
@@ -113,15 +112,15 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGSize viewSize = self.view.bounds.size;
-    CGFloat layoutY = 60;
+    CGFloat layoutY = self.view.gyd_safeAreaInsets.top;
     _targetValueTitleLabel.frame = CGRectMake(0, layoutY, viewSize.width, 20);
-    layoutY = _targetValueTitleLabel.bottomY;
+    layoutY = _targetValueTitleLabel.gyd_bottomY;
     _targetValueScrollView.frame = CGRectMake(0, layoutY, viewSize.width, 60);
-    layoutY = _targetValueScrollView.bottomY;
+    layoutY = _targetValueScrollView.gyd_bottomY;
     
     layoutY += 20;
     _demoTitleLabel.frame = CGRectMake(0, layoutY, viewSize.width, 20);
-    layoutY = _demoTitleLabel.bottomY;
+    layoutY = _demoTitleLabel.gyd_bottomY;
     _demoScrollView.frame = CGRectMake(0, layoutY, viewSize.width, 60);
     
 }

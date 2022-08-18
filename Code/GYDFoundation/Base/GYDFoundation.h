@@ -55,9 +55,7 @@
 #import "GYDUIKit.h"
 
 //数据库
-#import "GYDDatabase.h"
-#import "GYDDatabase+SQL.h"
-#import "GYDDatabase+Version.h"
+#import "GYDDatabasePublishHeader.h"
 
 //简单的网络请求
 #import "GYDSimpleHttpConnect.h"

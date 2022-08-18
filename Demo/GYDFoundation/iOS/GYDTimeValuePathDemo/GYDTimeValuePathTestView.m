@@ -7,12 +7,14 @@
 //
 
 #import "GYDTimeValuePathTestView.h"
+#import "GYDUIKit.h"
+
 #import "GYDTimeValuePathItemView.h"
 #import "GYDUniformVelocityTimeValuePath.h"
 #import "GYDAccelerateVelocityTimeValuePath.h"
 #import "GYDSineTimeValuePath.h"
 #import "GYDDecelerateTimeValuePath.h"
-#import "UIView+GYDView.h"
+
 #import "NSObject+GYDCustomFunction.h"
 
 @implementation GYDTimeValuePathTestView

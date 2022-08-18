@@ -7,7 +7,7 @@
 //
 
 #import "GYDTableViewCellExampleView.h"
-#import "UIView+GYDView.h"
+#import "GYDUIKit.h"
 
 @implementation GYDTableViewCellExampleView
 {
@@ -38,8 +38,8 @@
     }
     
     _label.text = model.title;
-    _label.size = [_label sizeThatFits:CGSizeMake(width, 0)];
-    return _label.bottomY + 2;
+    _label.gyd_size = [_label sizeThatFits:CGSizeMake(width, 0)];
+    return _label.gyd_bottomY + 2;
 }
 - (void)setNeedsLayout {
     [super setNeedsLayout];

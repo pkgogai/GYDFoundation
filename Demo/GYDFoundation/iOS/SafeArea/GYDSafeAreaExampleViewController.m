@@ -8,6 +8,7 @@
 
 #import "GYDSafeAreaExampleViewController.h"
 #import "UIView+GYDSafeArea.h"
+#import "GYDDebugViewTipsDisplayView.h"
 
 @interface GYDSafeAreaExampleViewController ()
 
@@ -15,12 +16,25 @@
 
 @implementation GYDSafeAreaExampleViewController
 {
+    UIView *_demoView[4];
+    
+    UIImageView *_safeAreaBorderView;
+    
+    GYDDebugViewTipsDisplayViewModel *_tipsModel[4];
+    GYDDebugViewTipsDisplayView *_displayView;
+    
+    //懒得写了
     UIView *_view1;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _view1 = nil;//懒得写了
+    
+    for (NSInteger i = 0; i < 4; i++) {
+        _demoView[i] = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_demoView[i]];
+    }
+    
 }
 
 - (void)viewDidLayoutSubviews {

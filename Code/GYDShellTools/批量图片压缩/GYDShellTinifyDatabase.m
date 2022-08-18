@@ -8,6 +8,7 @@
 
 #import "GYDShellTinifyDatabase.h"
 #import "GYDFoundation.h"
+#import "GYDDatabasePublishHeader.h"
 #import "GYDFoundationPrivateHeader.h"
 
 static NSString * const TableName = @"table_file";

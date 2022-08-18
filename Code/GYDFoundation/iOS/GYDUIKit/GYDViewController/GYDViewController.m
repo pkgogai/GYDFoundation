@@ -7,7 +7,6 @@
 //
 
 #import "GYDViewController.h"
-#import "UIView+GYDSafeArea.h"
 
 @interface GYDViewController ()
 

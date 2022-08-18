@@ -20,9 +20,9 @@ Pod::Spec.new do |s|
   s.ios.framework = 'UIKit'
 
   s.dependency 'GYDFoundation'
-  s.dependency 'GYDDebugFoundation' #菜单用了里面的画图
+  s.dependency 'GYDDebugFoundation'
   
-  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface', 'GYDDebugViewHierarchyDemo', 'GYDDebugViewTipsDemo', 'GYDHorizontalTreeViewDemo', 'GYDTimeKeeperDemo']
+#  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface', 'GYDDebugViewHierarchyDemo', 'GYDDebugViewTipsDemo', 'GYDHorizontalTreeViewDemo', 'GYDTimeKeeperDemo']
   s.ios.source_files = 'Demo/*'
   #示例
   s.subspec 'GYDFoundation' do |demo|
@@ -39,22 +39,22 @@ Pod::Spec.new do |s|
     demo.source_files = 'Demo/GYDJSONObject/**/*'
   end
   s.subspec 'GYDModuleInterface' do |demo|
-    demo.source_files = 'Demo/GYDModuleInterface/**/*'
+    demo.ios.source_files = 'Demo/GYDModuleInterface/**/*'
   end
   s.subspec 'GYDDebugViewHierarchyDemo' do |demo|
-    demo.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewHierarchyDemo/**/*'
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewHierarchyDemo/**/*'
   end
   s.subspec 'GYDDebugViewTipsDemo' do |demo|
-    demo.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewTipsDemo/**/*'
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewTipsDemo/**/*'
   end
   s.subspec 'GYDHorizontalTreeViewDemo' do |demo|
-    demo.source_files = 'GYDDebugFoundation/Demo/GYDHorizontalTreeViewDemo/**/*'
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDHorizontalTreeViewDemo/**/*'
   end
   s.subspec 'GYDTimeKeeperDemo' do |demo|
     demo.source_files = 'GYDDebugFoundation/Demo/GYDTimeKeeperDemo/**/*'
   end
   s.subspec 'GYDShellTools' do |demo|
-    demo.source_files = 'Demo/GYDShellTools/**/*'
+    demo.osx.source_files = 'Demo/GYDShellTools/**/*'
   end
   
 end

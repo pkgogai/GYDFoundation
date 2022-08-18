@@ -8,7 +8,7 @@
 
 #import "GYDTimeValuePathItemView.h"
 #import "GYDTimeValuePathDisplayView.h"
-#import "UIView+GYDView.h"
+#import "GYDUIKit.h"
 
 @implementation GYDTimeValuePathItemView
 {
@@ -53,11 +53,11 @@
     CGFloat layoutY = 0;
     if (_titleLabel.text.length > 0) {
         _titleLabel.frame = CGRectMake(0, layoutY, size.width, 16);
-        layoutY = _titleLabel.bottomY;
+        layoutY = _titleLabel.gyd_bottomY;
     }
     if (_descLabel.text.length > 0) {
         _descLabel.frame = CGRectMake(0, layoutY, size.width, 16);
-        layoutY = _descLabel.bottomY;
+        layoutY = _descLabel.gyd_bottomY;
     }
     _displayView.frame = CGRectMake(0, layoutY, size.width, size.height - layoutY);
 }

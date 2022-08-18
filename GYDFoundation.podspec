@@ -52,7 +52,7 @@ Pod::Spec.new do |s|
   end
   #Shell工具
   s.subspec 'GYDShellTools' do |ss|
-    ss.source_files = 'Code/GYDShellTools/**/*'
+    ss.osx.source_files = 'Code/GYDShellTools/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
     ss.dependency "GYDFoundation/GYDHTTPConnect"
   end

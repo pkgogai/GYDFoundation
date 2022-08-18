@@ -48,7 +48,7 @@
     
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.backgroundColor = [UIColor blueColor];
+    _tableView.backgroundColor = [UIColor grayColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.allowsMultipleSelection = NO;
     _tableView.exclusiveTouch = YES;
@@ -65,6 +65,12 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _tableView.frame = self.view.bounds;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _tableView.frame = self.view.bounds;
+    _tableView.contentInset = self.view.gyd_safeAreaInsets;
 }
 
 - (void)didReceiveMemoryWarning {

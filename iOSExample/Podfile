@@ -1,14 +1,15 @@
 platform :ios, "8.0"
 
 def pods
-  pod 'GYDFoundation', 
-    :path => '../', 
-    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject']
+  pod 'GYDFoundation',
+    :path => '../',
+    :testspecs => ['Tests/GYDFoundation','Tests/GYDDatabase','Tests/GYDHTTPConnect','Tests/GYDJSONObject'],
+    :subspecs => ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface', 'Development']
 
-  pod 'GYDFoundationDemo',
+  pod 'GYDDebugFoundation',
     :path => '../'
 
-  pod 'GYDDebugFoundation', 
+  pod 'GYDFoundationDemo',
     :path => '../'
 
 end

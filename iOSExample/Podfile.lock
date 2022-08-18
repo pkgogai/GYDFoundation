@@ -2,34 +2,34 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GYDDebugFoundation (1.0.3):
-    - GYDDebugFoundation/GYDDebugInfo (= 1.0.3)
-    - GYDDebugFoundation/GYDDebugView (= 1.0.3)
-    - GYDDebugFoundation/GYDLogUI (= 1.0.3)
-    - GYDDebugFoundation/GYDTimeKeeper (= 1.0.3)
-    - GYDDebugFoundation/GYDTreeView (= 1.0.3)
-    - GYDDebugFoundation/GYDUnreadCount (= 1.0.3)
-    - GYDDebugFoundation/GYDViewHierarchy (= 1.0.3)
-    - GYDDebugFoundation/GYDViewTips (= 1.0.3)
-    - GYDDebugFoundation/Interface (= 1.0.3)
+  - GYDDebugFoundation (1.0.4):
+    - GYDDebugFoundation/GYDDebugInfo (= 1.0.4)
+    - GYDDebugFoundation/GYDDebugView (= 1.0.4)
+    - GYDDebugFoundation/GYDLogUI (= 1.0.4)
+    - GYDDebugFoundation/GYDTimeKeeper (= 1.0.4)
+    - GYDDebugFoundation/GYDTreeView (= 1.0.4)
+    - GYDDebugFoundation/GYDUnreadCount (= 1.0.4)
+    - GYDDebugFoundation/GYDViewHierarchy (= 1.0.4)
+    - GYDDebugFoundation/GYDViewTips (= 1.0.4)
+    - GYDDebugFoundation/Interface (= 1.0.4)
     - GYDFoundation
-  - GYDDebugFoundation/GYDDebugInfo (1.0.3):
+  - GYDDebugFoundation/GYDDebugInfo (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDDebugView (1.0.3):
+  - GYDDebugFoundation/GYDDebugView (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDLogUI (1.0.3):
+  - GYDDebugFoundation/GYDLogUI (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDTimeKeeper (1.0.3):
+  - GYDDebugFoundation/GYDTimeKeeper (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDTreeView (1.0.3):
+  - GYDDebugFoundation/GYDTreeView (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDUnreadCount (1.0.3):
+  - GYDDebugFoundation/GYDUnreadCount (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDViewHierarchy (1.0.3):
+  - GYDDebugFoundation/GYDViewHierarchy (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/GYDViewTips (1.0.3):
+  - GYDDebugFoundation/GYDViewTips (1.0.4):
     - GYDFoundation
-  - GYDDebugFoundation/Interface (1.0.3):
+  - GYDDebugFoundation/Interface (1.0.4):
     - GYDFoundation
   - GYDFoundation (1.0.4):
     - GYDFoundation/GYDDatabase (= 1.0.4)
@@ -37,6 +37,8 @@ PODS:
     - GYDFoundation/GYDHTTPConnect (= 1.0.4)
     - GYDFoundation/GYDJSONObject (= 1.0.4)
     - GYDFoundation/GYDModuleInterface (= 1.0.4)
+  - GYDFoundation/Development (1.0.4):
+    - GYDFoundation/GYDFoundation
   - GYDFoundation/GYDDatabase (1.0.4):
     - FMDB
     - GYDFoundation/GYDFoundation
@@ -62,6 +64,7 @@ PODS:
     - GYDFoundationDemo/GYDHTTPConnect (= 1.0.4)
     - GYDFoundationDemo/GYDJSONObject (= 1.0.4)
     - GYDFoundationDemo/GYDModuleInterface (= 1.0.4)
+    - GYDFoundationDemo/GYDShellTools (= 1.0.4)
     - GYDFoundationDemo/GYDTimeKeeperDemo (= 1.0.4)
   - GYDFoundationDemo/GYDDatabase (1.0.4):
     - GYDDebugFoundation
@@ -87,13 +90,21 @@ PODS:
   - GYDFoundationDemo/GYDModuleInterface (1.0.4):
     - GYDDebugFoundation
     - GYDFoundation
+  - GYDFoundationDemo/GYDShellTools (1.0.4):
+    - GYDDebugFoundation
+    - GYDFoundation
   - GYDFoundationDemo/GYDTimeKeeperDemo (1.0.4):
     - GYDDebugFoundation
     - GYDFoundation
 
 DEPENDENCIES:
   - GYDDebugFoundation (from `../`)
-  - GYDFoundation (from `../`)
+  - GYDFoundation/Development (from `../`)
+  - GYDFoundation/GYDDatabase (from `../`)
+  - GYDFoundation/GYDFoundation (from `../`)
+  - GYDFoundation/GYDHTTPConnect (from `../`)
+  - GYDFoundation/GYDJSONObject (from `../`)
+  - GYDFoundation/GYDModuleInterface (from `../`)
   - GYDFoundation/Tests/GYDDatabase (from `../`)
   - GYDFoundation/Tests/GYDFoundation (from `../`)
   - GYDFoundation/Tests/GYDHTTPConnect (from `../`)
@@ -114,10 +125,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GYDDebugFoundation: 4c9918e8ed8a631eba376dbe7aa93a5f9f487a07
-  GYDFoundation: c7e0275121ec95b561515beb4404b98c08843119
-  GYDFoundationDemo: f989aacf0b472877ae547a253acb590b62d20729
+  GYDDebugFoundation: acf09d1f67b0800c4e09d10b84f71df2dc1879a8
+  GYDFoundation: 5e9fb0291d98895fa2545ccd37961a1c34fabe42
+  GYDFoundationDemo: bd6d0c94ff6ceb1feef8ee78b1970fe0f20f3ee9
 
-PODFILE CHECKSUM: cff9e5286cd2fe17a004e473804cae38ec67b4b3
+PODFILE CHECKSUM: 3b778afd257de5825d18deb284f1df70d3d45179
 
 COCOAPODS: 1.11.2
