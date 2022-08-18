@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)state:(NSInteger)state forFileMd5:(NSString *)md5;
 
-- (NSString *)setName:(NSString *)name state:(NSInteger)state forFileMd5:(NSString *)md5;
+- (BOOL)setName:(NSString *)name state:(NSInteger)state forFileMd5:(NSString *)md5;
 
 @end
 

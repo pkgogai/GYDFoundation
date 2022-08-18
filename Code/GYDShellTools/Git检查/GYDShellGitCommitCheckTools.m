@@ -9,7 +9,6 @@
 
 #import "GYDShellGitCommitCheckTools.h"
 #import "GYDFoundationPrivateHeader.h"
-#import "GYDShellFeishuToolsDemo.h"
 #import "GYDShellGitCommitConfig.h"
 #import "GYDShellTask.h"
 #import "GYDShellGitCommitCheckDiffModel.h"
@@ -148,7 +147,7 @@
                     GYDFoundationWarning(@"没找到作者：%@", task.standardOutput);
                     continue;
                 }
-                author = [[GYDShellFeishuToolsDemo sharedInstance] feishuUserWithGitAuthor:author];
+                author = [self.delegate feishuUserForGitAuther:author] ?: author;
                 
                 NSMutableArray<GYDShellCodeAnalysisFileAnalysisResultItem *> *resultClassArray = resultUserClassDic[author];
                 if (!resultClassArray) {
@@ -169,10 +168,7 @@
         
         NSMutableString *message = [NSMutableString stringWithFormat:@"%@:%zd个类:", key, obj.count];
         
-        NSString *userId = [[GYDShellFeishuToolsDemo sharedInstance] idForUserName:key];
-        if (!userId) {
-            userId = key;
-        }
+        NSString *userId = [self.delegate feishuUserIDForUserName:key] ?: key;
         for (NSInteger i = 0; i < 50 && i < obj.count; i++) {
             [message appendFormat:@"\n%@", obj[i].itemClass];
         }
@@ -182,7 +178,7 @@
     
     NSString *sendTo = self.sendTo;
     if (sendTo.length > 0) {
-        BOOL feishuResult = [[GYDShellFeishuToolsDemo sharedInstance] sendMessageToUser:sendTo withTitle:@"近期提交的类缺少注释" messageItemArray:feishuMessageArray output:&errorMsg];
+        BOOL feishuResult = [self.delegate sendMessageToUser:sendTo withTitle:@"近期提交的类缺少注释" messageArray:feishuMessageArray output:&errorMsg];
         if (!feishuResult) {
             GYDFoundationWarning(@"发送飞书消息失败：\n%@", errorMsg);
             return 1;

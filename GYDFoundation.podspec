@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GYDFoundation'
-  s.version          = '1.0.4'
+  s.version          = '1.0.5'
   s.summary          = 'GYDFoundation'
 
   s.description      = <<-DESC
@@ -54,7 +54,10 @@ Pod::Spec.new do |s|
   s.subspec 'GYDShellTools' do |ss|
     ss.osx.source_files = 'Code/GYDShellTools/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
+    ss.dependency "GYDFoundation/GYDDatabase"
     ss.dependency "GYDFoundation/GYDHTTPConnect"
+    ss.dependency "GYDFoundation/GYDJSONObject"
+    ss.dependency "GYDFoundation/GYDModuleInterface"
   end
   #特殊情况
   s.subspec 'GYDJSONObjectNonatomic' do |ss|

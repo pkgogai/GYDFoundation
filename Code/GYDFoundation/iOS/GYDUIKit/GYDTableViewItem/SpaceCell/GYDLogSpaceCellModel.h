@@ -10,7 +10,7 @@
 
 @interface GYDLogSpaceCellModel : GYDTableViewCellModel
 
-@property (nonatomic) UIColor *color;
+@property (nonatomic, nullable) UIColor *color;
 @property (nonatomic) CGFloat height;
 
 - (BOOL)shouldClick;

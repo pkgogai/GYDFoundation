@@ -7,11 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GYDShellFeishuMessageItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
+//先临时加个delegate让pod通过检查
+@protocol GYDShellGitCommitCheckToolsDelegate <NSObject>
+
+- (NSString *)feishuUserForGitAuther:(NSString *)author;
+
+- (NSString *)feishuUserIDForUserName:(NSString *)name;
+
+- (BOOL)sendMessageToUser:(NSString *)user withTitle:(NSString *)title messageArray:(NSArray<GYDShellFeishuMessageItem *> *)messages output:(out NSString * _Nullable * _Nullable)output;
+
+@end
 
 @interface GYDShellGitCommitCheckTools : NSObject
 
+@property (nonatomic, weak) id<GYDShellGitCommitCheckToolsDelegate> delegate;
 /** 配置文件 */
 @property (nonatomic) NSString *notesPath;
 

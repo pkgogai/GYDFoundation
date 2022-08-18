@@ -12,6 +12,10 @@
 #import "GYDShellGitCommitCheckTools.h"
 #import "GYDShellFeishuToolsDemo.h"
 
+@interface GYDShellGitCommitCheckToolsDemo ()<GYDShellGitCommitCheckToolsDelegate>
+
+@end
+
 @implementation GYDShellGitCommitCheckToolsDemo
 
 + (int)exampleMainArgc:(int)argc argv:(const char * _Nonnull * _Nonnull)argv {
@@ -58,13 +62,27 @@
     [feishuTools setConfigFilePath:feishuConfigPath];
     
     GYDShellGitCommitCheckTools *tools = [[GYDShellGitCommitCheckTools alloc] init];
+    GYDShellGitCommitCheckToolsDemo *delegate = [[self alloc] init];
+    tools.delegate = delegate;
     tools.notesPath = notes;
     tools.gitRootPath = gitPath;
     tools.sendTo = sendTo;
     BOOL r = [tools check];
-    
+    delegate = nil;
     printf("结束\n");
     return r;
+}
+
+- (NSString *)feishuUserForGitAuther:(NSString *)author {
+    return [[GYDShellFeishuToolsDemo sharedInstance] feishuUserWithGitAuthor:author];
+}
+
+- (NSString *)feishuUserIDForUserName:(NSString *)name {
+    return [[GYDShellFeishuToolsDemo sharedInstance] idForUserName:name];
+}
+
+- (BOOL)sendMessageToUser:(NSString *)user withTitle:(NSString *)title messageArray:(NSArray<GYDShellFeishuMessageItem *> *)messages output:(out NSString * _Nullable __autoreleasing *)output {
+    return [[GYDShellFeishuToolsDemo sharedInstance] sendMessageToUser:user withTitle:title messageItemArray:messages output:output];
 }
 
 @end

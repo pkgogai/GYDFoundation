@@ -341,7 +341,6 @@
     
     NSInteger resultLength = 0;
     NSInteger searchIndex = _index;
-    NSInteger lastHalfChatIndex = -10;
     while (searchIndex < _stringLength) {
         if (_stringBuffer[searchIndex] == character) {
             _index = searchIndex + 1;

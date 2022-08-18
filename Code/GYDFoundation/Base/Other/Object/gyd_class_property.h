@@ -12,6 +12,8 @@
 #include <objc/runtime.h>
 #include <objc/objc.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** 方法交换 */
 bool gyd_exchangeSelector(Class oClass, SEL oSelector, Class sClass, SEL sSelector);
 
@@ -32,6 +34,8 @@ void gyd_class_enumerateIvar(Class _Nonnull c, BOOL containsSuperClass, void (^ 
 
 //如果不想在外面用free()，那就用block形式的吧
 void gyd_class_getPropertyType_block(const char * _Nonnull attributes, void (^ _Nonnull block)(char * _Nullable className, char * _Nullable type));
+
+NS_ASSUME_NONNULL_END
 
 #endif /* gyd_class_property_h */
 
