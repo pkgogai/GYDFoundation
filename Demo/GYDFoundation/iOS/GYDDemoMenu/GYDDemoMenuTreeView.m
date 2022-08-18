@@ -127,8 +127,20 @@
     });
     [button addSubview:descLabel];
     
+//    UILabel *classLabel = ({
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+//        label.font = [UIFont systemFontOfSize:12];
+//        label.textColor = [UIColor blackColor];
+//        label.numberOfLines = 0;
+//        label.textAlignment = NSTextAlignmentLeft;
+//        label.lineBreakMode = NSLineBreakByTruncatingTail;
+//        label;
+//    });
+//    [button addSubview:classLabel];
+    
     nameLabel.text = name;
     descLabel.text = desc;
+//    classLabel.text = NSStringFromClass(vcClass);
     
     nameLabel.gyd_size = [nameLabel sizeThatFits:CGSizeMake(300, 0)];
     nameLabel.gyd_origin = CGPointMake(5, 5);
@@ -143,14 +155,11 @@
         backgroundImage = [[UIImage gyd_imageWithRectWidth:5 height:5 cornerRadius:1 borderColor:[UIColor grayColor] fillColor:GYDColorRGB(9999ff) lineWidth:1 dashWidth:0 dashClearWidth:0] gyd_stretchableImageFromCenter];
         disableImage = [[UIImage gyd_imageWithRectWidth:5 height:5 cornerRadius:1 borderColor:[UIColor grayColor] fillColor:nil lineWidth:1 dashWidth:0 dashClearWidth:0] gyd_stretchableImageFromCenter];
     }
-    if (vcClass) {
+    //是否考虑view
+    if ([vcClass isSubclassOfClass:[UIViewController class]]) {
         [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
-            if ([vcClass isSubclassOfClass:[UIViewController class]]) {
-                UIViewController *vc = [[vcClass alloc] init];
-                [UINavigationController gyd_pushViewController:vc animated:YES];
-            } else {
-                //view??
-            }
+            UIViewController *vc = [[vcClass alloc] init];
+            [UINavigationController gyd_pushViewController:vc animated:YES];
         }];
         [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     } else if (action) {

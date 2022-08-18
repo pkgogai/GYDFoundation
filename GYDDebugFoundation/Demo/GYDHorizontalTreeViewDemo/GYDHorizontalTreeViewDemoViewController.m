@@ -22,7 +22,7 @@
 
 + (void)load {
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"HorizontalTree" desc:@"横过来的树型结构图" order:80 vcClass:self];
-    [menu addToMenu:GYDDemoMenuRootName];
+    [menu addToMenu:@"图形展示"];
 }
 
 - (void)viewDidLoad {

@@ -17,6 +17,9 @@
     menu.action = ^{
         GYDDebugViewHierarchyWindowControl.show = !GYDDebugViewHierarchyWindowControl.show;
     };
+    [menu addToMenu:@"调试窗口"];
+    
+    menu = [GYDDemoMenu menuWithName:@"调试窗口" desc:nil order:100];
     [menu addToMenu:GYDDemoMenuRootName];
 }
 

@@ -23,9 +23,12 @@
             [button setBackgroundImage:borderImage forState:UIControlStateNormal];
             [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
                 NSInteger value = [manager selfValueForType:type];
-                value --;
-                if (value < -1) {
+                if (value > 2) {
                     value = 2;
+                } else if (value < 0) {
+                    value = 2;
+                } else {
+                    value --;
                 }
                 [manager setValue:value forType:type];
             }];

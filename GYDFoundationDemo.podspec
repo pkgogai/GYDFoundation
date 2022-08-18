@@ -41,6 +41,9 @@ Pod::Spec.new do |s|
   s.subspec 'GYDModuleInterface' do |demo|
     demo.ios.source_files = 'Demo/GYDModuleInterface/**/*'
   end
+  s.subspec 'GYDDebugUnreadCountDemo' do |demo|
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugUnreadCountDemo/**/*'
+  end
   s.subspec 'GYDDebugViewHierarchyDemo' do |demo|
     demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugViewHierarchyDemo/**/*'
   end

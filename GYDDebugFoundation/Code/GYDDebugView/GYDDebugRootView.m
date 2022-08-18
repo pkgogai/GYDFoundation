@@ -49,7 +49,7 @@ const CGFloat GYDLogViewMinWidth = 45;
         [self addSubview:_boundsView];
         
         _controlView = ({
-            GYDDebugControlView *controlView = [[GYDDebugControlView alloc] initWithFrame:CGRectMake(0, 100, 0, 0)];
+            GYDDebugControlView *controlView = [[GYDDebugControlView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
             controlView.backgroundColor = [UIColor greenColor];
             controlView;
         });

@@ -17,11 +17,8 @@
 @implementation GYDTimeValuePathDemoViewController
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"TimeValuePath" desc:@"动画路径计算" order:120];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"TimeValuePath" desc:@"全动画路径效果" order:120 vcClass:self];
     [menu addToMenu:GYDDemoMenuRootName];
-    
-    menu = [GYDDemoMenu menuWithName:@"TimeValuePath" desc:@"全动画路径效果" order:120 vcClass:self];
-    [menu addToMenu:@"TimeValuePath"];
 }
 
 - (void)viewDidLoad {
