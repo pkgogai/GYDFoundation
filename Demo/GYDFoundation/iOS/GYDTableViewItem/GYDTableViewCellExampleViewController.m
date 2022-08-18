@@ -24,7 +24,7 @@
 @implementation GYDTableViewCellExampleViewController
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"CellModel" desc:@"通过Model指定Cell，TableView中只适用Model" order:100 vcClass:self];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"CellModel" desc:@"通过Model指定Cell，TableView中只使用Model" order:100 vcClass:self];
     [menu addToMenu:GYDDemoMenuRootName];
 }
 

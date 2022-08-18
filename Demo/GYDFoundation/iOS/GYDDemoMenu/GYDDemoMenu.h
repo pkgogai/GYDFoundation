@@ -35,10 +35,11 @@ extern NSString * const GYDDemoMenuOtherName; //没归类的菜单
 /* 排序依据，大的在前 */
 @property (nonatomic) double order;
 
-/** 有值则弹出vc，没值则当做目录 */
-@property (nonatomic, nullable) Class vcClass;
-/** 点击事件，优先适用vcClass */
+/** 点击处理，没有则检查vcClass */
 @property (nonatomic, nullable) void(^action)(void);
+
+/** 在action=nil的情况下，点击时有vcClass值则弹出vc，没值则当做目录 */
+@property (nonatomic, nullable) Class vcClass;
 
 + (instancetype)menuWithName:(NSString *)name desc:(nullable NSString *)desc order:(double)order;
 

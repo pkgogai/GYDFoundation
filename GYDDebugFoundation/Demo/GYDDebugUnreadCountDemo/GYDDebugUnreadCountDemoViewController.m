@@ -13,7 +13,7 @@
 @implementation GYDDebugUnreadCountDemoViewController
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"红点关系" desc:@"展示红点关系" order:100];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"红点关系" desc:@"展示红点关系" order:100 vcClass:self];
     menu.action = ^{
         
         GYDUnreadCountManager *manager = [[GYDUnreadCountManager alloc] init];
