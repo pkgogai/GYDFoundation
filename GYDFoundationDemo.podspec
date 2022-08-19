@@ -25,6 +25,10 @@ Pod::Spec.new do |s|
 #  s.default_subspec = ['GYDFoundation', 'GYDDatabase', 'GYDHTTPConnect', 'GYDJSONObject', 'GYDModuleInterface', 'GYDDebugViewHierarchyDemo', 'GYDDebugViewTipsDemo', 'GYDHorizontalTreeViewDemo', 'GYDTimeKeeperDemo']
   s.ios.source_files = 'Demo/*'
   #示例
+  s.subspec 'GYDDemoMenu' do |demo|
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDemoMenu/**/*'
+  end
+  
   s.subspec 'GYDFoundation' do |demo|
     demo.ios.source_files = ['Demo/GYDFoundation/Base/**/*','Demo/GYDFoundation/iOS/**/*']
     demo.osx.source_files = ['Demo/GYDFoundation/Base/**/*','Demo/GYDFoundation/MacOS/**/*']

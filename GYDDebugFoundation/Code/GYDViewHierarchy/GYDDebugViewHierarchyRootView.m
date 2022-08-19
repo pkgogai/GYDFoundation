@@ -16,7 +16,6 @@
 #import "GYDDebugViewHierarchyDisplayView.h"
 #import "GYDDebugViewHierarchySelectView.h"
 #import "GYDDebugViewHierarchyItemListView.h"
-#import "GYDDebugFoundation.h"
 
 @implementation GYDDebugViewHierarchyRootView
 {

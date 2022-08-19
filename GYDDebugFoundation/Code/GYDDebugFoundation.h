@@ -10,6 +10,9 @@
 #import "GYDFoundation.h"
 #import "GYDFoundationPrivateHeader.h"
 
+//Demo菜单，可用于Demo工程导航栏的root
+#import "GYDDemoMenuViewController.h"
+
 //耗时统计
 #import "gyd_timekeeper.h"
 

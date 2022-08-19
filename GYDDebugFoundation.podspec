@@ -36,6 +36,11 @@ Pod::Spec.new do |s|
     ss.ios.source_files = 'GYDDebugFoundation/Code/GYDDebugView/**/*'
   end
   
+  #Demo菜单
+  s.subspec 'GYDDemoMenu' do |ss|
+    ss.ios.source_files = 'GYDDebugFoundation/Code/GYDDemoMenu/**/*'
+  end
+  
   #日志窗口
   s.subspec 'GYDLogUI' do |ss|
     ss.ios.source_files = 'GYDDebugFoundation/Code/GYDLogUI/**/*'

@@ -11,7 +11,6 @@
 #import "GYDFoundationPrivateHeader.h"
 #import "UIImage+GYDImage.h"
 #import "UIView+GYDDebugInfo.h"
-#import "GYDDebugFoundation.h"
 
 @implementation GYDDebugViewHierarchyItem
 
