@@ -145,7 +145,7 @@ static GYDDebugWindow *_Window = nil;
         }];
     }
     
-    NSArray *array = [GYDDebugAppInterface.delegate viewHierarchyRootView:view willAddControlViewArray:viewArray] ?: viewArray;
+    NSArray *array = [GYDDebugAppInterface.delegate logRootView:view willAddControlViewArray:viewArray] ?: viewArray;
     for (UIView *view in array) {
         [controlView addControlItemView:view location:GYDDebugControlViewLocationNormal];
     }
