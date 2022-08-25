@@ -324,12 +324,11 @@ static NSSet<NSString *> *tailClassNames = nil;
             }];
         }
     }
-    viewArray = [GYDDebugAppInterface.delegate viewHierarchyControlWillAddViewArray:viewArray] ?: viewArray;
+    NSArray *array = [GYDDebugAppInterface.delegate viewHierarchyRootView:view willAddControlViewArray:viewArray] ?: viewArray;
     
-    for (UIView *view in viewArray) {
+    for (UIView *view in array) {
         [controlView addControlItemView:view location:GYDDebugControlViewLocationNormal];
     }
-    
     
     return view;
 }

@@ -9,7 +9,6 @@
 #import "GYDTableViewCellExampleViewController.h"
 #import "GYDTableViewCellExampleModel.h"
 #import "GYDTableViewCellExampleView.h"
-#import "GYDLogExample.h"
 #import "GYDTableViewCellDemoType2Model.h"
 #import "GYDDemoMenu.h"
 

@@ -8,15 +8,26 @@
 
 #import "GYDLogExample.h"
 #import "GYDDemoMenu.h"
+#import "GYDDebugLogWindowControl.h"
+#import "GYDLogTableViewCellModel.h"
+#import "GYDWeakTimer.h"
+#import "objc/runtime.h"
 
 @implementation GYDLogExample
 
 + (void)load {
+    [self ready];
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"GYDLog" desc:@"按等级和类型划分日志，并设置不同的处理" order:90 vcClass:self];
     menu.action = ^{
         GYDLogDebug();
+        GYDDebugLogWindowControl.show = YES;
+        GYDWeakTimer *timer = [GYDWeakTimer timerStartWithTimeInterval:0.5 userInfo:nil repeats:YES action:^(GYDWeakTimer * _Nonnull timer) {
+            GYDLogDebug();
+        }];
+        static char key;
+        objc_setAssociatedObject(GYDDebugLogWindowControl.window, &key, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     };
-    [menu addToMenu:GYDDemoMenuRootName];
+    [menu addToMenu:@"调试窗口"];
 }
 
 + (void)ready {
@@ -28,7 +39,7 @@
     } else {
         NSLog(@"设置路径失败：%@", errMessage);
     }
-    
+    GYDLog.logItemModelClass = [GYDLogTableViewCellModel class];
     
     
 #if ExampleIsDevelopment == 1
