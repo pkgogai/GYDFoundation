@@ -27,7 +27,7 @@
     fx[2] = arrowLocation.y - down;
     fx[3] = left - arrowLocation.x;
     NSInteger arrowForword = -1;
-    for (NSInteger i = 1; i < 4; i++) {
+    for (NSInteger i = 0; i < 4; i++) {
         if (fx[i] < 0) {
             continue;
         }
