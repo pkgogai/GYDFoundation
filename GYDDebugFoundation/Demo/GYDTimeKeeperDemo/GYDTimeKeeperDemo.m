@@ -9,7 +9,19 @@
 #import "GYDTimeKeeperDemo.h"
 #include "gyd_timekeeper.h"
 
+#if TARGET_OS_IPHONE
+#import "GYDDemoMenu.h"
+#endif
+
 @implementation GYDTimeKeeperDemo
+
+#if TARGET_OS_IPHONE
++ (void)load {
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"性能计时" desc:@"统计时间" order:45 vcClass:self];
+    [menu addToMenu:GYDDemoMenuRootName];
+}
+#endif
+
 
 - (void)test {
     //创建计时者，并申请2次打点（take）的空间

@@ -24,10 +24,8 @@
 
 + (void)load {
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"ViewTips" desc:@"在屏幕上为指定view添加提示语" order:100 vcClass:self];
-    [menu addToMenu:@"图形展示"];
-    
-    menu = [GYDDemoMenu menuWithName:@"图形展示" desc:nil order:100];
-    [menu addToMenu:GYDDemoMenuRootName];
+    [menu addToMenu:@"图形"];
+
 }
 
 - (void)viewDidLoad {

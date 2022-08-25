@@ -22,14 +22,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _menuView = [[GYDDemoMenuTreeView alloc] initWithFrame:CGRectZero];
-    [self.view addSubview:_menuView];
-    
     if (@available(iOS 11.0, *)) {
         _menuView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    _menuView = [[GYDDemoMenuTreeView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:_menuView];
+
 }
 
 - (void)viewDidLayoutSubviews {

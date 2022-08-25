@@ -7,8 +7,17 @@
 //
 
 #import "GYDLogExample.h"
+#import "GYDDemoMenu.h"
 
 @implementation GYDLogExample
+
++ (void)load {
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"GYDLog" desc:@"按等级和类型划分日志，并设置不同的处理" order:90 vcClass:self];
+    menu.action = ^{
+        GYDLogDebug();
+    };
+    [menu addToMenu:GYDDemoMenuRootName];
+}
 
 + (void)ready {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];

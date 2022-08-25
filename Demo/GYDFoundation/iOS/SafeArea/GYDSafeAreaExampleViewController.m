@@ -9,6 +9,7 @@
 #import "GYDSafeAreaExampleViewController.h"
 #import "UIView+GYDSafeArea.h"
 #import "GYDDebugViewTipsDisplayView.h"
+#import "GYDDemoMenu.h"
 
 @interface GYDSafeAreaExampleViewController ()
 
@@ -23,9 +24,16 @@
     GYDDebugViewTipsDisplayViewModel *_tipsModel[4];
     GYDDebugViewTipsDisplayView *_displayView;
     
-    //懒得写了
+    //11系统早已经普及，demo也懒得写了
     UIView *_view1;
 }
+
++ (void)load {
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"给11一下系统的view加上安全区，忽略几何变换" order:40 vcClass:self];
+    [menu addToMenu:GYDDemoMenuOtherName];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

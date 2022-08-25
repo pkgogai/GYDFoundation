@@ -6,11 +6,11 @@
 //  Copyright © 2018年 宫亚东. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GYDViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GYDSafeAreaExampleViewController : UIViewController
+@interface GYDSafeAreaExampleViewController : GYDViewController
 
 @end
 
