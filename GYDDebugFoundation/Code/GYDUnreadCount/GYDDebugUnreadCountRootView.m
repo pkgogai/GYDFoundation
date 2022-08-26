@@ -23,9 +23,16 @@
         self.backgroundColor = [UIColor whiteColor];
         self.contentInset = UIEdgeInsetsMake(60, 60, 60, 60);
         _displayView = [[GYDHorizontalTreeView alloc] initWithFrame:CGRectZero];
+        _displayView.lineColor = [UIColor grayColor];
+        _displayView.backgroundColor = [UIColor clearColor];
         [self addSubview:_displayView];
     }
     return self;
+}
+
+- (void)setWhiteStyle:(BOOL)whiteStyle {
+    _whiteStyle = whiteStyle;
+    _displayView.lineColor = _whiteStyle ? [UIColor whiteColor] : [UIColor grayColor];
 }
 
 - (void)updateWithUnreadCountManager:(GYDUnreadCountManager *)manager {
