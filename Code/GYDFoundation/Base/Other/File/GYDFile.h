@@ -38,4 +38,8 @@
 /** 深度遍历路径，包括文件和目录 */
 + (void)enumPath:(NSString * _Nullable)path usingBlock:(void (NS_NOESCAPE ^_Nonnull)(NSString * _Nonnull fileName, NSString * _Nonnull fullPath, BOOL * _Nonnull stop))block;
 
+/** 如果同名则加后缀，先是1~500，之后随机500次，如果1000次都有重名，就放弃 */
++ (nullable NSString *)emptyPathWithPath:(nonnull NSString *)path errorMessage:(NSString * _Nullable * _Nullable)errorMessage;
+
+
 @end
