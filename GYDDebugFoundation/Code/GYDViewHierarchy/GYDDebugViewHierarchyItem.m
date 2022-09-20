@@ -102,15 +102,7 @@
     if ([view.nextResponder isKindOfClass:[UIViewController class]]) {
         self.viewControllerClass = NSStringFromClass(view.nextResponder.class);
     }
-    NSString *desc = view.gyd_createInfo ?: @"";
-    for (NSString *name in view.gyd_propertyNames) {
-        if (desc.length > 0) {
-            desc = [desc stringByAppendingString:@"\n"];
-        }
-        desc = [desc stringByAppendingString:name];
-    }
-    
-    self.viewDesc = desc;// [view description];
+    self.viewDesc = view.gyd_debugDescription;// [view description];
     
     CGSize windowSize = screen.bounds.size;
     

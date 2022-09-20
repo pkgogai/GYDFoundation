@@ -19,6 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (GYDDebugInfo)
 
+#pragma mark - 调试信息组装
+/**
+ 创建信息\n
+ 属性信息\n
+ 其它信息
+ */
+@property (nonatomic, readonly, copy) NSString *gyd_debugDescription;
+
 #pragma mark - 创建时的信息
 @property (nonatomic, copy) NSString *gyd_createInfo;
 
@@ -37,6 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)gyd_updateSubviewPropertyNameForView:(UIView *)view;
 
+#pragma mark - 自定义信息
+
+/**
+ 如： "text:123"，"image:icon1"，"url:xxx"等
+ 不直接为UIImageView等类扩展，是方便别人想重写这个方法时还能调super，之后应该会把这个方法放到NSObject类别
+ */
+- (NSString *)gyd_otherDebugInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END
+
