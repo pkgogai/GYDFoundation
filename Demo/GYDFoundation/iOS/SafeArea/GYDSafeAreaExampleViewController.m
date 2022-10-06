@@ -8,8 +8,11 @@
 
 #import "GYDSafeAreaExampleViewController.h"
 #import "UIView+GYDSafeArea.h"
+#import "GYDSafeAreaDemoDisplayView.h"
+
 #import "GYDDebugViewTipsDisplayView.h"
 #import "GYDDemoMenu.h"
+#import "gyd_timekeeper.h"
 
 @interface GYDSafeAreaExampleViewController ()
 
@@ -17,47 +20,72 @@
 
 @implementation GYDSafeAreaExampleViewController
 {
-    UIView *_demoView[4];
-    
-    UIImageView *_safeAreaBorderView;
-    
-    GYDDebugViewTipsDisplayViewModel *_tipsModel[4];
-    GYDDebugViewTipsDisplayView *_displayView;
-    
-    //11系统早已经普及，demo也懒得写了
-    UIView *_view1;
+    GYDSafeAreaDemoDisplayView *_safeAreaView;
+    GYDSafeAreaDemoDisplayView *_view[3];
+    UILabel *_readmeLabel;
 }
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"给11一下系统的view加上安全区，忽略几何变换" order:40 vcClass:self];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"和系统的安全区规则不同" order:40 vcClass:self];
     [menu addToMenu:GYDDemoMenuOtherName];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _safeAreaView = [[GYDSafeAreaDemoDisplayView alloc] initWithFrame:CGRectZero];
+    _safeAreaView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:0 alpha:1];
+    [self.view addSubview:_safeAreaView];
     
-    for (NSInteger i = 0; i < 4; i++) {
-        _demoView[i] = [[UIView alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_demoView[i]];
+    for (NSInteger i = 0; i < 3; i++) {
+        _view[i] = [[GYDSafeAreaDemoDisplayView alloc] initWithFrame:CGRectMake(50, 240 - i * 180, 200, 300)];
+        _view[i].backgroundColor = [UIColor colorWithRed:0 green:2 - i blue:i alpha:0.4];
+        if (i > 0) {
+            [_view[i - 1] addSubview:_view[i]];
+        } else {
+            [self.view addSubview:_view[i]];
+        }
     }
-    
+    _readmeLabel = ({
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.font = [UIFont systemFontOfSize:16];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor blackColor];
+        label.numberOfLines = 0;
+        label.textAlignment = NSTextAlignmentCenter;
+        label;
+    });
+    [self.view addSubview:_readmeLabel];
+    _readmeLabel.text = @"注意：gyd_safeAreaInsets与系统自带的安全区规则不同！！！\n以安全区.top为例，黄色区域为手机安全区，3个嵌套的view安全区如下：\n左边为gyd_safeAreaInsets.top的值\n右边为系统safeAreaInsets.top的值\n单指移动，双指缩放或旋转";
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (@available(iOS 11.0, *)) {
-    } else {
-        [self.view gyd_setSafeAreaInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        //如果在PUSH的时候隐藏TabBar，低版本self.bottomLayoutGuide.length没有及时更新，所以可以改用 bottom = self.hidesBottomBarWhenPushed ? 0 : self.bottomLayoutGuide.length
-    }
+    CGSize viewSize = self.view.bounds.size;
     
-    //这样所有子view布局时都使用gyd_safeAreaInsets获取自己的安全区。
-    UIEdgeInsets view1SafeArea = _view1.gyd_safeAreaInsets;
-    NSLog(@"%@", NSStringFromUIEdgeInsets(view1SafeArea));
+    //为了方便展示，强制safeArea.top为330
+    if (@available(iOS 11.0, *)) {
+        self.additionalSafeAreaInsets = UIEdgeInsetsMake(330 + self.additionalSafeAreaInsets.top - self.view.safeAreaInsets.top, 0, 0, 0);
+    } else {
+        // Fallback on earlier versions
+    }
+    [self.view gyd_setSafeAreaInsets:UIEdgeInsetsMake(330, 0, 0, 0)];
+    
+    CGSize readmeSize = [_readmeLabel sizeThatFits:CGSizeMake(viewSize.width - 100, 0)];
+    _readmeLabel.frame = CGRectMake((viewSize.width - readmeSize.width) / 2, 60, readmeSize.width, readmeSize.height);
+    
+    _safeAreaView.frame = CGRectMake(0, 0, viewSize.width, self.view.gyd_safeAreaInsets.top);
+    [_safeAreaView updateSafeAreaValue];
+    
+    for (NSInteger i = 0; i < 3; i++) {
+        [_view[i] updateSafeAreaValue];
+    }
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    NSLog(@"%s", __func__);
+}
 /*
 #pragma mark - Navigation
 
