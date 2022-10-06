@@ -189,6 +189,10 @@
         }
     }
 
+    CGFloat scale = [UIScreen mainScreen].scale;
+    if (scale > 2) {
+        scale = 2;
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         while (arr.count > 0) {
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -203,7 +207,7 @@
                         CGRect frame = item.imageFrame;
                         if (frame.size.width > 0 && frame.size.height > 0) {
                             
-                            CGFloat scale = [UIScreen mainScreen].scale;
+                            
                             BOOL viewHidden = view.hidden;
                             CGFloat viewAlpha = view.alpha;
                             if (viewHidden) {
@@ -212,7 +216,7 @@
                             if (viewAlpha < 1) {
                                 view.alpha = 1;
                             }
-                            item.viewCompleteImage = [UIImage gyd_imageWithView:view scale:1 rect:frame];
+                            item.viewCompleteImage = [UIImage gyd_imageWithView:view scale:scale rect:frame];
                             
                             NSMutableArray *subViews = [NSMutableArray array];
                             for (UIView *sub in view.subviews) {
@@ -225,7 +229,7 @@
                                 sub.hidden = YES;
                                 [subViews addObject:sub];
                             }
-                            item.viewPartImage = [UIImage gyd_imageWithView:view scale:1 rect:frame];
+                            item.viewPartImage = [UIImage gyd_imageWithView:view scale:scale rect:frame];
                             for (UIView *sub in subViews) {
                                 sub.hidden = NO;
                             }
