@@ -26,8 +26,8 @@
 }
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"和系统的安全区规则不同" order:40 vcClass:self];
-    [menu addToMenu:GYDDemoMenuOtherName];
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"和系统的安全区规则不同" order:90 vcClass:self];
+    [menu addToMenu:GYDDemoMenuRootName];
 }
 
 - (void)viewDidLoad {
