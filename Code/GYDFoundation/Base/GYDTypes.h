@@ -1,0 +1,99 @@
+//
+//  GYDTypes.h
+//  GYDFoundation
+//
+//  Created by gongyadong on 2022/10/27.
+//  Copyright © 2022 宫亚东. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef union {
+    struct {
+        BOOL bit00:1;
+        BOOL bit01:1;
+        BOOL bit02:1;
+        BOOL bit03:1;
+        BOOL bit04:1;
+        BOOL bit05:1;
+        BOOL bit06:1;
+        BOOL bit07:1;
+        BOOL bit08:1;
+        BOOL bit09:1;
+        BOOL bit10:1;
+        BOOL bit11:1;
+        BOOL bit12:1;
+        BOOL bit13:1;
+        BOOL bit14:1;
+        BOOL bit15:1;
+        BOOL bit16:1;
+        BOOL bit17:1;
+        BOOL bit18:1;
+        BOOL bit19:1;
+        BOOL bit20:1;
+        BOOL bit21:1;
+        BOOL bit22:1;
+        BOOL bit23:1;
+        BOOL bit24:1;
+        BOOL bit25:1;
+        BOOL bit26:1;
+        BOOL bit27:1;
+        BOOL bit28:1;
+        BOOL bit29:1;
+        BOOL bit30:1;
+        BOOL bit31:1;
+        BOOL bit32:1;
+        BOOL bit33:1;
+        BOOL bit34:1;
+        BOOL bit35:1;
+        BOOL bit36:1;
+        BOOL bit37:1;
+        BOOL bit38:1;
+        BOOL bit39:1;
+        BOOL bit40:1;
+        BOOL bit41:1;
+        BOOL bit42:1;
+        BOOL bit43:1;
+        BOOL bit44:1;
+        BOOL bit45:1;
+        BOOL bit46:1;
+        BOOL bit47:1;
+        BOOL bit48:1;
+        BOOL bit49:1;
+        BOOL bit50:1;
+        BOOL bit51:1;
+        BOOL bit52:1;
+        BOOL bit53:1;
+        BOOL bit54:1;
+        BOOL bit55:1;
+        BOOL bit56:1;
+        BOOL bit57:1;
+        BOOL bit58:1;
+        BOOL bit59:1;
+        BOOL bit60:1;
+        BOOL bit61:1;
+        BOOL bit62:1;
+        BOOL bit63:1;
+    } bitsValue;
+    struct {
+        Byte byte0;
+        Byte byte1;
+        Byte byte2;
+        Byte byte3;
+        Byte byte4;
+        Byte byte5;
+        Byte byte6;
+        Byte byte7;
+    } byteValue;
+    struct {
+        uint16_t int16_0;
+        uint16_t int16_1;
+        uint16_t int16_2;
+        uint16_t int16_3;
+    } int16Value;
+    struct {
+        uint32_t int32_0;
+        uint32_t int32_1;
+    } int32Value;
+    uint64_t value;
+} GYDIntByteBitUnion;

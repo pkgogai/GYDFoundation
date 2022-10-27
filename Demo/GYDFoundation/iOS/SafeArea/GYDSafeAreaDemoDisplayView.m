@@ -144,7 +144,7 @@
     CGSize textSize;
     CGFloat offset;
     NSInteger n;
-    GYDUIStructToArray safeAreaToArray;
+    GYDUIStructUnion safeAreaToArray;
     safeAreaToArray.edgeInsetsValue = safeArea;
     CGFloat *safeAreaValue = safeAreaToArray.arrayValue;
     

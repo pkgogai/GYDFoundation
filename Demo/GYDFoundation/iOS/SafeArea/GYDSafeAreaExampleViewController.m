@@ -28,8 +28,11 @@
 }
 
 + (void)load {
+    GYDDemoMenu *screen = [GYDDemoMenu menuWithName:@"屏幕区域" desc:nil order:90];
+    [screen addToMenu:GYDDemoMenuRootName];
+    
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"安全区" desc:@"和系统的安全区规则不同" order:90 vcClass:self];
-    [menu addToMenu:GYDDemoMenuRootName];
+    [menu addToMenu:@"屏幕区域"];
 }
 
 - (void)viewDidLoad {
@@ -84,11 +87,11 @@
     
     //为了方便展示，强制safeArea.top为330
     if (@available(iOS 11.0, *)) {
-        GYDUIStructToArray fromSafeArea;
+        GYDUIStructUnion fromSafeArea;
         fromSafeArea.edgeInsetsValue = self.view.safeAreaInsets;
-        GYDUIStructToArray toSafeArea;
+        GYDUIStructUnion toSafeArea;
         toSafeArea.edgeInsetsValue = safeArea;
-        GYDUIStructToArray additionalSafeAreaInsets;
+        GYDUIStructUnion additionalSafeAreaInsets;
         additionalSafeAreaInsets.edgeInsetsValue = self.additionalSafeAreaInsets;
         
         for (NSInteger i = 0; i < 4; i++) {

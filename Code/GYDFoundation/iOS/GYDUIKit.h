@@ -17,11 +17,12 @@
 #import "GYDShapeView.h"
 #import "GYDTableViewCellModel.h"
 #import "GYDTableViewCellView.h"
+#import "UIScrollView+GYDScrollVisible.h"
 #import "GYDOtherWindowRootViewController.h"
 #import "GYDViewController.h"
 #import "UINavigationController+GYDPush.h"
 #import "GYDWeakDisplayLink.h"
-#import "GYDUIStructToArray.h"
+#import "GYDUITypes.h"
 
 //利用GYDWeakDisplayLink计时回调
 #import "GYDTimeValuePathTimer.h"
