@@ -18,6 +18,7 @@
 @implementation GYDScrollViewVisibleRectDemoViewController
 {
     UIScrollView *_sv;
+    UIButton *_keyboardButton;
 }
 + (void)load {
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"ScrollView可视区" desc:@"通过修改contentOffset和contentInset将指定区域移入可视范围" order:51 vcClass:self];
@@ -39,7 +40,7 @@
     [self.view addSubview:_sv];
     
     for (NSInteger i = 0; i < 20; i++) {
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5, i * 85, 270, 80)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, i * 85, 300, 80)];
         textField.tag = i + 100;
         textField.delegate = self;
         textField.backgroundColor = [UIColor gyd_colorWithRGBValue:[self randColorValueForIndex:i] alpha:1];
@@ -48,30 +49,41 @@
         textField.returnKeyType = UIReturnKeyNext;
         [_sv addSubview:textField];
     }
-    _sv.contentSize = CGSizeMake(280, 20 * 85);
-    
-    UIButton *button = ({
+    _sv.contentSize = CGSizeMake(500, 20 * 85);
+    _sv.transform = CGAffineTransformMakeRotation(M_PI);
+    _keyboardButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(300, 100, 100, 100);
         button.backgroundColor = [UIColor blueColor];
         [button setTitle:@"收键盘" forState:UIControlStateNormal];
         [button addTarget:self action:@selector(aaaa) forControlEvents:UIControlEventTouchUpInside];
         button;
     });
     
-    [self.view addSubview:button];
+    [self.view addSubview:_keyboardButton];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGRect frame = self.view.bounds;
-    frame.origin.x += 10;
-    frame.origin.y += 10;
-    frame.size.width = 290;
-    frame.size.height -= 20;
+    UIEdgeInsets safeArea = self.view.gyd_safeAreaInsets;
+    frame.size.width = frame.size.width - 110;
+    safeArea.right = MAX(safeArea.right - 110, 0);
+    
     _sv.frame = frame;
-    _sv.contentInset = _sv.gyd_safeAreaInsets;
-    _sv.gyd_visibleSafeArea = UIEdgeInsetsMake(_sv.gyd_safeAreaInsets.top, 0, 20, 0);
+    _keyboardButton.frame = CGRectMake(frame.size.width, 100, 100, 100);
+    
+    CGRect visibleRect = _sv.gyd_visibleRect;
+    if (CGRectIsNull(visibleRect)) {
+        _sv.contentInset = safeArea;
+        _sv.gyd_visibleSafeArea = safeArea;
+    } else {
+        //由于内部修改了contentInset，所以别的地方也要修改contentInset时，一定要先还原。
+        //考试是否换成UIScrollView+GYDContentInset
+        _sv.gyd_visibleRect = CGRectNull;
+        _sv.contentInset = safeArea;
+        _sv.gyd_visibleSafeArea = safeArea;
+        _sv.gyd_visibleRect = visibleRect;
+    }
 }
 
 - (void)aaaa {

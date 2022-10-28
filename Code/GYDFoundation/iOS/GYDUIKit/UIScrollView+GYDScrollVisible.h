@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIScrollView (GYDScrollVisible)
 
-/// 要展示的区域，在屏幕外则会滚动到屏幕内，当键盘弹起时，此位置被遮挡也会跟随移动。通过修改contentOffset和contentInset实现。清除时使用CGRectNull
+/// 要展示的区域，CGRectNull表示没有。如果区域比可视范围更大，则以左上角为准。
 @property (nonatomic) CGRect gyd_visibleRect;
 
 /// UIScrollView本身展示区域，类似gyd_safeArea的反向区域

@@ -52,6 +52,7 @@ static CGFloat KeyboardY = 0;
     if (!p) {
         p = [[GYDScrollVisibleProperty alloc] init];
         objc_setAssociatedObject(self, &PropertyKey, p, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        p.lockedRect = CGRectNull;
     }
     return p;
 }
