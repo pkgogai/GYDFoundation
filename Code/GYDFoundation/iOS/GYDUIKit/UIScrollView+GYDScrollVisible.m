@@ -143,25 +143,30 @@ static CGFloat KeyboardY = 0;
     //-------------------------------------------
     //可见区域，以本身坐标作为初始值
     CGRect frame = self.bounds;
+    CGPoint contentOffset = self.contentOffset;
+    
+    //难得用一次系统的坐标转换，就顺便把旋转方向也加上吧，size是方向
+    CGPoint keyboardPoint = CGPointMake(0, frame.origin.y + frame.size.height);
+    CGPoint keyboardDirection = CGPointMake(0, -1);
     if (y > 0 && y < [UIScreen mainScreen].bounds.size.height) {
         UIScreen *screen = [UIScreen mainScreen];
-        frame.size.height = [self convertPoint:CGPointMake(0, y) fromCoordinateSpace:screen.coordinateSpace].y - frame.origin.y;
+        keyboardPoint = [self convertPoint:CGPointMake(0, y) fromCoordinateSpace:screen.coordinateSpace];
+        keyboardDirection = [self convertPoint:CGPointMake(0, y - 1) fromCoordinateSpace:screen.coordinateSpace];
+        keyboardDirection.x -= keyboardPoint.x;
+        keyboardDirection.y -= keyboardPoint.y;
+        
+//        keyboardPoint.x -= contentOffset.x;
+//        keyboardPoint.y -= contentOffset.y;
         
     }
     //-------------------------------------------
-    //加上gyd_visibleSafeArea
-    frame.origin.x += p.safeArea.left;
-    frame.origin.y += p.safeArea.top;
-    frame.size.width -= p.safeArea.left + p.safeArea.right;
-    frame.size.height -= p.safeArea.top + p.safeArea.bottom;
-    
     //如果按默认contentInset有回弹的话，那就换成回弹后的位置
     UIEdgeInsets contentInset = self.contentInset;
     contentInset = UIEdgeInsetsSubInsets(contentInset, p.insetsOffset);
 //    if (@available(iOS 11.0, *)) {
 //        contentInset = UIEdgeInsetsAddInsets(contentInset, self.adjustedContentInset);
 //    }
-    CGPoint contentOffset = self.contentOffset;
+    
     {
         CGPoint offset = CGPointZero;
         CGRect bounds = self.bounds;
@@ -180,28 +185,22 @@ static CGFloat KeyboardY = 0;
         }
         frame.origin.x += offset.x;
         frame.origin.y += offset.y;
+        keyboardPoint.x += offset.x;
+        keyboardPoint.y += offset.y;
         contentOffset.x += offset.x;
         contentOffset.y += offset.y;
     }
     
     CGRect toFrame = p.lockedRect;
-    //通过当前可见区域(frame)与想要看到的区域(toFrame)的偏差
-    CGPoint offset = CGPointZero;
-    if (frame.origin.x + frame.size.width < toFrame.origin.x + toFrame.size.width) {
-        offset.x = (toFrame.origin.x + toFrame.size.width) - (frame.origin.x + frame.size.width);
-    }
-    if (offset.x > toFrame.origin.x - frame.origin.x) {
-        offset.x = toFrame.origin.x - frame.origin.x;
-    }
-    if (frame.origin.y + frame.size.height < toFrame.origin.y + toFrame.size.height) {
-        offset.y = (toFrame.origin.y + toFrame.size.height) - (frame.origin.y + frame.size.height);
-    }
-    if (offset.y > toFrame.origin.y - frame.origin.y) {
-        offset.y = toFrame.origin.y - frame.origin.y;
-    }
-    //根据偏差计算目标contentOffset
-//    CGPoint contentOffset = self.contentOffset;
-    contentOffset.x += offset.x;
+    //留出gyd_visibleSafeArea
+    toFrame.origin.x -= p.safeArea.left;
+    toFrame.origin.y -= p.safeArea.top;
+    toFrame.size.width += p.safeArea.left + p.safeArea.right;
+    toFrame.size.height += p.safeArea.top + p.safeArea.bottom;
+    
+    //根据可见区域、目标区域、键盘方向，计算目标contentOffset
+    CGPoint offset = [self offsetWithVisibleRect:frame targetRect:toFrame keyboardPoint:keyboardPoint direction:keyboardDirection];
+     contentOffset.x += offset.x;
     contentOffset.y += offset.y;
     
     
@@ -232,6 +231,90 @@ static CGFloat KeyboardY = 0;
     p.insetsOffset = UIEdgeInsetsAddInsets(p.insetsOffset, UIEdgeInsetsSubInsets(contentV.edgeInsetsValue, self.contentInset));
     self.contentInset = contentV.edgeInsetsValue;
     [self setContentOffset:contentOffset animated:NO];
+}
+
+//通过当前可见区域(VisibleRect)与想要看到的目标区域(targetRect)，还有键盘方向keyboardDirection来计算需要进行的偏移
+- (CGPoint)offsetWithVisibleRect:(CGRect)rect targetRect:(CGRect)target keyboardPoint:(CGPoint)keyboardPoint direction:(CGPoint)keyboardDirection {
+    //记录一下开始位置，然后把target处理到合适位置，最后返回差值
+    CGPoint origin = target.origin;  //
+    //先看键盘方向，这里就只按4个方向移动来寻找合适位置
+    NSInteger dirction = 0; //0上,1左,2下,3右
+    if (keyboardDirection.y <= keyboardDirection.x && keyboardDirection.y <= -keyboardDirection.x) {
+        //向上
+        dirction = 0;
+    } else if (keyboardDirection.y >= keyboardDirection.x && keyboardDirection.y >= -keyboardDirection.x) {
+        //向下
+        dirction = 2;
+    } else if (keyboardDirection.x > keyboardDirection.y && keyboardDirection.x > -keyboardDirection.y) {
+        //向右
+        dirction = 3;
+    } else if (keyboardDirection.x < keyboardDirection.y && keyboardDirection.x < -keyboardDirection.y) {
+        //向左
+        dirction = 1;
+    } else {
+        //漏了，按默认值向上
+        GYDFoundationError(@"漏边界值了");
+    }
+
+    if (dirction == 0 || dirction == 2) {
+        //先处理左右边界
+        if (target.origin.x > rect.origin.x + rect.size.width - target.size.width) {
+            target.origin.x = rect.origin.x + rect.size.width - target.size.width;
+        }
+        if (target.origin.x < rect.origin.x) {
+            target.origin.x = rect.origin.x;
+        }
+        //再处理上下边界
+        //斜率
+        CGFloat slope = - keyboardDirection.x / keyboardDirection.y;
+        CGFloat leftY = (target.origin.x - keyboardPoint.x) * slope + keyboardPoint.y;
+        CGFloat rightY = leftY + target.size.width * slope;
+        if (dirction == 0) {
+            CGFloat y = MIN(leftY, rightY);
+            y = MIN(y, rect.origin.y + rect.size.height);
+            if (target.origin.y > y - target.size.height) {
+                target.origin.y = y - target.size.height;
+            }
+            if (target.origin.y < rect.origin.y) {
+                target.origin.y = rect.origin.y;
+            }
+        } else {
+            CGFloat y = MAX(leftY, rightY);
+            y = MAX(y, rect.origin.y);
+            if (target.origin.y < y) {
+                target.origin.y = y;
+            }
+        }
+    } else {
+        //先处理上下边界
+        if (target.origin.y > rect.origin.y + rect.size.height - target.size.height) {
+            target.origin.y = rect.origin.y + rect.size.height - target.size.height;
+        }
+        if (target.origin.y < rect.origin.y) {
+            target.origin.y = rect.origin.y;
+        }
+        //再处理左右边界
+        CGFloat slope = - keyboardDirection.y / keyboardDirection.x;
+        CGFloat topX = (target.origin.y - keyboardPoint.y) * slope + keyboardPoint.x;
+        CGFloat bottomX = topX + target.size.height * slope;
+        if (dirction == 1) {
+            CGFloat x = MIN(topX, bottomX);
+            x = MIN(x, rect.origin.x + rect.size.width);
+            if (target.origin.x > x - target.size.width) {
+                target.origin.x = x - target.size.width;
+            }
+            if (target.origin.x < rect.origin.x) {
+                target.origin.x = rect.origin.x;
+            }
+        } else {
+            CGFloat x = MAX(topX, bottomX);
+            x = MAX(x, rect.origin.x);
+            if (target.origin.x < x) {
+                target.origin.x = x;
+            }
+        }
+    }
+    return CGPointMake(origin.x - target.origin.x, origin.y - target.origin.y);
 }
 
 @end

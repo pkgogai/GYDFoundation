@@ -50,12 +50,12 @@
         [_sv addSubview:textField];
     }
     _sv.contentSize = CGSizeMake(500, 20 * 85);
-    _sv.transform = CGAffineTransformMakeRotation(M_PI);
+    
     _keyboardButton = ({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor blueColor];
         [button setTitle:@"收键盘" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(aaaa) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(endEdit) forControlEvents:UIControlEventTouchUpInside];
         button;
     });
     
@@ -86,7 +86,7 @@
     }
 }
 
-- (void)aaaa {
+- (void)endEdit {
     [self.view endEditing:YES];
 }
 
