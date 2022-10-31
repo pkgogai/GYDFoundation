@@ -33,7 +33,11 @@
 
 /** 添加阻碍 */
 - (void)addObstacle:(nullable NSString *)obstacle {
+    BOOL noObstacle = _obstacleSet.count == 0;
     [_obstacleSet addObject:obstacle ?: [NSNull null]];
+    if (noObstacle && _valueChangedAction) {
+        _valueChangedAction(self, YES);
+    }
 }
 
 /** 移除阻碍，obstacle=nil表示移除全部 */
@@ -42,6 +46,9 @@
         [_obstacleSet removeObject:obstacle];
     } else {
         [_obstacleSet removeAllObjects];
+    }
+    if (_obstacleSet.count == 0 && _valueChangedAction) {
+        _valueChangedAction(self, NO);
     }
     while (_obstacleSet.count < 1 && _actionArray.count > 0) {
         id key = _actionArray[0];
@@ -75,15 +82,17 @@
 }
 
 /** 同一个key只有一个Action，重复的会被覆盖，并且移动到队尾执行 */
-- (void)addUniqueAction:(nonnull GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key {
-    if (!action) {
-        GYDFoundationError(@"GYDMultiObstacleActionBlock 不能为空");
-        return;
-    }
+- (void)addUniqueAction:(nullable GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key {
     if (!key) {
         GYDFoundationError(@"key不能为空");
         return;
     }
+    if (!action) {
+        [_actionArray removeObject:key];
+        [_uniqueActionDic removeObjectForKey:key];
+        return;
+    }
+    
     if (_obstacleSet.count > 0) {
 //        if (!_uniqueActionDic[key]) {
 //            [_actionArray addObject:key];
@@ -96,6 +105,14 @@
     
     action = action;
     action();
+}
+
+/** 设置阻碍状态改变时调用的block，同时要不要现在就调用一次 */
+- (void)setValueChangedAction:(GYDMultiObstacleActionValueChangedBlock _Nullable)valueChangedAction callNow:(BOOL)callNow {
+    _valueChangedAction = valueChangedAction;
+    if (callNow && _valueChangedAction) {
+        _valueChangedAction(self, [self hasObstacle]);
+    }
 }
 
 @end

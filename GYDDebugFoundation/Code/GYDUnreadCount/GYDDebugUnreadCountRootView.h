@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GYDDebugUnreadCountRootView : UIScrollView
 
+/** 白色样式 */
+@property (nonatomic) BOOL whiteStyle;
+
 /*
  根据红点关系生成标签视图，并用来更新UI。关系改变要重新设置。
  */

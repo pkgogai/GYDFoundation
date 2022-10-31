@@ -11,8 +11,30 @@
 #include "gyd_class_property.h"
 #import <execinfo.h>
 #import "GYDFoundationPrivateHeader.h"
+#import "UIImage+GYDDebugInfo.h"
 
 @implementation UIView (GYDDebugInfo)
+
+#pragma mark - 调试信息组装
+
+- (NSString *)gyd_debugDescription {
+    NSMutableString *desc = [NSMutableString stringWithString:self.gyd_createInfo ?: @""];
+    for (NSString *name in self.gyd_propertyNames) {
+        if (desc.length > 0) {
+            [desc appendString:@"\n"];
+        }
+        [desc appendString:name];
+    }
+    NSString *other = [self gyd_otherDebugInfo];
+    if (other.length > 0) {
+        if (desc.length > 0) {
+            [desc appendString:@"\n"];
+        }
+        [desc appendString:other];
+    }
+    return desc;
+}
+
 
 #pragma mark - 创建时的信息
 static char CreateInfoKey;
@@ -188,6 +210,30 @@ static void enumerateIvarName(Class _Nonnull c, void (^ _Nonnull block)(const ch
     if (superClass) {
         enumerateIvarName(superClass, block);
     }
+}
+
+#pragma mark - 自定义信息
+
+- (NSString *)gyd_otherDebugInfo {
+    NSString *other = nil;
+    NSString *title = nil;
+    if ([self isKindOfClass:[UILabel class]]) { //label
+        other = [(UILabel *)self text];
+        if (other.length > 20) {
+            other = [[other substringWithRange:NSMakeRange(0, 20)] stringByAppendingString:@"..."];
+        }
+        title = @"text:";
+    } else if ([self isKindOfClass:[UIButton class]]) { //button
+        other = [(UIButton *)self titleForState:((UIButton *)self).state];
+        title = @"titile:";
+    } else if ([self isKindOfClass:[UIImageView class]]) {
+        other = ((UIImageView *)self).image.gyd_imageName;
+        title = @"image:";
+    }
+    if (other.length > 0) {
+        return [title stringByAppendingString:other];
+    }
+    return nil;
 }
 
 @end

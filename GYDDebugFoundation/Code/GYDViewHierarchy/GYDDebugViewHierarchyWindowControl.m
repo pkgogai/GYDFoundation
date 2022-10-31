@@ -43,7 +43,7 @@ static GYDDebugWindow *_Window = nil;
 
 static NSSet<NSString *> *containerClassNames = nil;
 + (void)setSystemContainerViewClassNames:(NSSet<NSString *> *)systemContainerViewClassNames {
-    containerClassNames = systemContainerViewClassNames;
+    containerClassNames = [systemContainerViewClassNames copy];
 }
 + (NSSet<NSString *> *)systemContainerViewClassNames {
     if (!containerClassNames) {
@@ -66,7 +66,7 @@ static NSSet<NSString *> *containerClassNames = nil;
 
 static NSSet<NSString *> *tailClassNames = nil;
 + (void)setSystemTailViewClassNames:(NSSet<NSString *> *)systemTailViewClassNames {
-    tailClassNames = systemTailViewClassNames;
+    tailClassNames = [systemTailViewClassNames copy];
 }
 + (NSSet<NSString *> *)systemTailViewClassNames {
     if (!tailClassNames) {
@@ -93,6 +93,8 @@ static NSSet<NSString *> *tailClassNames = nil;
             @"_UITextViewCanvasView",
             @"_UITextContainerView",
             @"_UITextLayoutView",
+            @"UITextEffectsWindow",
+            @"UIRemoteKeyboardWindow"
         ]];
     }
     return tailClassNames;
@@ -138,11 +140,12 @@ static NSSet<NSString *> *tailClassNames = nil;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(0, 0, GYDLogViewMinWidth, GYDLogViewMinWidth);
             button.titleLabel.adjustsFontSizeToFitWidth = YES;
-            button.titleLabel.font = [UIFont systemFontOfSize:24];
+            button.titleLabel.font = [UIFont systemFontOfSize:12];
             button.titleLabel.textColor = [UIColor whiteColor];
             button.titleLabel.textAlignment = NSTextAlignmentCenter;
-            [button setTitle:@"📖" forState:UIControlStateNormal];
-            [button setTitle:@"📖" forState:UIControlStateSelected];
+            button.titleLabel.numberOfLines = 0;
+            [button setTitle:@"📖\n详情" forState:UIControlStateNormal];
+            [button setTitle:@"📖\n详情" forState:UIControlStateSelected];
             [button setBackgroundImage:[UIImage gyd_imageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
             [button setBackgroundImage:[UIImage gyd_imageWithColor:[UIColor blueColor]] forState:UIControlStateSelected];
             button;
@@ -151,11 +154,12 @@ static NSSet<NSString *> *tailClassNames = nil;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(0, 0, GYDLogViewMinWidth, GYDLogViewMinWidth);
             button.titleLabel.adjustsFontSizeToFitWidth = YES;
-            button.titleLabel.font = [UIFont systemFontOfSize:24];
+            button.titleLabel.font = [UIFont systemFontOfSize:12];
             button.titleLabel.textColor = [UIColor whiteColor];
             button.titleLabel.textAlignment = NSTextAlignmentCenter;
-            [button setTitle:@"🤏" forState:UIControlStateNormal];
-            [button setTitle:@"⊹" forState:UIControlStateSelected];
+            button.titleLabel.numberOfLines = 0;
+            [button setTitle:@"🤚\n拖动" forState:UIControlStateNormal];
+            [button setTitle:@"⊹\n选择" forState:UIControlStateSelected];
             button.backgroundColor = [UIColor blueColor];
             button;
         });
@@ -165,6 +169,7 @@ static NSSet<NSString *> *tailClassNames = nil;
         [detailButton gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
             button.selected = !button.selected;
             contentView.showListView = button.selected;
+            moveAndSelectButton.selected = YES;
             moveAndSelectButton.hidden = !contentView.showListView;
             [weakRootView.controlView setNeedsLayout];
             
@@ -247,12 +252,13 @@ static NSSet<NSString *> *tailClassNames = nil;
             label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:12];
             label.textColor = [UIColor whiteColor];
+            label.numberOfLines = 0;
             label.backgroundColor = [UIColor blueColor];
             label.adjustsFontSizeToFitWidth = YES;
             label.tag = GYDViewHierarchyControlViewLevelTag;
             [viewArray addObject:label];
             [controlView gyd_setFunction:@"updateLevelValue" withAction:^id _Nullable(UILabel * _Nonnull obj, id  _Nullable arg) {
-                label.text = [NSString stringWithFormat:@"↕%zd - %zd↕", contentView.displayView.bottomLevel, contentView.displayView.topLevel];
+                label.text = [NSString stringWithFormat:@"显示图层\n↕%zd - %zd↕", contentView.displayView.bottomLevel, contentView.displayView.topLevel];
                 return nil;
             }];
             [controlView gyd_callFunction:@"updateLevelValue" withArg:nil];
@@ -324,12 +330,11 @@ static NSSet<NSString *> *tailClassNames = nil;
             }];
         }
     }
-    viewArray = [GYDDebugAppInterface.delegate viewHierarchyControlWillAddViewArray:viewArray] ?: viewArray;
+    NSArray *array = [GYDDebugAppInterface.delegate viewHierarchyRootView:view willAddControlViewArray:viewArray] ?: viewArray;
     
-    for (UIView *view in viewArray) {
+    for (UIView *view in array) {
         [controlView addControlItemView:view location:GYDDebugControlViewLocationNormal];
     }
-    
     
     return view;
 }

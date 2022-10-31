@@ -45,7 +45,7 @@ NSString * const GYDUnreadCountChangedNotification = @"GYDUnreadCountChangedNoti
     
     if (!superTypeSet) {
         NSMutableArray *needEnumTypes = [NSMutableArray arrayWithObject:type];
-        NSMutableSet *allTypes = [NSMutableSet setWithObject:type];
+        NSMutableSet *allTypes = [NSMutableSet set];
         while (needEnumTypes.count > 0) {
             NSString *tmpType = needEnumTypes[0];
             [needEnumTypes removeObjectAtIndex:0];

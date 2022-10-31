@@ -7,6 +7,7 @@
 //
 
 #import "GYDDebugUnreadCountWindowControl.h"
+#import "GYDDebugAppInterface.h"
 #import "GYDUIKit.h"
 #import "GYDDebugWindow.h"
 #import "GYDDebugRootView.h"
@@ -61,6 +62,33 @@ static GYDDebugWindow *_Window = nil;
         }];
     }
     
+    NSMutableArray<UIView *> *viewArray = [NSMutableArray array];
+    
+    {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, GYDLogViewMinWidth * 1, GYDLogViewMinWidth);
+        button.titleLabel.adjustsFontSizeToFitWidth = YES;
+        button.titleLabel.font = [UIFont systemFontOfSize:24];
+        button.titleLabel.textColor = [UIColor whiteColor];
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [button setTitle:@"透" forState:UIControlStateNormal];
+        [button setTitle:@"透" forState:UIControlStateSelected];
+        button.backgroundColor = [UIColor blueColor];
+        button.tag = GYDDebugControlViewUnreadCountAlphaTag;
+        [viewArray addObject:button];
+        
+        [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
+            button.selected = !button.selected;
+            contentView.backgroundColor = button.selected ? [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7] : [UIColor whiteColor];
+            contentView.whiteStyle = button.selected;
+        }];
+    }
+    
+    NSArray *array = [GYDDebugAppInterface.delegate unreadCountRootView:view willAddControlViewArray:viewArray] ?: viewArray;
+    
+    for (UIView *view in array) {
+        [controlView addControlItemView:view location:GYDDebugControlViewLocationNormal];
+    }
     return view;
 }
 

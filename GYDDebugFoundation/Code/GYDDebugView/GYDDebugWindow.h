@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GYDDebugWindow : UIWindow
 
+@property (nonatomic, readonly) UIView *rootView;
+
 - (instancetype)initWithRootView:(UIView *)view;
 
 @end

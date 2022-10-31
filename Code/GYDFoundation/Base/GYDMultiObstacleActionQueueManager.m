@@ -98,13 +98,9 @@
 }
 
 /** 同一个key只有一个Action，重复的会被覆盖，并且移动到队尾执行 */
-- (void)addUniqueAction:(nonnull GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key brakeIdentifier:(nonnull NSString *)brakeIdentifier {
+- (void)addUniqueAction:(nullable GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key brakeIdentifier:(nonnull NSString *)brakeIdentifier {
     if (!brakeIdentifier) {
         GYDFoundationError(@"brakeIdentifier 不能为空");
-        return;
-    }
-    if (!action) {
-        GYDFoundationError(@"GYDMultiObstacleActionBlock 不能为空");
         return;
     }
     GYDMultiObstacleActionQueue *queue = _queueDictionary[brakeIdentifier];
@@ -112,9 +108,10 @@
         [queue addUniqueAction:action forKey:key];
         return;
     }
-    
-    action = action;
-    action();
+    if (action) {
+        action = action;
+        action();
+    }
 }
 
 @end

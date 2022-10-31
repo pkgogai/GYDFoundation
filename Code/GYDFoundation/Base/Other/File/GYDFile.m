@@ -75,5 +75,25 @@
     }
 }
 
+/** 如果同名则加后缀，先是1~500，之后随机500次，如果1000次都有重名，就放弃 */
++ (nullable NSString *)emptyPathWithPath:(nonnull NSString *)path errorMessage:(NSString * _Nullable * _Nullable)errorMessage {
+    NSString *dir = [path stringByDeletingLastPathComponent];
+    NSString *lastPath = [path lastPathComponent];
+    NSString *fileName = [lastPath stringByDeletingPathExtension];
+    NSString *ext = [lastPath pathExtension];
+    
+    for (int i = 1; [[NSFileManager defaultManager] fileExistsAtPath:path]; i++) {
+        if (i >= 1000) {
+            *errorMessage = @"没找到可用路径";
+            return nil;
+        }
+        path = [dir stringByAppendingPathComponent:fileName];
+        path = [path stringByAppendingFormat:@"(%d)", i < 500 ? i : rand()];
+        if (ext.length > 0) {
+            path = [path stringByAppendingPathExtension:ext];
+        }
+    }
+    return path;
+}
 
 @end

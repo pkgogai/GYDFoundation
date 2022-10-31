@@ -138,8 +138,14 @@
 - (void)setIsFolded:(BOOL)isFolded {
     _isFolded = isFolded;
     for (GYDLogTableViewCellModel *log in _dataSource) {
-        if (log.isFolded != isFolded) {
-            log.isFolded = isFolded;
+        if (![log respondsToSelector:@selector(isFolded)]) {
+            return;
+        }
+        if (![log respondsToSelector:@selector(setIsFolded:)]) {
+            return;
+        }
+        if ([log isFolded] != isFolded) {
+            [log setIsFolded:isFolded];
         }
     }
     [_tableView reloadData];
@@ -158,15 +164,17 @@
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        log.isFolded = self.isFolded;
-        [_dataSource addObject:log];
-        if (_dataSource != _viewDataSource) {
+        if ([log respondsToSelector:@selector(setIsFolded:)]) {
+            [log setIsFolded:self.isFolded];
+        }
+        [self->_dataSource addObject:log];
+        if (self->_dataSource != self->_viewDataSource) {
             if (![self isFilterLog:log]) {
                 return;
             }
-            [_viewDataSource addObject:log];
+            [self->_viewDataSource addObject:log];
         }
-        [_tableView animateReloadData];
+        [self->_tableView animateReloadData];
     });
 }
 
@@ -185,8 +193,9 @@
     if (indexPath.row < _viewDataSource.count) {
         GYDLogTableViewCellModel *model = _viewDataSource[indexPath.row];
         CGFloat height = [model heightInTableView:tableView];
-        if (model.isFolded) {
-            return 40;
+        
+        if ([model respondsToSelector:@selector(isFolded)] && [model isFolded]) {
+            return MIN(40, height);
         } else {
             return height;
         }
@@ -198,7 +207,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < _viewDataSource.count) {
         GYDLogTableViewCellModel *model = _viewDataSource[indexPath.row];
-        model.showFoldedButton = self.isLogInterfaceEnable;
+        if ([model respondsToSelector:@selector(setShowFoldedButton:)]) {
+            [model setShowFoldedButton:self.isLogInterfaceEnable];
+        }
         
         UITableViewCell *cell = [model cellInTableView:tableView];
         model.delegate = self;

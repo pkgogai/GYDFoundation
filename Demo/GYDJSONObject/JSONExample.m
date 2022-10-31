@@ -9,7 +9,18 @@
 #import "JSONExample.h"
 #import "GYDJSONExampleModel.h"
 
+#if TARGET_OS_IPHONE
+#import "GYDDemoMenu.h"
+#endif
+
 @implementation JSONExample
+
+#if TARGET_OS_IPHONE
++ (void)load {
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"JSON-Model" desc:@"JSON和Model互转" order:80 vcClass:self];
+    [menu addToMenu:GYDDemoMenuRootName];
+}
+#endif
 
 + (void)test {
     GYDJSONExampleModel *model = [[GYDJSONExampleModel alloc] init];

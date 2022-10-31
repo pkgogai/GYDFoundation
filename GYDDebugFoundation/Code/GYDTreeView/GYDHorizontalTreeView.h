@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GYDHorizontalTreeView : UIView
 
+/** 设置线条颜色 */
+@property (nonatomic) UIColor *lineColor;
+
 @property (nonatomic, strong) GYDHorizontalTreeViewItem *rootItem;
 
 /** 更新布局，根据内容大小改变size */

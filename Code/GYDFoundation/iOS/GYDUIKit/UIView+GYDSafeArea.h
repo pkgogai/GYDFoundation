@@ -8,33 +8,36 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ 2022年09月25日放弃直接取系统的值，都改为计算，因为这里对safeArea的计算规则与系统的不同。
+ 从父view向子view计算safeArea时，系统的safeArea只会变小不会变大，
+ 以safeArea.top的值为例：view1包含view2包含view3([view1 addSubview:view2]，[view2 addSubview:view3])
+ 相同的情况：
+ view1.safeArea = 100,view2.y = 20,view3.y=20,则view2.safeArea = 80,view3.safeArea = 60
+ 不同的情况：
+ view1.safeArea = 100,view2.y = -20,view3.y=20，（在屏幕上，view3和view1重合）
+ 系统的规则view2.safeArea = 100,view3.safeArea = 80
+ 这里的规则view2.safeArea = 120,view3.safeArea = 100
+ 见demo图形示意。
+ */
 @interface UIView (GYDSafeArea)
 
+#pragma mark - 获取
 /**
- 11系统及以上直接取系统值，
- 11系统以下取 gyd_setSafeAreaInsets 设置的值，如果本view没有设置过这个属性，则根据父view计算。返回前会将结果中的负值都设置0，所有父view都没设置过也为0。
+ 通过gyd_setSafeAreaInsets设置，如果本view没有设置过这个属性，则根据父view计算。返回前会将结果中的负值都设置为0，所有父view都没设置过也为0。
  */
 @property (nonatomic, readonly) UIEdgeInsets gyd_safeAreaInsets;
+/** 可以有负值的safeArea，如view.safeArea.top=20，subview.y = 40，则subview.safeArea.top=-20 */
+- (UIEdgeInsets)gyd_safeAreaInsetsAllowNegative;
 
+#pragma mark - 设置
 /**
- 11系统以下需要自己指定safeArea，可以是负值
- 建议在 ViewController 的 viewDidLayoutSubviews 中将topLayoutGuide和bottomLayoutGuide设置到这里，
- 
- - (void)viewDidLayoutSubviews {
-     [super viewDidLayoutSubviews];
-     if (@available(iOS 11.0, *)) {
-     } else {
-         [self.view gyd_setSafeAreaInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-         //如果在PUSH的时候隐藏TabBar，低版本self.bottomLayoutGuide.length没有及时更新，所以可以改用 bottom = self.hidesBottomBarWhenPushed ? 0 : self.bottomLayoutGuide.length
-     }
- }
+ 设置并启用safeArea，可以是负值，参考[GYDViewController viewDidLayoutSubviews]设置
  */
-- (void)gyd_setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
-
-/** 通过gyd_setSafeAreaInsets计算出来的safeArea，可以有负值 */
-- (UIEdgeInsets)gyd_safeAreaInsetsAllowNegative API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
-
-/** 11系统一下，清除设置过的safeArea */
-- (void)gyd_resetSafeAreaInsets API_DEPRECATED("11以下有效，11及以上直接使用系统方法", ios(7.0,11.0));
+- (void)gyd_setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets;
+/** 恢复默认状态，使之重新以从父view计算的为准 */
+- (void)gyd_resetSafeAreaInsets;
+/** 本view禁用safeArea，其子view没独立设置的话，safeArea都是0 */
+- (void)gyd_disableSafeArea;
 
 @end

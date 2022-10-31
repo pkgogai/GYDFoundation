@@ -17,7 +17,8 @@
 
 + (void)load {
     GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"DemoMenu" desc:@"本Demo的菜单" order:1 vcClass:self];
-    [menu addToMenu:GYDDemoMenuRootName];
+    [menu addToMenu:GYDDemoMenuOtherName];
+    
 }
 
 - (void)viewDidLoad {

@@ -15,6 +15,7 @@
 {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
     if (self) {
+        _rootView = view;
         self.backgroundColor = [UIColor clearColor];
         self.windowLevel = UIWindowLevelNormal + 1; //选中菜单和放大镜有时不出现，可能会随着使用而改变。某次测试时大概是10
         UIViewController *vc = [[GYDOtherWindowRootViewController alloc] init];

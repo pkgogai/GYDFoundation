@@ -24,11 +24,11 @@
         _scrollItemArray = [NSMutableArray array];
         _tailItemArray = [NSMutableArray array];
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         
         _scrollView = ({
             UIScrollView *scrollView = [[UIScrollView alloc] init];
-            scrollView.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
+            scrollView.backgroundColor = [UIColor clearColor];
             scrollView.showsVerticalScrollIndicator = NO;
             scrollView.showsHorizontalScrollIndicator = NO;
             [self addSubview:scrollView];

@@ -28,12 +28,24 @@
  
  */
 
+#import "GYDDebugRootView.h"
+
 @GYDModuleInterfaceRegister(GYDDebugAppInterface)
 
 /**
- 调整控制条上的view，默认的几个view可以通过tag来区分
+ 调整视图层级窗口控制条上的view，默认的几个view可以通过tag来区分
  */
-- (nullable NSArray<UIView *> *)viewHierarchyControlWillAddViewArray:(nonnull NSArray<UIView *> *)array;
+- (nullable NSArray<UIView *> *)viewHierarchyRootView:(nonnull GYDDebugRootView *)view willAddControlViewArray:(nonnull NSArray<UIView *> *)array;
+
+/**
+ 调整日志窗口控制条上的view，默认的几个view可以通过tag来区分
+ */
+- (nullable NSArray<UIView *> *)logRootView:(nonnull GYDDebugRootView *)view willAddControlViewArray:(nonnull NSArray<UIView *> *)array;
+
+/**
+ 调整红点关系窗口控制条上的view，默认的几个view可以通过tag来区分
+ */
+- (nullable NSArray<UIView *> *)unreadCountRootView:(nonnull GYDDebugRootView *)view willAddControlViewArray:(nonnull NSArray<UIView *> *)array;
 
 @end
 
@@ -45,4 +57,12 @@ typedef enum : NSInteger {
     GYDViewHierarchyControlViewHiddenTag,
     GYDViewHierarchyControlViewLevelTag,
     GYDViewHierarchyControlViewDetailTag,
-} GYDViewHierarchyControlViewTag;
+    
+    GYDDebugControlViewLogTouchTag,
+    GYDDebugControlViewLogFoldTag,
+    GYDDebugControlViewLogClearTag,
+    GYDDebugControlViewLogLineTag,
+    
+    GYDDebugControlViewUnreadCountAlphaTag,
+    
+} GYDDebugControlViewTag;

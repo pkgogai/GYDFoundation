@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GYDDebugFoundation'
-  s.version          = '1.0.5'
+  s.version          = '1.0.6'
   s.summary          = 'GYDDebugFoundation'
 
   s.description      = <<-DESC

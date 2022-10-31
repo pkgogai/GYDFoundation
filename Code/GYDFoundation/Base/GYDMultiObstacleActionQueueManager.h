@@ -31,7 +31,7 @@
 /** 添加新事件，当没有阻碍（或者所有阻碍都被移除）时执行方法 */
 - (void)addAction:(nonnull GYDMultiObstacleActionBlock)action forBrakeIdentifier:(nonnull NSString *)brakeIdentifier;
 
-/** 同一个key只有一个Action，重复的会被覆盖，并且移动到队尾执行 */
-- (void)addUniqueAction:(nonnull GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key brakeIdentifier:(nonnull NSString *)brakeIdentifier;
+/** 同一个key只有一个Action，重复的会被覆盖，并且移动到队尾执行，action == nil 表示删除 */
+- (void)addUniqueAction:(nullable GYDMultiObstacleActionBlock)action forKey:(nonnull NSString *)key brakeIdentifier:(nonnull NSString *)brakeIdentifier;
 
 @end

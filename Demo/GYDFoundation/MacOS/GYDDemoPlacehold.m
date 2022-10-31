@@ -6,7 +6,7 @@
 //  Copyright © 2018年 宫亚东. All rights reserved.
 //
 
-#import "GYDLogExample.h"
+#import "GYDDemoPlacehold.h"
 
 @implementation GYDLogExample
 

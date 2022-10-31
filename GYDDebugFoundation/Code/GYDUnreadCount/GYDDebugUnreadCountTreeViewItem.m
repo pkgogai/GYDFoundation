@@ -18,7 +18,7 @@
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             static UIImage *borderImage = nil;
             if (!borderImage) {
-                borderImage = [[UIImage gyd_imageWithRectWidth:5 height:5 cornerRadius:1 borderColor:[UIColor grayColor] fillColor:nil lineWidth:1 dashWidth:0 dashClearWidth:0] gyd_stretchableImageFromCenter];
+                borderImage = [[UIImage gyd_imageWithRectWidth:5 height:5 cornerRadius:1 borderColor:[UIColor grayColor] fillColor:[UIColor whiteColor] lineWidth:1 dashWidth:0 dashClearWidth:0] gyd_stretchableImageFromCenter];
             }
             [button setBackgroundImage:borderImage forState:UIControlStateNormal];
             [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {

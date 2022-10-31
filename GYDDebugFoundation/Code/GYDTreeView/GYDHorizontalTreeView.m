@@ -19,8 +19,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        _lineColor = [UIColor grayColor];
     }
     return self;
+}
+
+- (void)setLineColor:(UIColor *)lineColor {
+    _lineColor = lineColor;
+    [self setNeedsDisplay];
 }
 
 - (void)setRootItem:(GYDHorizontalTreeViewItem *)rootItem {
@@ -95,7 +101,7 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [[UIColor grayColor] setStroke];
+    [self.lineColor setStroke];
     [[UIColor clearColor] setFill];
     CGContextSetLineWidth(context, 1);
     [self recursionDrawItem:self.rootItem inContext:context];

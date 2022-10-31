@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GYDFoundationDemo'
-  s.version          = '1.0.5'
+  s.version          = '1.0.6'
   s.summary          = 'GYDFoundation的Demo'
 
   s.description      = <<-DESC
@@ -44,6 +44,9 @@ Pod::Spec.new do |s|
   end
   s.subspec 'GYDModuleInterface' do |demo|
     demo.ios.source_files = 'Demo/GYDModuleInterface/**/*'
+  end
+  s.subspec 'GYDDebugInfoDemo' do |demo|
+    demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugInfoDemo/**/*'
   end
   s.subspec 'GYDDebugUnreadCountDemo' do |demo|
     demo.ios.source_files = 'GYDDebugFoundation/Demo/GYDDebugUnreadCountDemo/**/*'
