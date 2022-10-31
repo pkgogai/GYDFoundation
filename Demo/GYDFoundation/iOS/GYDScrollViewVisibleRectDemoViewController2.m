@@ -56,7 +56,6 @@
     
     _sv.contentSize = CGSizeMake(10 * 100, 10 * 100);
     
-
     _dirctionView = [[UIView alloc] initWithFrame:CGRectMake(70, 0, 180, 180)];
     [_dirctionView addSubview:({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -145,7 +144,7 @@
     
     _controlView.center = CGPointMake(center.x, frame.origin.y + 90);
     
-    CGFloat width = MIN(frame.size.width, frame.size.height) * 0.8;
+    CGFloat width = MIN(frame.size.width, frame.size.height) * 0.95;
     _sv.gyd_boundsSizeInt = CGSizeMake(width, width);
     _sv.center = center;
     
@@ -209,11 +208,11 @@
 }
 
 - (void)turnLeft {
-    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, -M_PI / 10);
+    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, -M_PI_2);
     _sv.transform = _dirctionView.transform;
 }
 - (void)turnRight {
-    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, M_PI / 10);
+    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, M_PI_2);
     _sv.transform = _dirctionView.transform;
 }
 
