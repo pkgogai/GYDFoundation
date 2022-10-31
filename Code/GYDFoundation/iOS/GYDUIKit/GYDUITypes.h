@@ -19,6 +19,16 @@ typedef union {
     CGFloat arrayValue[4];
 } GYDUIStructUnion;
 
+/**
+ 方便放入数组和字典
+ */
+@interface GYDUIStructObject : NSObject
+{
+    @public
+    GYDUIStructUnion _value;
+}
+@end
+
 //未验证：用swift重载 + - 后，在OC中大概率不能用，就不试了
 
 static inline UIEdgeInsets UIEdgeInsetsAddInsets(UIEdgeInsets insets1, UIEdgeInsets insets2) {

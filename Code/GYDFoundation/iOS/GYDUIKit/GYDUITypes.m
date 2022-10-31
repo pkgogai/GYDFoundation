@@ -8,3 +8,7 @@
 
 // 留个.m引用，要不然.h写代码没提示
 #import "GYDUITypes.h"
+
+@implementation GYDUIStructObject
+
+@end

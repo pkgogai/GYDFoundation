@@ -20,6 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIEdgeInsets)gyd_contentInsetForKey:(NSString *)key;
 
+- (void)gyd_setMinContentInset:(UIEdgeInsets)inset forKey:(NSString *)key;
+
+- (UIEdgeInsets)gyd_minContentInsetForKey:(NSString *)key;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END
