@@ -17,8 +17,8 @@
 
 @implementation GYDScrollViewVisibleRectDemoViewController2
 {
-    UIView *_controlView;
-    UIView *_dirctionView;
+    GYDGroupView *_controlView;
+    GYDGroupView *_dirctionView;
     UITextField *_editingTextField;
     UIScrollView *_sv;
 }
@@ -56,7 +56,7 @@
     
     _sv.contentSize = CGSizeMake(10 * 100, 10 * 100);
     
-    _dirctionView = [[UIView alloc] initWithFrame:CGRectMake(70, 0, 180, 180)];
+    _dirctionView = [[GYDGroupView alloc] initWithFrame:CGRectMake(70, 0, 180, 180)];
     [_dirctionView addSubview:({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(62, 2, 56, 56);
@@ -109,7 +109,7 @@
     })];
     
     
-    _controlView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 320, 180)];
+    _controlView = [[GYDGroupView alloc] initWithFrame:CGRectMake(100, 100, 320, 180)];
     [_controlView addSubview:({
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(2, 62, 56, 56);
@@ -208,12 +208,16 @@
 }
 
 - (void)turnLeft {
-    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, -M_PI_2);
-    _sv.transform = _dirctionView.transform;
+    [UIView animateWithDuration:0.2 animations:^{
+        self->_dirctionView.transform = CGAffineTransformRotate(self->_dirctionView.transform, -M_PI_2);
+        self->_sv.transform = self->_dirctionView.transform;
+    }];
 }
 - (void)turnRight {
-    _dirctionView.transform = CGAffineTransformRotate(_dirctionView.transform, M_PI_2);
-    _sv.transform = _dirctionView.transform;
+    [UIView animateWithDuration:0.2 animations:^{
+        self->_dirctionView.transform = CGAffineTransformRotate(self->_dirctionView.transform, M_PI_2);
+        self->_sv.transform = self->_dirctionView.transform;
+    }];
 }
 
 - (uint32_t)randColorValueForIndex:(NSUInteger)index {

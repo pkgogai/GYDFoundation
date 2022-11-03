@@ -23,6 +23,7 @@
 #import "UINavigationController+GYDPush.h"
 #import "GYDWeakDisplayLink.h"
 #import "GYDUITypes.h"
+#import "GYDGroupView.h"
 
 //利用GYDWeakDisplayLink计时回调
 #import "GYDTimeValuePathTimer.h"

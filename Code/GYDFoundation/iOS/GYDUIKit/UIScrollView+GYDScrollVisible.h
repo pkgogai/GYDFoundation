@@ -21,6 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
  if (@available(iOS 11.0, *)) {
      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
  }
+ 
+ 没有contentSize时，[UITextField scrollTextFieldToVisibleIfNecessary]会滚到左上角，暂时不知道如何处理
+ 
+ 所以这个设置是必要的：
+ scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+ scrollView.contentSize = CGSizeMake(w, h);
+ 
  */
 @interface UIScrollView (GYDScrollVisible)
 

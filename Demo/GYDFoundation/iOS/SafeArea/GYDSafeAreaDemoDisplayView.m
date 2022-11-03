@@ -25,6 +25,7 @@
     if ([super pointInside:point withEvent:event]) {
         return YES;
     }
+    //让超出范围的子view也能响应手势
     for (UIView *view in self.subviews) {
         if ([view pointInside:[self convertPoint:point toView:view] withEvent:event]) {
             return YES;
@@ -91,7 +92,7 @@
             center.x += p.x;
             center.y += p.y;
             strongSelf.center = center;
-            [pan setTranslation:CGPointZero inView:self.superview];
+            [pan setTranslation:CGPointZero inView:strongSelf.superview];
             [strongSelf gyd_layoutViewSetNeedsLayout];
         }];
         [_gestureRecognizerView addGestureRecognizer:pan];
@@ -103,7 +104,7 @@
                 return;
             }
             UIPinchGestureRecognizer *pinch = (UIPinchGestureRecognizer *)gr;
-            strongSelf.transform = CGAffineTransformScale(self.transform, pinch.scale, pinch.scale);
+            strongSelf.transform = CGAffineTransformScale(strongSelf.transform, pinch.scale, pinch.scale);
             pinch.scale = 1;
             [strongSelf gyd_layoutViewSetNeedsLayout];
         }];
