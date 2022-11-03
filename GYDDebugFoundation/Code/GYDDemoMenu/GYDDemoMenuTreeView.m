@@ -171,6 +171,13 @@
             [UINavigationController gyd_pushViewController:vc animated:YES];
         }];
         [button setBackgroundImage:vcImage forState:UIControlStateNormal];
+    } else if ([vcClass isSubclassOfClass:[UIView class]]) {
+        [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
+            UIViewController *vc = [[GYDViewController alloc] init];
+            vc.view = [[vcClass alloc] initWithFrame:CGRectZero];
+            [UINavigationController gyd_pushViewController:vc animated:YES];
+        }];
+        [button setBackgroundImage:vcImage forState:UIControlStateNormal];
     } else {
         [button setBackgroundImage:disableImage forState:UIControlStateNormal];
     }
