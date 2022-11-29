@@ -26,7 +26,11 @@
 
 - (NSMutableAttributedString *)attText {
     if (!_attText) {
-        _attText = [[NSMutableAttributedString alloc] initWithString:_msg];
+        NSString *msg = _msg;
+        if (msg.length > 301) {
+            msg = [[msg substringToIndex:300] stringByAppendingString:@"..."];
+        }
+        _attText = [[NSMutableAttributedString alloc] initWithString:msg];
         if (self.lv < 1) {
             [_attText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, _attText.length)];
         } else if (self.lv == 1) {
@@ -36,15 +40,15 @@
         } else {
             [_attText addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, _attText.length)];
         }
-        NSRange range = NSMakeRange(0, _msg.length);
+        NSRange range = NSMakeRange(0, msg.length);
         while (range.length > 0) {
-            NSRange startRange = [_msg rangeOfString:@"[[" options:0 range:range];
+            NSRange startRange = [msg rangeOfString:@"[[" options:0 range:range];
             if (!startRange.length) {
                 break;
             }
             range.location = startRange.location + startRange.length;
-            range.length = _msg.length - range.location;
-            NSRange endRange = [_msg rangeOfString:@"]]" options:0 range:range];
+            range.length = msg.length - range.location;
+            NSRange endRange = [msg rangeOfString:@"]]" options:0 range:range];
             if (!endRange.length) {
                 break;
             }

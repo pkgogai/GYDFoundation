@@ -68,15 +68,13 @@
 - (CGFloat)updateWithModel:(nonnull GYDLogTableViewCellModel *)model width:(CGFloat)width onlyCalculateHeight:(BOOL)onlyCalculateHeight {
     _model = model;
     _funLabel.text = [NSString stringWithUTF8String:model.fun];
-    _msgLabel.text = model.msg;
+    _msgLabel.attributedText = model.attText;
     CGSize funSize = [_funLabel sizeThatFits:CGSizeZero];
     CGSize msgSize = [_msgLabel sizeThatFits:CGSizeMake(width, 0)];
     if (!onlyCalculateHeight) {
         _lineView.frame = CGRectMake(0, 0, width, 2);
         _funLabel.frame = CGRectMake(0, 2, width, funSize.height);
         _msgLabel.frame = CGRectMake(0, 2 + funSize.height, width, msgSize.height);
-        
-        _msgLabel.attributedText = model.attText;
         if (model.lv < 1) {
             _funLabel.textColor = [UIColor redColor];
         } else if (model.lv == 1) {
