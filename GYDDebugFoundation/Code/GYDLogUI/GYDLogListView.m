@@ -71,27 +71,9 @@
     [_tableView animateReloadData];
 }
 
-- (NSArray *)filterOptionArray {
-    static NSCharacterSet *charSet = nil;
-    if (!charSet) {
-        charSet = [NSCharacterSet characterSetWithCharactersInString:@"?]"];
-    }
-    NSMutableArray *array = [NSMutableArray array];
-    for (GYDLogTableViewCellModel *item in _dataSource) {
-        if (![item.type isEqualToString:@"request"]) {
-            continue;
-        }
-        GYDStringSearch *search = [[GYDStringSearch alloc] initWithString:item.msg];
-        if (![search subStringToString:@"/v1/"]) {
-            continue;
-        }
-        NSString *string = [search subStringToCharacterSet:charSet indexMoveToRight:YES];
-        if (string) {
-            [array removeObject:string];
-            [array insertObject:string atIndex:0];
-        }
-    }
-    return array;
+/** 完整数据 */
+- (NSMutableArray *)allData {
+    return _dataSource;
 }
 
 - (void)setFilterArray:(NSArray *)filterArray {

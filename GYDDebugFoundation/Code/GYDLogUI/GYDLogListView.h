@@ -21,8 +21,8 @@
 
 - (void)addLine;
 
-/** 筛选值的候选项 */
-- (NSArray *)filterOptionArray;
+/** 完整数据<GYDLogItemModelProtocol> */
+- (NSMutableArray *)allData;
 
 /** 筛选值 */
 @property (nonatomic, readwrite)    NSArray *filterArray;
