@@ -22,6 +22,12 @@
  */
 @interface UIView (GYDSafeArea)
 
+#pragma mark - 全局开关
+
+/**
+ 在没设置过safeArea时用第一个vc和window的safeArea，默认开
+ */
+@property (nonatomic, class) BOOL useFirstViewControllerOrWindowIfNotFind;
 #pragma mark - 获取
 /**
  通过gyd_setSafeAreaInsets设置，如果本view没有设置过这个属性，则根据父view计算。返回前会将结果中的负值都设置为0，所有父view都没设置过也为0。

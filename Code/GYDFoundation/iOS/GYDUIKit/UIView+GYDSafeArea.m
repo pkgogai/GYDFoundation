@@ -13,6 +13,14 @@
 
 static char GYDSafeAreaInsetsPrivateKey;
 
+static BOOL UseFirstVC = YES;
++ (void)setUseFirstViewControllerOrWindowIfNotFind:(BOOL)useFirstViewControllerOrWindowIfNotFind {
+    UseFirstVC = useFirstViewControllerOrWindowIfNotFind;
+}
++ (BOOL)useFirstViewControllerOrWindowIfNotFind {
+    return UseFirstVC;
+}
+
 - (UIEdgeInsets)gyd_safeAreaInsets {
     UIEdgeInsets safeArea = [self gyd_safeAreaInsetsAllowNegative];
     if (safeArea.top < 0) {
@@ -31,7 +39,10 @@ static char GYDSafeAreaInsetsPrivateKey;
 }
 
 - (UIEdgeInsets)gyd_safeAreaInsetsAllowNegative {
+    //寻找设置过的safeArea和其view
     UIView *view = self;
+    UIEdgeInsets safeArea = UIEdgeInsetsZero;
+    
     while (view) {
         NSDictionary *dic = objc_getAssociatedObject(view, &GYDSafeAreaInsetsPrivateKey);
         if (dic) {
@@ -39,24 +50,59 @@ static char GYDSafeAreaInsetsPrivateKey;
             if ([dic[@"d"] boolValue]) {
                 return UIEdgeInsetsZero;
             }
-            
-            //对于旋转的情况，要单独计算4个点，太麻烦，而且safeArea和旋转一点都不般配，就忽略吧。
-            //忽略后的效果就是旋转后安全区按最少误伤的方式取值，但其内部如果有反向旋转回来的view，其安全区还是准确的。
-            CGSize size = view.bounds.size;
-            CGRect contextArea;
-            contextArea.origin.x = [dic[@"l"] floatValue];
-            contextArea.origin.y = [dic[@"t"] floatValue];
-            contextArea.size.width = size.width - [dic[@"r"] floatValue] - contextArea.origin.x;
-            contextArea.size.height = size.height - [dic[@"b"] floatValue] - contextArea.origin.y;
-            
-            contextArea = [view convertRect:contextArea toView:self];
-            size = self.bounds.size;
-            
-            return UIEdgeInsetsMake(contextArea.origin.y, contextArea.origin.x, size.height - contextArea.origin.y - contextArea.size.height, size.width - contextArea.origin.x - contextArea.size.width);
+            safeArea = UIEdgeInsetsMake(
+                                        [dic[@"t"] floatValue],
+                                        [dic[@"l"] floatValue],
+                                        [dic[@"b"] floatValue],
+                                        [dic[@"r"] floatValue]
+                                        );
+            break;
         }
         view = view.superview;
     }
-    return UIEdgeInsetsZero;
+    //找不到过的view，就用第一个VC或者window的设置
+    if (!view && UseFirstVC) {
+        view = self;
+        while (view) {
+            if ([view.nextResponder isKindOfClass:[UIViewController class]]) {
+                break;
+            } else if ([view isKindOfClass:[UIWindow class]]) {
+                break;
+            }
+            view = view.superview;
+        }
+        if (view) {
+            if (@available(iOS 11.0, *)) {
+                safeArea = view.safeAreaInsets;
+            } else {
+                // Fallback on earlier versions
+                if ([view.nextResponder isKindOfClass:[UIViewController class]]) {
+                    UIViewController *vc = (UIViewController *)view.nextResponder;
+                    safeArea = UIEdgeInsetsMake(vc.topLayoutGuide.length, 0, vc.hidesBottomBarWhenPushed ? 0 : vc.bottomLayoutGuide.length, 0);
+                } else {
+                    safeArea = UIEdgeInsetsZero;
+                }
+            }
+        }
+    }
+    if (!view) {
+        return UIEdgeInsetsZero;
+    }
+    
+    //对于旋转的情况，要单独计算4个点，太麻烦，而且safeArea和旋转一点都不般配，就忽略吧。
+    //忽略后的效果就是旋转后安全区按最少误伤的方式取值，但其内部如果有反向旋转回来的view，其安全区还是准确的。
+    CGSize size = view.bounds.size;
+    CGRect contextArea;
+    contextArea.origin.x = safeArea.left;
+    contextArea.origin.y = safeArea.top;
+    
+    contextArea.size.width = size.width - safeArea.right - safeArea.left;
+    contextArea.size.height = size.height - safeArea.bottom - safeArea.top;
+    
+    contextArea = [view convertRect:contextArea toView:self];
+    size = self.bounds.size;
+    return UIEdgeInsetsMake(contextArea.origin.y, contextArea.origin.x, size.height - contextArea.origin.y - contextArea.size.height, size.width - contextArea.origin.x - contextArea.size.width);
+    
 }
 //以前这个只是简单的加法不考虑拉伸，平移等几何变换，但其实用到safeArea的地方并不多，没必要自己去累加，所以干脆换成系统自身的计算。这里的代码就留个纪念，
 ///** 通过gyd_setSafeAreaInsets计算出来的safeArea，可以有负值 */
