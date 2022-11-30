@@ -13,13 +13,11 @@
 @implementation GYDDebugInfoDemo
 
 + (void)load {
-    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"" desc:@"记录view在什么方法中创建" order:100 vcClass:self];
-    menu.name = UIView.gyd_recordCreateInfo ? @"已记录View创建信息" : @"未记录View创建信息";
+    GYDDemoMenu *menu = [GYDDemoMenu menuWithName:@"记录View创建信息" desc:@"打开后，新alloc的View可用" order:100 vcClass:self];
     __weak GYDDemoMenu *weakMenu = menu;
     menu.action = ^{
         GYDDemoMenu *strongMenu = weakMenu;if (!strongMenu) {return;}
         UIView.gyd_recordCreateInfo = !UIView.gyd_recordCreateInfo;
-        strongMenu.name = UIView.gyd_recordCreateInfo ? @"已记录View创建信息" : @"未记录View创建信息";
     };
     
     [menu addToMenu:@"调试信息"];
