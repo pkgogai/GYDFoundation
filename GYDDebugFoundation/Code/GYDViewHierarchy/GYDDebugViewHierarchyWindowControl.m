@@ -315,16 +315,35 @@ static NSSet<NSString *> *tailClassNames = nil;
             button.titleLabel.font = [UIFont systemFontOfSize:24];
             button.titleLabel.textColor = [UIColor whiteColor];
             button.titleLabel.textAlignment = NSTextAlignmentCenter;
-            [button setTitle:@"详" forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage gyd_imageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage gyd_imageWithColor:[UIColor blueColor]] forState:UIControlStateSelected];
+            [button setTitle:@"类" forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage gyd_imageWithColor:[UIColor blueColor]] forState:UIControlStateNormal];
             button.tag = GYDViewHierarchyControlViewDetailTag;
             [viewArray addObject:button];
-
+            __block NSInteger showType = 0; //0类，1全，2无
             [button gyd_setClickActionBlock:^(UIButton * _Nonnull button) {
-                button.selected = !button.selected;
+                if (showType < 2) {
+                    showType ++;
+                } else {
+                    showType = 0;
+                }
+                if (showType == 0) {
+                    [button setTitle:@"类" forState:UIControlStateNormal];
+                } else if (showType == 1) {
+                    [button setTitle:@"详" forState:UIControlStateNormal];
+                } else {
+                    [button setTitle:@"无" forState:UIControlStateNormal];
+                }
                 [contentView.rootItem enumerateChildItemsUsingBlock:^(GYDDebugViewHierarchyItem * _Nonnull item, BOOL * _Nonnull stop) {
-                    item.displayConfig.showDesc = button.selected;
+                    if (showType == 0) {
+                        item.displayConfig.showClass = YES;
+                        item.displayConfig.showDesc = NO;
+                    } else if (showType == 1) {
+                        item.displayConfig.showClass = YES;
+                        item.displayConfig.showDesc = YES;
+                    } else {
+                        item.displayConfig.showClass = NO;
+                        item.displayConfig.showDesc = NO;
+                    }
                     [item.displayView updateConfig];
                 }];
             }];
