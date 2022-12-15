@@ -96,9 +96,14 @@
     if (CGPointEqualToPoint(slipOffset, _slipOffset)) {
         return;
     }
-//    CGPoint pointInterval = CGPointMake(slipOffset.x - _slipOffset.x, slipOffset.y - _slipOffset.y);
+    CGPoint pointInterval = CGPointMake(slipOffset.x - _slipOffset.x, slipOffset.y - _slipOffset.y);
     _slipOffset = slipOffset;
     [self layoutHierarchyItemViews];
+    
+    CGPoint contentOffset = _scrollView.contentOffset;
+    contentOffset.x += pointInterval.x * _scale * _bottomLevel;
+    contentOffset.y += pointInterval.y * _scale * _bottomLevel;
+    _scrollView.contentOffset = contentOffset;
 }
 
 - (void)layoutHierarchyItemViews {
