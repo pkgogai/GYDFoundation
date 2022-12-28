@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /**
  展示红点关系的视图
+ [!image-name:E9A17609-ADB4-4856-9272-313864C03126.jpge]
  */
 @interface GYDDebugUnreadCountRootView : UIScrollView
 

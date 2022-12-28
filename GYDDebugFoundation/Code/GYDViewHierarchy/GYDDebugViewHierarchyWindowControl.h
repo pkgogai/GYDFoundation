@@ -16,6 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /**
  展示视图层级结构窗口的控制
+ [!image-name:373AF51E-56DD-41C8-AA72-AC82DB15E356.jpge]
  */
 @interface GYDDebugViewHierarchyWindowControl : NSObject
 

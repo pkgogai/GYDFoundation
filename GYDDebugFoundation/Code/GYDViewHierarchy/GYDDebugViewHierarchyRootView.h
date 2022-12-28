@@ -12,6 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*
+ [!image-name:373AF51E-56DD-41C8-AA72-AC82DB15E356.jpge]
+ */
 @interface GYDDebugViewHierarchyRootView : UIView
 
 @property (nonatomic, readonly) GYDDebugViewHierarchyItem *rootItem;

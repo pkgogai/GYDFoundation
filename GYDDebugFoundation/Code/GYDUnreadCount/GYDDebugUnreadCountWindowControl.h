@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /**
  红点关系窗口的控制
+ [!image-name:E9A17609-ADB4-4856-9272-313864C03126.jpge]
  */
 @interface GYDDebugUnreadCountWindowControl : NSObject
 
