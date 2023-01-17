@@ -38,8 +38,8 @@
     GYDShellTask *task = [[GYDShellTask alloc] init];
     task.currentDirectoryURL = rootURL;
     
-    int r = [task executeShellPath:nil command:@"git log --since=5.weeks --pretty=tformat:\"%H,%D\"" progress:nil];
-    GYDFoundationInfo(@"5周内的提交节点：\n%@", task.standardOutput);
+    int r = [task executeShellPath:nil command:[NSString stringWithFormat:@"git log --since=%zd.weeks --pretty=tformat:\"%%H,%%D\"", config.weeks] progress:nil];
+    GYDFoundationInfo(@"%zd周内的提交节点：\n%@", config.weeks, task.standardOutput);
     if (task.standardError.length > 0) {
         GYDFoundationWarning(@"获取git节点信息失败：%@", task.standardError);
     }
