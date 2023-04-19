@@ -15,18 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
  触发时机：在设置这里的2个属性，或者键盘高度改变时
  效果：通过修改contentOffset和contentInset，确保指定位置滚动到可视区域。
  
- 需要确保在gyd_visibleRect有值期间没有别的功能也在修改gyd_visibleRect，如下拉刷新等
+ 注意1：需要设置scrollView.contentSize。当没有contentSize时，[UITextField scrollTextFieldToVisibleIfNecessary]会滚到左上角，暂时不知道如何处理
+ 注意2：需要确保在gyd_visibleRect有值期间没有别的功能也在修改contentInset，如下拉刷新等。如果需要修改，可以这样先把 gyd_visibleRect 置 Null，如
+ CGRect visibleRect = self.gyd_visibleRect;
+ self.gyd_visibleRect = CGRectNull;
+ self.contentInset = 新值;
+ self.gyd_visibleRect = visibleRect;
  
- //按需要设置好contentInset后，adjustedContentInset一变就不准了，所以必须禁用
+ 建议如下设置，减少内部逻辑的复杂性。这里毕竟只是个人笔记，没有正规的测试，逻辑越复杂肯定越容易出现BUG。
  if (@available(iOS 11.0, *)) {
      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
  }
- 
- 没有contentSize时，[UITextField scrollTextFieldToVisibleIfNecessary]会滚到左上角，暂时不知道如何处理
- 
- 所以这个设置是必要的：
- scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
- scrollView.contentSize = CGSizeMake(w, h);
  
  */
 @interface UIScrollView (GYDScrollVisible)

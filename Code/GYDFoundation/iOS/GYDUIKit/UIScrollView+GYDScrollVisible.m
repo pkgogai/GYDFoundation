@@ -58,12 +58,13 @@ static CGFloat KeyboardY = 0;
 }
 
 - (void)setGyd_visibleRect:(CGRect)rect {
-    if (@available(iOS 11.0, *)) {
-        if (self.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
-            GYDFoundationWarning(@"不能使用adjustedContentInset");
-            return;
-        }
-    }
+//    原来是我的问题，一开始以为 contentInset和adjustedContentInset 是叠加的，所以会出现问题。现在仔细验证一下，原来adjustedContentInset已经包含了contentInset
+//    if (@available(iOS 11.0, *)) {
+//        if (self.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
+//            GYDFoundationWarning(@"不能使用adjustedContentInset");
+//            return;
+//        }
+//    }
     GYDScrollVisibleProperty *p = [self gyd_scrollVisibleProperty];
     if (!p.didAddKeyboardNotification) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gyd_keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -115,12 +116,12 @@ static CGFloat KeyboardY = 0;
         }
         return;
     }
-    if (@available(iOS 11.0, *)) {
-        if (self.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
-            GYDFoundationWarning(@"不能使用adjustedContentInset");
-            return;
-        }
-    }
+//    if (@available(iOS 11.0, *)) {
+//        if (self.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
+//            GYDFoundationWarning(@"不能使用adjustedContentInset");
+//            return;
+//        }
+//    }
     
     //---------- scrollView的可见区域不应该和按屏幕区域挂钩，用本身坐标加上gyd_visibleSafeArea，更好
     //屏幕可见区域
@@ -163,10 +164,10 @@ static CGFloat KeyboardY = 0;
     //-------------------------------------------
     //如果按默认contentInset有回弹的话，那就换成回弹后的位置
     UIEdgeInsets contentInset = self.contentInset;
+    if (@available(iOS 11.0, *)) {
+        contentInset = self.adjustedContentInset;
+    }
     contentInset = UIEdgeInsetsSubInsets(contentInset, p.insetsOffset);
-//    if (@available(iOS 11.0, *)) {
-//        contentInset = UIEdgeInsetsAddInsets(contentInset, self.adjustedContentInset);
-//    }
     
     {
         CGPoint offset = CGPointZero;
@@ -226,12 +227,20 @@ static CGFloat KeyboardY = 0;
             contentV.arrayValue[i] = min.arrayValue[i];
         }
     }
-//    if (@available(iOS 11.0, *)) {
-//        contentV.edgeInsetsValue = UIEdgeInsetsSubInsets(contentV.edgeInsetsValue, self.adjustedContentInset);
-//    }
-    p.insetsOffset = UIEdgeInsetsAddInsets(p.insetsOffset, UIEdgeInsetsSubInsets(contentV.edgeInsetsValue, self.contentInset));
-    NSLog(@"-> inset: %@, offset: %@", NSStringFromUIEdgeInsets(contentV.edgeInsetsValue), NSStringFromCGPoint(contentOffset));
-    self.contentInset = contentV.edgeInsetsValue;
+    if (@available(iOS 11.0, *)) {
+        //11以上用的是adjustedContentInset，但我们无法直接设置adjustedContentInset，只能通过设置contentInset来间接修改adjustedContentInset。
+        //contentInset和adjustedContentInset的差值可能是safeArea或0，计算规则比较复杂，甚至于ScrollView是否可滚动都有关系，所以利用现有的差值计算。
+        UIEdgeInsets adjOffset = UIEdgeInsetsSubInsets(self.adjustedContentInset, self.contentInset);
+        contentV.edgeInsetsValue = UIEdgeInsetsSubInsets(contentV.edgeInsetsValue, adjOffset);
+    }
+    {
+        UIEdgeInsets inset = self.contentInset;
+        inset = UIEdgeInsetsSubInsets(inset, p.insetsOffset);
+        //修改 contentInset 会丢失精度，所以要先修改，然后以丢失精度后的结果来计算差值
+        self.contentInset = contentV.edgeInsetsValue;
+        p.insetsOffset = UIEdgeInsetsSubInsets(self.contentInset, inset);
+    }
+//    NSLog(@"-> inset: %@, offset: %@", NSStringFromUIEdgeInsets(contentV.edgeInsetsValue), NSStringFromCGPoint(contentOffset));
     [self setContentOffset:contentOffset animated:NO];
 }
 

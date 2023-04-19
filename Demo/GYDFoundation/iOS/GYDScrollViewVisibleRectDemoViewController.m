@@ -32,9 +32,9 @@
         UIScrollView *sv = [[UIScrollView alloc] initWithFrame:CGRectZero];
         sv.delegate = self;
         sv.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        if (@available(iOS 11.0, *)) {
-            sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
+//        if (@available(iOS 11.0, *)) {
+//            sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//        }
         sv;
     });
     [self.view addSubview:_sv];
