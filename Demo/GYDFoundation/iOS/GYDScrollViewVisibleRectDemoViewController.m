@@ -32,9 +32,9 @@
         UIScrollView *sv = [[UIScrollView alloc] initWithFrame:CGRectZero];
         sv.delegate = self;
         sv.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-//        if (@available(iOS 11.0, *)) {
-//            sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//        }
+        if (@available(iOS 11.0, *)) {
+            sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         sv;
     });
     [self.view addSubview:_sv];
@@ -65,25 +65,34 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGRect frame = self.view.bounds;
-    UIEdgeInsets safeArea = self.view.gyd_safeAreaInsets;
     frame.size.width = frame.size.width - 110;
-    safeArea.right = MAX(safeArea.right - 110, 0);
-    
     _sv.frame = frame;
     _keyboardButton.frame = CGRectMake(frame.size.width, 100, 100, 100);
-    
-    CGRect visibleRect = _sv.gyd_visibleRect;
-    if (CGRectIsNull(visibleRect)) {
-        _sv.contentInset = safeArea;
-        _sv.gyd_visibleSafeArea = safeArea;
-    } else {
-        //由于内部修改了contentInset，所以别的地方也要修改contentInset时，一定要先还原。
-        //考试是否换成UIScrollView+GYDContentInset
-        _sv.gyd_visibleRect = CGRectNull;
-        _sv.contentInset = safeArea;
-        _sv.gyd_visibleSafeArea = safeArea;
-        _sv.gyd_visibleRect = visibleRect;
+    UIEdgeInsets safeArea = self.view.gyd_safeAreaInsets;
+    safeArea.right = MAX(safeArea.right - 110, 0);
+    //-------------
+    //建议直接用UIScrollViewContentInsetAdjustmentNever自己设置contentInset，这里为了方便调试非Never的情况，才加了判断
+    BOOL isAdjustmentNever = YES;
+    if (@available(iOS 11.0, *)) {
+        if (_sv.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
+            isAdjustmentNever = NO;
+        }
     }
+    if (isAdjustmentNever) {
+        CGRect visibleRect = _sv.gyd_visibleRect;
+        if (CGRectIsNull(visibleRect)) {
+            _sv.contentInset = safeArea;
+        } else {
+            //由于内部修改了contentInset，所以别的地方也要修改contentInset时，一定要先还原。
+            //考试是否换成UIScrollView+GYDContentInset
+            _sv.gyd_visibleRect = CGRectNull;
+            _sv.contentInset = safeArea;
+            _sv.gyd_visibleRect = visibleRect;
+        }
+    }
+    //-------------
+    safeArea.bottom = 10; //还是留个边界好看点。
+    _sv.gyd_visibleAreaInsets = safeArea;
 }
 
 - (void)endEdit {

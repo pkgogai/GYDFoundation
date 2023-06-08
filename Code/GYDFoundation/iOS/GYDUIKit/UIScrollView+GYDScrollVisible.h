@@ -22,22 +22,19 @@ NS_ASSUME_NONNULL_BEGIN
  self.contentInset = 新值;
  self.gyd_visibleRect = visibleRect;
  
- 建议如下设置，减少内部逻辑的复杂性。这里毕竟只是个人笔记，没有正规的测试，逻辑越复杂肯定越容易出现BUG。
+ 建议如下设置，自己控制contentInset，以防止旧机型电话、录音、定位等导致adjustedContentInset变化。
  if (@available(iOS 11.0, *)) {
      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
  }
- 
  */
+
 @interface UIScrollView (GYDScrollVisible)
 
 /// 要展示的区域，CGRectNull表示没有。如果区域比可视范围更大，则以左上角为准。
 @property (nonatomic) CGRect gyd_visibleRect;
 
-/// UIScrollView本身展示区域，类似gyd_safeArea的反向区域
-//@property (nonatomic) CGRect gyd_visibleArea;
-
-/// 将gyd_visibleArea区域反过来设置，参考gyd_safeArea，更容易理解
-@property (nonatomic) UIEdgeInsets gyd_visibleSafeArea;
+/// 加个边界，类似safeAreaInsets
+@property (nonatomic) UIEdgeInsets gyd_visibleAreaInsets;
 
 @end
 
