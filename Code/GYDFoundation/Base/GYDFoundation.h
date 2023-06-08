@@ -27,6 +27,7 @@
 
 #pragma mark - 其它
 #import "GYDTypes.h"
+#import "GYDValueTools.h"
 //创建文件等
 #import "GYDFile.h"
 //阻塞，设置block内代码延后执行
