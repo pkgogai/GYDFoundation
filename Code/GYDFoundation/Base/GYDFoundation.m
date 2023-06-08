@@ -44,6 +44,7 @@ static id<GYDFoundationLogDelegate> _Delegate;
         [_Delegate function:fun line:line makeInfo:infoString];
     } else {
         NSLog(@"** GYDFoundation Info ** %s %zd %@", fun, line, infoString);
+//        printf("%s\n", [infoString cStringUsingEncoding:NSUTF8StringEncoding]);
     }
 }
 
