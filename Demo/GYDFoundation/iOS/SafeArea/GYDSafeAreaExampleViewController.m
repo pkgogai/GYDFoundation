@@ -71,7 +71,8 @@
         label;
     });
     [self.view addSubview:_readmeLabel];
-    _readmeLabel.text = @"黄色区域为手机安全区，3个嵌套的view安全区如下：\n红色为gyd_safeAreaInsets的值\n蓝色为系统safeAreaInsets的值\n单指移动，双指缩放或旋转";
+    //虽然平时叫安全区叫习惯了，但毕竟中间才是真正的安全区，四周是Insets，为了避免别人产生误会，还是写明白一点的好
+    _readmeLabel.text = @"假设黄色区域为手机的safeAreaInsets，3个嵌套的view安全区如下：\n红色为gyd_safeAreaInsets的值\n蓝色为系统safeAreaInsets的值\n单指移动，双指缩放或旋转";
 }
 
 - (void)viewDidLayoutSubviews {
