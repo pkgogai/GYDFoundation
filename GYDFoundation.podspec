@@ -30,25 +30,25 @@ Pod::Spec.new do |s|
     ss.source_files = 'Code/GYDDatabase/**/*'
     ss.dependency "FMDB"
     ss.dependency "GYDFoundation/GYDFoundation"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_DATABASE=1'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_DATABASE=1'}
   end
   #http请求
   s.subspec 'GYDHTTPConnect' do |ss|
     ss.source_files = 'Code/GYDHTTPConnect/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_HTTPCONNECT=1'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_HTTPCONNECT=1'}
   end
   #json-model互转
   s.subspec 'GYDJSONObject' do |ss|
     ss.source_files = 'Code/GYDJSONObject/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_JSON_OBJECT=1'}
   end
   #组件化接口
   s.subspec 'GYDModuleInterface' do |ss|
     ss.source_files = 'Code/GYDModuleInterface/**/*'
     ss.dependency "GYDFoundation/GYDFoundation"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_MODULE_INTERFACE=1'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_USED_MODULE_INTERFACE=1'}
   end
   #Shell工具
   s.subspec 'GYDShellTools' do |ss|
@@ -62,17 +62,17 @@ Pod::Spec.new do |s|
   #特殊情况
   s.subspec 'GYDJSONObjectNonatomic' do |ss|
     ss.dependency "GYDFoundation/GYDJSONObject"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_JSON_OBJECT_ATOMIC=0'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_JSON_OBJECT_ATOMIC=0'}
   end
   s.subspec 'GYDDatabaseNoEscape' do |ss|
     ss.dependency "GYDFoundation/GYDDatabase"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_DATABASE_NEED_ESCAPE=0'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_DATABASE_NEED_ESCAPE=0'}
   end
   
   #开发模式，如打印多余日志等
   s.subspec 'Development' do |ss|
     ss.dependency "GYDFoundation/GYDFoundation"
-    ss.pod_target_xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_DEVELOPMENT=1'}
+    ss.xcconfig = {'GCC_PREPROCESSOR_DEFINITIONS'=>'GYD_FOUNDATION_DEVELOPMENT=1'}
   end
 
   #单元测试

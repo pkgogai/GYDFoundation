@@ -24,6 +24,8 @@
 #import "NSData+GYDEscape.h"
 //json
 #import "GYDJSONSerialization.h"
+//date
+#import "NSDate+GYDDateFormat.h"
 
 #pragma mark - 其它
 #import "GYDTypes.h"
@@ -55,35 +57,29 @@
 /*
 //iOS相关
 #import "GYDUIKit.h"
-
-//数据库
-#import "GYDDatabasePublishHeader.h"
-
-//简单的网络请求
-#import "GYDSimpleHttpConnect.h"
-
-//json-model互转
-#import "NSObject+GYDJSONObject.h"
-
  */
 
-// GYD_FOUNDATION_USED_DATABASE 只在POD项目里有效，所以这里引的对外无效
-////数据库
-//#if GYD_FOUNDATION_USED_DATABASE == 1
-//#import "GYDDatabase.h"
-//#import "GYDDatabase+SQL.h"
-//#import "GYDDatabase+Version.h"
-//#endif
-//
-////http链接
-//#if GYD_FOUNDATION_USED_HTTPCONNECT == 1
-//#import "GYDSimpleHttpConnect.h"
-//#endif
-//
-////json-model互转
-//#if GYD_FOUNDATION_USED_JSON_OBJECT == 1
-//#import "NSObject+GYDJSONObject.h"
-//#endif
+//数据库
+#if GYD_FOUNDATION_USED_DATABASE == 1
+#import "GYDDatabasePublishHeader.h"
+#endif
+
+//简单的网络请求
+#if GYD_FOUNDATION_USED_HTTPCONNECT == 1
+#import "GYDSimpleHttpConnect.h"
+#endif
+
+//json-model互转
+#if GYD_FOUNDATION_USED_JSON_OBJECT == 1
+#import "NSObject+GYDJSONObject.h"
+#endif
+
+//组件化接口
+#if GYD_FOUNDATION_USED_MODULE_INTERFACE == 1
+#import "GYDModuleInterfaceDelegate.h"
+#endif
+
+
 
 @protocol GYDFoundationLogDelegate <NSObject>
 
