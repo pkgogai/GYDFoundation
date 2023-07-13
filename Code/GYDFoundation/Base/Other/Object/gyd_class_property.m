@@ -197,7 +197,7 @@ void gyd_class_getPropertyType_block(const char * _Nonnull attributes, void (^ _
                     str[len - 4] = '\0';
                     block(str, NULL);
                 } else {
-                    block("id", NULL);
+                    block("NSObject", NULL);
                 }
             } else {
                 char str[len];

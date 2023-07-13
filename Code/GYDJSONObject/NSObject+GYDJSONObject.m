@@ -50,13 +50,16 @@ static NSRecursiveLock *_PropertyMapCacheLock = nil;
         if (!value || [NSNull null] == value) {
             continue;
         }
-        if ([value isKindOfClass:[NSArray class]]) {
+        if (pro->_isArray) {
             //数组就不考虑有自定义的子类了，统一使用 NSMutableArray
-            if (pro->_arrayClass) {
-                value = [self gyd_propertyValueArrayForClass:pro->_arrayClass withJSONValueArray:value];
-            } else {
+            if (!pro->_arrayClass) {
                 GYDFoundationWarning(@"属性：%@ 类型：%@ 获取数组内元素类型信息失败", pro->_modelName, pro->_propertyClass);
                 value = nil;
+            } else if (![value isKindOfClass:[NSArray class]]) {
+                GYDFoundationWarning(@"属性：%@ JSON名：%@, 值类型%@，不是数组", pro->_modelName, pro->_jsonName, NSStringFromClass([value class]));
+                value = nil;
+            } else {
+                value = [self gyd_propertyValueArrayForClass:pro->_arrayClass withJSONValueArray:value];
             }
         } else {
             value = [self gyd_propertyValueForClass:pro->_propertyClass withJSONValue:value];
@@ -332,8 +335,10 @@ static NSMutableDictionary<NSString *, NSArray<GYDJSONPropertyInfo *> *> *_Prope
         
         p = strstr(methodName, GYDJSON________SetterType);
         if (NULL == p) {
+            info->_isArray = NO;
             info->_jsonName = [[NSString alloc] initWithBytes:methodName length:end - methodName encoding:NSUTF8StringEncoding];
         } else {
+            info->_isArray = YES;
             info->_jsonName = [[NSString alloc] initWithBytes:methodName length:p - methodName encoding:NSUTF8StringEncoding];
             methodName = p + GYDJSON________SetterTypeLength;
             NSString *arrayType = [[NSString alloc] initWithBytes:methodName length:end - methodName encoding:NSUTF8StringEncoding];

@@ -23,6 +23,12 @@
     /** ID及其子类时为NULL，否则使用@@encode(类型)的值 */
     NSString    *_encodeType;
     
+    /**
+     是否是按数组的方式定义的，主要是用来区分
+     GYDJSONProperty(NSArray *, arr) 为 NO
+     GYDJSONPropertyArray(type, star, name) 为 YES
+     */
+    BOOL        _isArray;
     /** 数组内元素的类型，在_propertyClass是NSArray或NSMut???Array时有值，否则为NULL */
     Class       _arrayClass;
 }

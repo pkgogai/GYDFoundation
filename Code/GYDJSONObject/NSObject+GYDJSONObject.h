@@ -15,9 +15,6 @@
  声明成id类型的属性可以直接接受允许任何json类型，不进行转换（注意：在获取属性类型时，id和NSObject不同，NSClassFromString(@"id")是不行的）
  为array和dictionary添加类别。
  
- 
- 为了更好的支持第三方的代码，将JSON解析改为NSObject类别，用法不变
- 
  可以声明的属性类型：
     可与NSNumber互转的基本类型，用 setValue:forKey: 自然转换
     NSString和NSNumber以及他们的子类，解析时可以互转，例如json里是NSNumber，model里可以定义为NSMutableString。
