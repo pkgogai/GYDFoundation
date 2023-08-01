@@ -260,40 +260,38 @@
         NSMutableArray<GYDDebugViewHierarchyItem *> *compareItems = [NSMutableArray array];
         for (NSInteger i = 0; i < leftItems.count; i++) {
             GYDDebugViewHierarchyItem *item = leftItems[i];
-            if (!item.displayConfig.show) {
-                item.hierarchyIndex = level;
-                [leftItems removeObjectAtIndex:i];
-                i--;
-                [compareItems addObject:item];
-            } else {
-                CGRect frame = item.viewFrame;
-                BOOL intersection = NO;
-                for (GYDDebugViewHierarchyItem *compare in compareItems) {
-                    CGRect tmpFrame = compare.viewFrame;
-                    
-                    if (CGRectGetMinX(frame) >= CGRectGetMaxX(tmpFrame) && CGRectGetMaxX(frame) > CGRectGetMaxX(tmpFrame)) {
-                        continue;
-                    }
-                    if (CGRectGetMinY(frame) >= CGRectGetMaxY(tmpFrame) && CGRectGetMaxY(frame) > CGRectGetMaxY(tmpFrame)) {
-                        continue;
-                    }
-                    if (CGRectGetMinX(tmpFrame) >= CGRectGetMaxX(frame) && CGRectGetMaxX(tmpFrame) > CGRectGetMaxX(frame)) {
-                        continue;
-                    }
-                    if (CGRectGetMinY(tmpFrame) >= CGRectGetMaxY(frame) && CGRectGetMaxY(tmpFrame) > CGRectGetMaxY(frame)) {
-                        continue;
-                    }
-                    intersection = YES;
-                    break;
-                }
-                if (intersection) {
+            CGRect frame = item.viewFrame;
+            BOOL intersection = NO;
+            for (GYDDebugViewHierarchyItem *compare in compareItems) {
+                CGRect tmpFrame = compare.viewFrame;
+                
+                if (CGRectGetMinX(frame) >= CGRectGetMaxX(tmpFrame) && CGRectGetMaxX(frame) > CGRectGetMaxX(tmpFrame)) {
                     continue;
                 }
-                item.hierarchyIndex = level + 1;
-                [leftItems removeObjectAtIndex:i];
-                i--;
-                [compareItems addObject:item];
+                if (CGRectGetMinY(frame) >= CGRectGetMaxY(tmpFrame) && CGRectGetMaxY(frame) > CGRectGetMaxY(tmpFrame)) {
+                    continue;
+                }
+                if (CGRectGetMinX(tmpFrame) >= CGRectGetMaxX(frame) && CGRectGetMaxX(tmpFrame) > CGRectGetMaxX(frame)) {
+                    continue;
+                }
+                if (CGRectGetMinY(tmpFrame) >= CGRectGetMaxY(frame) && CGRectGetMaxY(tmpFrame) > CGRectGetMaxY(frame)) {
+                    continue;
+                }
+                intersection = YES;
+                break;
             }
+            if (intersection) {
+                continue;
+            }
+            
+            if (!item.displayConfig.show) {
+                item.hierarchyIndex = level;
+            } else {
+                item.hierarchyIndex = level + 1;
+            }
+            [leftItems removeObjectAtIndex:i];
+            i--;
+            [compareItems addObject:item];
 
             NSInteger topLevel = [item resetViewHierarchyReturnTopLevel];
             if (topLevel > maxLevel) {
